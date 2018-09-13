@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cssmoban</title>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body style="padding:10px">
+    <div id="wrapper">
+
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                             <small>辐射机构管理员</small>
+                        </h1>								
+		</div>				
+				
+			 				   				
+
+	 <div class="panel panel-default">
+                            <div class="panel-heading">
+                                管理机构
+                            </div> 
+                            <div class="panel-body">
+                                <div class="table-responsive">
+	                          <a style="width:100px" class="btn btn-default"  th:href="@{/personnel(type=${mang.maid})}">添加人员</a>
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>机构名称</th>
+                                                <th colspan="2"><span class="reducedfrom" th:text="${mang.maname}" ></span></th>
+                                                <th colspan="2">负责人</th>
+                                                <th colspan="2"><span class="reducedfrom" th:text="${mang.mahead}" ></span></th>
+                                                <th colspan="2">电话</th>
+												<th colspan="2"><span class="reducedfrom" th:text="${mang.maphone}" ></span></th>
+												<th >操作</th>
+                                            </tr>
+                                        </thead>
+                                        <thead>
+                                            <tr>
+                                                <td>管理岗位</td>
+                                                <td>姓  名</td>
+                                                <td>性 别</td>
+                                                <td>职务或职称</td>
+                                                <td>工作部门</td>
+												<td>专（兼）职</td>
+												<td>是否为负责人</td>
+												<td>学历</td>
+												<td>专业</td>
+												<td>学历证书</td>
+												<td>辐射安全培训证书</td>
+												<td>删除/修改</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr  th:each="man:${mangp}">
+                                                <td><span class="reducedfrom" th:text="${man.personnel.pemanagement}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${man.personnel.peusername}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${man.personnel.pegender}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${man.personnel.peposition}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${man.personnel.pedepartment}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${man.personnel.pespecially}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${man.personnel.pewhether}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${man.personnel.perecord}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${man.personnel.peprofessional}" ></span></td>
+                                                <td><img th:src="${man.personnel.pecertificateid}"  width="100" height="120" / ></td>
+                                                <td><img th:src="${man.personnel.peradiationid}" width="100" height="120" / ></td>
+												<td><a th:onclick="'javascript:del(\''+${man.personnel.peinformation}+'\');'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/mamodify(type=${man.personnel.peinformation})}">修改</a></td>
+                                            </tr>
+                   
+
+                                        </tbody>
+                                    </table>
+                            <div style="margin: 0 auto; width: 200px;">
+
+						</nav>
+						</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                </div>
+                <!-- /. ROW  -->
+			
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="js/bootstrap.min.js"></script>	 
+    <!-- Metis Menu Js -->
+    <script src="js/jquery.metisMenu.js"></script>
+	
+	
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	
+	 <script src="js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="js/custom-scripts.js"></script>
+
+      <script type="text/javascript">
+      function del(stnumber){
+    	  var string1 = stnumber;
+    	  var r = confirm("确定要删除吗？");
+    	  if(r == true){
+    	  window.location.href="/madelete?type="+stnumber;
+    	  }else{
+    	  return false;
+    	  }
+    	  }
+      
+      </script>
+
+</body>
+
+</html>

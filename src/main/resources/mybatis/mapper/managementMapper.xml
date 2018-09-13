@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >  
+<mapper namespace="com.cncompute.dao.ManagementDao" >  
+    <resultMap id="ManagementMap" type="com.cncompute.pojo.Management" > 
+        	<id column="maid" property="maid" jdbcType="VARCHAR" />  
+   			<result column="mainformation" property="mainformation" jdbcType="VARCHAR" />  
+        	<result column="manumber" property="manumber" jdbcType="VARCHAR" />  
+        	<result column="maname" property="maname" jdbcType="VARCHAR"/>  
+        	<result column="mahead" property="mahead" jdbcType="VARCHAR"/> 
+        	<result column="maphone" property="maphone" jdbcType="VARCHAR"/> 
+        	<result column="matime" property="matime" jdbcType="DATE" /> 
+        	<result column="mauserid" property="mauserid" jdbcType="VARCHAR" /> 
+        	<result column="mastate" property="mastate" jdbcType="INTEGER" /> 
+
+		<association property="personnel" javaType="com.cncompute.pojo.Personnel" column="peid" >
+        	<id column="peid" property="peid" jdbcType="VARCHAR" />  
+			<result column="pename" property="pename" jdbcType="VARCHAR" />  
+        	<result column="peinformation" property="peinformation" jdbcType="VARCHAR" />  
+        	<result column="penumber" property="penumber" jdbcType="VARCHAR"/>  
+        	<result column="pemanagement" property="pemanagement" jdbcType="VARCHAR"/> 
+        	<result column="peusername" property="peusername" jdbcType="VARCHAR"/> 
+        	<result column="pegender" property="pegender" jdbcType="VARCHAR"/> 
+        	<result column="peposition" property="peposition" jdbcType="VARCHAR"/> 
+        	<result column="pedepartment" property="pedepartment" jdbcType="VARCHAR"/> 
+        	<result column="pespecially" property="pespecially" jdbcType="VARCHAR"/> 
+        	<result column="pewhether" property="pewhether" jdbcType="VARCHAR" />  
+        	<result column="perecord" property="perecord" jdbcType="VARCHAR" />  
+        	<result column="peprofessional" property="peprofessional" jdbcType="VARCHAR" />  
+        	<result column="pecertificateid" property="pecertificateid" jdbcType="VARCHAR" />  
+        	<result column="peradiationid" property="peradiationid" jdbcType="VARCHAR" />  
+        	<result column="peuserid" property="peuserid" jdbcType="VARCHAR" />  
+        	<result column="petime" property="petime" jdbcType="DATE" />  
+        	<result column="pestate" property="pestate" jdbcType="INTEGER" />  
+		</association>
+    </resultMap>    
+  	<!-- 新建管理部门插入信息-->
+	<insert id="insertMangemen" parameterType="Management">
+		INSERT INTO management
+		(maid,mainformation,manumber,maname,mahead,
+		maphone,matime,mauserid,mastate)
+		VALUES
+		(#{maid},#{mainformation},#{manumber},#{maname},#{mahead}
+		,#{maphone},#{matime},#{mauserid},#{mastate})
+	</insert>
+		<!-- 向管理部分插入信息-->
+	<insert id="insertPersonnel" parameterType="Personnel">
+		INSERT INTO personnel
+		(peid,pename,peinformation,penumber,pemanagement,
+	   	peusername,pegender,peposition,pedepartment,pespecially,
+		pewhether,perecord,peprofessional,pecertificateid,peradiationid,
+		peuserid,petime,pestate)
+		VALUES
+		(#{peid},#{pename},#{peinformation},#{penumber},#{pemanagement},
+		#{peusername},#{pegender},#{peposition},#{pedepartment},#{pespecially},
+		#{pewhether},#{perecord},#{peprofessional},#{pecertificateid},#{peradiationid},
+		#{peuserid},#{petime},#{pestate})
+	</insert>
+	<!-- 查询辐射安全管理人员表全部信息 -->
+	<select id="queryMang" resultMap="ManagementMap">
+	SELECT * FROM management  WHERE mastate='1' ORDER BY matime DESC
+	</select>
+	<!-- 查询管理人员信息-->
+	<select id="queryId" resultMap="ManagementMap">
+	SELECT p.peid,m.maname,m.mahead,m.maphone,
+	p.pemanagement,p.peusername,p.pegender,p.peposition,p.pedepartment,
+	p.pespecially,p.pewhether,p.perecord,p.peprofessional,p.pecertificateid,
+	p.peradiationid,p.peinformation
+	FROM management m left join personnel p
+	ON m.maid=p.peid 
+	WHERE m.maid=#{maid} and m.mastate='1' and p.pestate='1' ORDER BY petime DESC
+	</select>
+    <!-- 删除辐射管理人员-->
+    <update id="maDelete"  parameterType="Personnel">
+    update personnel <set> 
+    pestate='0'
+    </set>  WHERE peinformation=#{peinformation}
+	</update>
+	 <!-- 通过id查询 personnel表内容-->
+	<select id="perId" resultMap="ManagementMap">
+	SELECT p.peid,p.pemanagement,p.peusername,p.pegender,p.peposition,
+	p.pedepartment,p.pespecially,p.pewhether,p.perecord,p.peprofessional,
+	p.pecertificateid,p.peradiationid,peinformation
+	FROM management m LEFT JOIN personnel p
+	ON m.maid=p.peid 
+	WHERE p.peinformation=#{peinformation} 
+	</select>
+    <!-- 修改辐射管理人员信息-->
+    <update id="maModify"  parameterType="Personnel">
+    update personnel <set> 
+    <if test="pemanagement!=null">pemanagement=#{pemanagement},</if>
+    <if test="peusername!=null">peusername=#{peusername},</if>
+    <if test="pegender!=null">pegender=#{pegender},</if>
+    <if test="peposition!=null">peposition=#{peposition},</if>
+    <if test="pespecially!=null">pespecially=#{pespecially},</if>
+    <if test="pewhether!=null">pewhether=#{pewhether},</if>
+    <if test="perecord!=null">perecord=#{perecord},</if>
+    <if test="peprofessional!=null">peprofessional=#{peprofessional},</if>
+    <if test="pecertificateid!=null">pecertificateid=#{pecertificateid},</if>
+    <if test="peradiationid!=null">peradiationid=#{peradiationid}</if>
+    </set>  WHERE peinformation=#{peinformation}
+	</update>
+	<!-- 通过maid查询信息 -->
+    <select id="queryMaid" resultMap="ManagementMap">
+    SELECT m.maname,m.maid
+	FROM management m LEFT JOIN personnel p
+	ON m.maid=p.peid 
+	WHERE m.maid=#{maid} 
+	</select>
+</mapper>

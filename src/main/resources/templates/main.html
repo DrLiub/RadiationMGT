@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cssmoban</title>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><strong>核辐射安全管理软件</strong></a>
+				
+		<div id="sideNav" href=""><i class="fa fa-caret-right"></i></div>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                	 <li><a href="index.html" class="active-menu"><i class="fa fa-dashboard"></i>核技术利用台账明细<span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li><a th:href="@{/xraydall}"  target="iframe_name">射线装置台账明细</a></li>
+							<li><a th:href="@{/isotopes}"  target="iframe_name">放射源台账明细</a></li>
+                            <li><a th:href="@{/nonseal}"  target="iframe_name">非密封放射性物质台账明细</a></li>
+						</ul>
+					</li>
+					 <li>
+                        <a href="#" class="active-menu"><i class="fa fa-sitemap"></i>辐射管理机构与工作人员<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a th:href="@{/quman}" target="iframe_name">辐射管理机构构成</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/sttraining}"  target="iframe_name">工作人员培训情况</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/insert}"  target="iframe_name">工作人员职业健康情况</a>
+                            </li>
+                        </ul>
+                    </li>
+					
+					
+					<li><a href="index.html" class="active-menu"><i class="fa fa-dashboard"></i>辐射监测与防护<span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li><a th:href="@{/reequip(retable=1)}"  target="iframe_name">辐射环境监测设备</a></li>
+							<li><a th:href="@{/reequip(retable=2)}"  target="iframe_name">辐射环境安全报警仪器</a></li>
+                            <li><a th:href="@{/reequip(retable=3)}"  target="iframe_name">辐射防护用品</a></li>
+                            <li><a th:href="@{/onentrust}"  target="iframe_name">委托检测数据</a></li>
+                            <li><a th:href="@{/reentrust}"  target="iframe_name">单位自行监测数据</a></li>
+						</ul>
+					</li>
+					
+					<li><a href="index.html" class="active-menu"><i class="fa fa-sitemap"></i>环保手续文件与规章制度<span class="fa arrow"></span></a>
+						<ul class="nav nav-second-level">
+							<li><a th:href="@{/proforma}"  target="iframe_name">环保手续文件</a></li>
+							<li><a th:href="@{/unsystem}"  target="iframe_name">单位辐射安全规章制度</a></li>
+                            <li><a th:href="@{/laws}"  target="iframe_name">相关法律法规</a></li>
+						</ul>
+					</li>	
+						
+                    <li>
+                        <a href="#"><i class="fa fa-desktop"></i>系统管理</a>
+                    </li>	
+                </ul>
+
+            </div>
+
+        </nav>
+      
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+
+			 		  <div style="width:100%;height:100%">
+			 		  <iframe  src="" name="iframe_name" style="width:100%;height:900px"> 
+	
+			 		  </iframe>
+			 		  </div>		   				
+
+                </div>
+                <!-- /. ROW  -->
+			
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="js/bootstrap.min.js"></script>	 
+    <!-- Metis Menu Js -->
+    <script src="js/jquery.metisMenu.js"></script>
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	 <script src="js/Lightweight-Chart/jquery.chart.js"></script>
+    <!-- Custom Js -->
+    <script src="js/custom-scripts.js"></script>
+
+      <script>
+    
+      </script>
+
+</body>
+

@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cssmoban</title>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body style="padding:10px">
+    <div id="wrapper">
+
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                             <small >放射源台账明细</small>
+                        </h1>								
+		</div>				
+
+	 <div class="panel panel-default">
+                            <div class="panel-heading">
+                                放射性同位素及密封源
+                            </div> 
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                 <a style="width:120px" class="btn btn-default"  th:href="@{/isotadd}">添加放射源</a>
+								 <div id="index" style="text-align:center;color:red"></div>
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+											    <th>放射源名称</th>
+                                                <th>开放性同位素</th>
+                                                <th>密封源</th>
+												<th>辅助决策</th>
+											    <th>查看详情</th>
+												<th>删除/修改</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr  th:each="isot:${isotall}">
+                                                <td><span class="reducedfrom" th:text="${isot.isentry}" ></span></td>
+                                                <td><a th:href="@{/isopen(type=${isot.isid})}">录入</a></td>
+												<td><a th:href="@{/issource(type=${isot.isid})}">录入</a></td>
+												<td><a th:href="@{/isauxiliary(type=${isot.isid})}">添加</a></td>
+												<td><a th:href="@{/isdetails(type=${isot.isid})}">详情</a></td>
+												<td><a th:onclick="'javascript:del(\''+${isot.isid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/isotup(type=${isot.isid})}">修改</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            <div style="margin: 0 auto; width: 200px;">
+						</div>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+                <!-- /. ROW  -->
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="js/bootstrap.min.js"></script>	 
+    <!-- Metis Menu Js -->
+    <script src="js/jquery.metisMenu.js"></script>
+	
+	
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	
+	 <script src="js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="js/custom-scripts.js"></script>
+
+      <script>
+      function del(type){
+    	  var r = confirm("确定要删除吗？");
+    	  if(r == true){
+    	  window.location.href="/isodelete?type="+type;
+    	  }else{
+    	  return false;
+    	  }
+    	  }
+      
+	   function index1(nodata){
+	　　       var nodata=nodata;
+	       $.get(
+	   	    	"/onpage",
+	   	    	{
+	   	    		nodata:nodata,
+	   	    	},function(data){
+	   	            if(data.index==1){
+	   	            	$("#index").html("没有上传文件");
+	   	            }else if(data.index==2){
+	   	            	$("#index").html("账号不存在");
+	   	            }else if(data.index==0){
+	   	            window.location.href='/main';//
+	   	            }     
+	   	    	},"json");  
+	        }
+      </script>
+
+</body>
+
+</html>

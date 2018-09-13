@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.FiletypeDao" >  
+	<resultMap id="FiletypeMap" type="com.cncompute.pojo.Filetype">
+        	<id column="flid" property="flid" jdbcType="VARCHAR" />  
+        	<result column="flname" property="flname" jdbcType="VARCHAR"/>  
+        	<result column="fluserid" property="fluserid" jdbcType="VARCHAR"/> 
+            <result column="fltime" property="fltime" jdbcType="DATE" /> 
+        	<result column="flstate" property="flstate" jdbcType="INTEGER"/> 
+        	<result column="fithere" property="fithere" jdbcType="INTEGER"/>
+        	
+        	<association property="unitsystem" javaType="com.cncompute.pojo.Unitsystem" column="flid" >
+        	<id column="unid" property="unid" jdbcType="VARCHAR" />  
+			<result column="udnumber" property="udnumber" jdbcType="VARCHAR" />  
+        	<result column="unname" property="unname" jdbcType="VARCHAR" />  
+        	<result column="unfile" property="unfile" jdbcType="VARCHAR"/>  
+        	<result column="ununittime" property="ununittime" jdbcType="VARCHAR"/> 
+        	<result column="unaddress" property="unaddress" jdbcType="VARCHAR"/> 
+        	<result column="unuserid" property="unuserid" jdbcType="VARCHAR"/>   
+        	<result column="untime" property="untime" jdbcType="DATE" />  
+        	<result column="unstate" property="unstate" jdbcType="INTEGER" />  
+		</association>
+	</resultMap>
+	
+	<!-- 查询文件类别表全部信息-->
+	<select id="fileAll" resultMap="FiletypeMap">
+	SELECT * FROM filetype WHERE flstate='1' ORDER BY fltime DESC
+	</select>
+	
+	<!-- 查询全部未创建的文件类别名称 -->
+	<select id="flnameALL" resultMap="FiletypeMap">
+	SELECT flname FROM filetype WHERE fithere='0'
+	</select>
+	
+	<!-- 通过ID查询unitsystem(规章制度表)表全部信息 -->
+	<select id="fileIdall" resultMap="FiletypeMap">
+	select u.udnumber,u.unname,u.unfile,u.ununittime,u.unaddress
+	from filetype f left join unitsystem u
+	ON f.flid=u.unid
+	where f.flid=#{flid} AND f.flstate='1' AND u.unstate='1' ORDER BY u.untime DESC	
+	</select>
+	
+	<!-- 通过unnumber查询unitsystem(规章制度表)表信息 -->
+	<select id="fileNunumber" resultMap="FiletypeMap">
+	SELECT u.unname,u.unfile,u.ununittime,u.unaddress,u.unid,u.udnumber
+	FROM filetype f LEFT JOIN unitsystem u
+	ON f.flid=u.unid
+	WHERE u.udnumber=#{udnumber} AND f.flstate='1' AND u.unstate='1' ORDER BY u.untime DESC
+	</select>
+	
+	<!-- 通过flid自定义添加unitsystem(规章制度表)信息	-->
+	<insert id="addUnitsystem" parameterType="com.cncompute.pojo.Unitsystem">
+	insert into unitsystem
+	(unid,udnumber,unname,unfile,ununittime,unaddress,unuserid,untime,unstate)
+	VALUES
+	(#{unid},#{udnumber},#{unname},#{unfile},#{ununittime},#{unaddress},#{unuserid},now(),1)
+	</insert>
+	
+	<!-- 自定义添加环保手续文件 -->
+	<insert id="addFile" parameterType="com.cncompute.pojo.Filetype">
+	INSERT INTO filetype 
+	(flid,flname,fluserid,fltime,flstate,fithere) 
+	VALUES 
+	(#{flid},#{flname},#{fluserid},now(),1,1)
+	</insert>
+	
+	<!-- 通过flname(文件类别名称)修改环保手续文件-->
+	<update id="updateName" parameterType="com.cncompute.pojo.Filetype">
+	update filetype 
+	<set>
+	<if test="flid!=null">flid=#{flid},</if>
+	<if test="fluserid!=null">fluserid=#{fluserid},</if>
+	<if test="fltime!=null">fltime=#{fltime},</if>
+	<if test="flstate!=null">flstate=#{flstate},</if>
+	<if test="fithere!=null">fithere=#{fithere}</if>
+	</set> where flname=#{flname}
+	</update>
+	
+	<!-- 通过flid修改环保手续文件 -->
+	<update id="updateId" parameterType="com.cncompute.pojo.Filetype">
+	update filetype 
+	<set>
+	<if test="flname!=null">flname=#{flname},</if>
+	<if test="fluserid!=null">fluserid=#{fluserid},</if>
+	<if test="flstate!=null">flstate=#{flstate},</if>
+	<if test="fithere!=null">fithere=#{fithere}</if>
+	</set> where flid=#{flid}
+	</update>
+	
+	<!-- 通过nunumber修改表Unitsystem(规章制度表) -->
+	<update id="updateUnit" parameterType="com.cncompute.pojo.Unitsystem">
+	update unitsystem 
+	<set>
+	<if test="unfile!=null">unfile=#{unfile},</if>
+	<if test="unname!=null">unname=#{unname},</if>
+	<if test="ununittime!=null">ununittime=#{ununittime},</if>
+	<if test="unaddress!=null">unaddress=#{unaddress},</if>
+	<if test="unstate!=null">unstate=#{unstate},</if>
+	</set> where udnumber=#{udnumber}
+	</update>
+</mapper>  

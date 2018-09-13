@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.InsertdataDao" >  
+	<resultMap id="InsertdataMap" type="com.cncompute.pojo.Insertdata">
+        	<id column="inid" property="inid" jdbcType="VARCHAR" />  
+   		    <result column="innumber" property="innumber" jdbcType="VARCHAR" />  
+        	<result column="inresults" property="inresults" jdbcType="DOUBLE" />  
+        	<result column="inquarterend" property="inquarterend" jdbcType="VARCHAR"/>  
+        	<result column="inquartertag" property="inquartertag" jdbcType="INTEGER"/> 
+            <result column="indepartment" property="indepartment" jdbcType="VARCHAR" /> 
+        	<result column="inyears" property="inyears" jdbcType="DOUBLE"/> 
+        	<result column="inyearsend" property="inyearsend" jdbcType="VARCHAR" /> 
+        	<result column="inyearstag" property="inyearstag" jdbcType="INTEGER" /> 
+        	<result column="intime" property="intime" jdbcType="DATE" /> 
+        	<result column="inuser" property="inuser" jdbcType="VARCHAR" />
+        	<result column="instate" property="instate" jdbcType="INTEGER"/> 
+        	<result column="inname" property="inname" jdbcType="VARCHAR" />
+        	<result column="ingender" property="ingender" jdbcType="VARCHAR" />
+        	<result column="inage" property="inage" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 插入员工季度健康信息 -->
+	<insert id="ininsert" parameterType="Insertdata">
+	INSERT INTO insertdata 
+	(inid,innumber,inresults,inquarterend,inquartertag,
+	 inyears,inyearsend,inyearstag,intime,inuser,instate,indepartment,
+	 inname,ingender,inage
+	) 
+	VALUES 
+	(#{inid},#{innumber},#{inresults},#{inquarterend},#{inquartertag},
+	 #{inyears},#{inyearsend},#{inyearstag},now(),#{inuser},#{instate},#{indepartment},
+	 #{inname},#{ingender},#{inage})
+	</insert>
+	<!-- 查询全部信息 -->
+	<select id="queryAll" resultMap="InsertdataMap">
+	SELECT * FROM insertdata 
+	WHERE instate='1' ORDER BY intime DESC, inquartertag DESC, inyearstag DESC
+	</select>
+	<!--查询出这一年内的所有信息 -->
+	<select id="queryYears" resultMap="InsertdataMap">
+	SELECT * FROM insertdata WHERE inid=#{inid} AND instate='1' AND 
+	intime BETWEEN 
+	(SELECT DATE_SUB(CURDATE(),INTERVAL DAYOFYEAR(NOW())-1 DAY)) 
+	AND 
+	(SELECT CONCAT(YEAR(NOW()),'-12-31'))
+	</select>
+    <!-- 修改检查表-->
+    <update id="inupdate"  parameterType="Insertdata">
+    update insertdata <set> 
+    <if test="inyears!=null">inyears=#{inyears},</if>
+    <if test="inyearsend!=null">inyearsend=#{inyearsend},</if>
+    <if test="inyearstag!=null">inyearstag=#{inyearstag},</if>
+    <if test="instate!=null">instate=#{instate},</if>
+    <if test="inresults!=null">inresults=#{inresults},</if>
+    <if test="inquarterend!=null">inquarterend=#{inquarterend},</if>
+    <if test="inquartertag!=null">inquartertag=#{inquartertag},</if>
+    <if test="inname!=null">inname=#{inname},</if>
+    <if test="ingender!=null">ingender=#{ingender},</if>
+    <if test="inage!=null">inage=#{inage}</if>
+    </set>  WHERE innumber=#{innumber}
+	</update>
+	<select id="inserupdate" resultMap="InsertdataMap">
+	select * from insertdata where innumber=#{innumber}
+	</select>
+</mapper>  

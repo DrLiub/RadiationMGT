@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cssmoban</title>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body style="padding:10px">
+    <div id="wrapper">
+
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                             <small>添加规章制度</small>
+                        </h1>								
+		          </div>				
+                    <form   method="post" enctype="multipart/form-data" id="formid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-body">
+                                <div class="table-responsive">		
+								<input type="hidden" th:value="${unit.unitsystem.unid}" name="unit" id="unit"/>
+								<input type="hidden" th:value="${unit.unitsystem.udnumber}" name="udnumber" id="udnumber"/>
+								<input type="button" class="btn btn-default"  value="提交" onclick="submitFunction()">
+								<div id="index" style="text-align:center;color:red"></div>
+                                    <table class="table table-striped table-bordered table-hover" id = "test">
+                                        <thead>
+										 <thead>									
+                                            <tr>
+                                                <th>规章制度名称</th>
+                                                <th>文件号</th>
+                                                <th>开始实施时间</th>
+												<th>规章制度电子版导入</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr >
+                                                <td><input type="text" class="form-control" th:value="${unit.unitsystem.unname}" placeholder="" name="unname" ></td>
+												<td><input type="text" class="form-control" th:value="${unit.unitsystem.unfile}" placeholder="" name="unfile" ></td>
+												<td><input type="date" class="form-control" th:value="${unit.unitsystem.ununittime}" placeholder="" name="ununittime" ></td>
+												<td><input type="file" class="form-control" name="file1"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                         </form>
+											
+					 <div class="panel panel-default">
+                        </div>
+
+                </div>
+				
+                <!-- /. ROW  -->
+			
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="js/bootstrap.min.js"></script>
+	 
+    <!-- Metis Menu Js -->
+    <script src="js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="js/morris/raphael-2.1.0.min.js"></script>
+    <script src="js/morris/morris.js"></script>
+	
+	
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	
+	 <script src="js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="js/custom-scripts.js"></script>
+      <script>
+      
+      
+      function submitFunction() {
+  	    //这里唯一需要注意的就是这个form-add的id
+  	    var unit = $("#unit");
+  	    var formData = new FormData($("#formid")[0]);
+  	    $.ajax({
+  	        //接口地址
+  	        url: '/unupdatepost' ,
+  	        type: 'POST',
+  	        data: formData,
+  	        async: false,
+  	        cache: false,
+  	        contentType: false,
+  	        processData: false,
+  	        success: function (data) {
+  	            //成功的回调
+  	            if(data== 1){
+                      alert("修改成功");
+                      window.location.href='/filedetails?type='+unit.val();//
+  	            }else if(data== 2){
+  	            	$("#index").html("请检测数量格式是否正确");
+  	            }else if(data== 3){
+  	            	$("#index").html("请填写日期");
+  	            }
+  	        },
+  	        error: function (returndata) {
+  	           //请求异常的回调
+  	           modals.warn("网络访问失败，请稍后重试!");
+  	        }
+  	    });
+  	    }
+      </script>
+
+</body>
+
+</html>

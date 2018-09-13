@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.OneselfDao" >  
+	<resultMap id="OneselfMap" type="com.cncompute.pojo.Oneself">
+        	<id column="noid" property="noid" jdbcType="VARCHAR" />  
+   		    <result column="notag" property="notag" jdbcType="INTEGER" />  
+        	<result column="nounit" property="nounit" jdbcType="VARCHAR" />  
+        	<result column="noproject" property="noproject" jdbcType="VARCHAR"/>  
+        	<result column="nonumber" property="nonumber" jdbcType="VARCHAR"/> 
+            <result column="notimeno" property="notimeno" jdbcType="VARCHAR" /> 
+        	<result column="nopeople" property="nopeople" jdbcType="VARCHAR"/> 
+        	<result column="noplace" property="noplace" jdbcType="VARCHAR" /> 
+        	<result column="notype" property="notype" jdbcType="VARCHAR" /> 
+        	<result column="nodata" property="nodata" jdbcType="VARCHAR" /> 
+        	<result column="nouserid" property="nouserid" jdbcType="VARCHAR" />
+        	<result column="notime" property="notime" jdbcType="DATE"/> 
+        	<result column="nostate" property="nostate" jdbcType="INTEGER" />
+        	<result column="nonumberid" property="nonumberid" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 插入表信息 -->
+	<insert id="onInsert" parameterType="Oneself">
+	INSERT INTO oneself 
+	(noid,notag,nounit,noproject,nonumber,
+	 notimeno,nopeople,noplace,notype,nodata,
+	 nouserid,notime,nostate,nonumberid
+	) 
+	VALUES 
+	(#{noid},#{notag},#{nounit},#{noproject},#{nonumber},
+	#{notimeno},
+	#{nopeople},#{noplace},#{notype},#{nodata},
+	 #{nouserid},now(),#{nostate},#{nonumberid})
+	 </insert>
+	 
+	<!-- 根据表编号查oneself表信息 1位单位2位委托 -->
+	<select id="onQuery" resultMap="OneselfMap">
+	SELECT * FROM oneself 
+	WHERE nostate='1' AND notag=#{notag} AND noid=#{noid} ORDER BY notime DESC
+	</select>
+	
+	<!-- 根据notag查询信息 1位单位2位委托 -->
+	<select id="queryEntrust" resultMap="OneselfMap">
+	SELECT * FROM oneself 
+	WHERE nostate='1' AND notag=#{notag}  ORDER BY notime DESC
+	</select>
+	
+    <!-- 删除信息-->
+    <update id="onDelete"  parameterType="Oneself">
+    update oneself <set> 
+    nostate='0'
+    </set>  WHERE nonumberid=#{nonumberid}
+	</update>
+	
+	<!-- 根据onid查询信息 -->
+	<select id="onOnid" resultMap="OneselfMap">
+	SELECT * FROM oneself   WHERE nonumberid=#{nonumberid}
+	</select>
+	<!-- 修改oneself表信息-->
+    <update id="onUpdate"  parameterType="Oneself">
+    update oneself <set> 
+    <if test="nounit!=null">nounit=#{nounit},</if>
+    <if test="noproject!=null">noproject=#{noproject},</if>
+    <if test="nonumber!=null">nonumber=#{nonumber},</if>
+    <if test="notimeno!=null">notimeno=#{notimeno},</if>
+    <if test="nopeople!=null">nopeople=#{nopeople},</if>
+    <if test="noplace!=null">noplace=#{noplace},</if>
+    <if test="notype!=null">notype=#{notype},</if>
+    <if test="nodata!=null">nodata=#{nodata}</if>
+    </set> WHERE nonumberid=#{nonumberid}
+	</update>
+</mapper>  

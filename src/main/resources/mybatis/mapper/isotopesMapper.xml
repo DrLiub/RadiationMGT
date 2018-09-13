@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.IsotopesDao" >  
+	<resultMap id="IsotopesMap" type="com.cncompute.pojo.Isotopes">
+        	<id column="isid" property="isid" jdbcType="VARCHAR" /> 
+        	<result column="isentry" property="isentry" jdbcType="VARCHAR"/>  
+        	<result column="islicense" property="islicense" jdbcType="INTEGER"/> 
+            <result column="isenviro" property="isenviro" jdbcType="INTEGER" /> 
+        	<result column="isprotection" property="isprotection" jdbcType="INTEGER"/> 
+        	<result column="isuserid" property="isuserid" jdbcType="VARCHAR"/>
+        	<result column="istime" property="istime" jdbcType="DATE" /> 
+        	<result column="isstate" property="isstate" jdbcType="INTEGER"/> 
+        	
+        	<!-- 放射性同位素录入信息 -->
+        	<association property="radioactiveentry" javaType="com.cncompute.pojo.Radioactiveentry" column="isid" >
+        	<id column="raid" property="raid" jdbcType="VARCHAR" />  
+			<result column="raentry" property="raentry" jdbcType="VARCHAR" />  
+        	<result column="raname" property="raname" jdbcType="VARCHAR" />  
+        	<result column="radosage" property="radosage" jdbcType="VARCHAR"/>  
+        	<result column="raphysical" property="raphysical" jdbcType="VARCHAR"/> 
+        	<result column="raquantity" property="raquantity" jdbcType="VARCHAR"/> 
+        	<result column="rayears" property="rayears" jdbcType="VARCHAR"/>   
+        	<result column="raway" property="raway" jdbcType="VARCHAR"/>   
+        	<result column="raplace" property="raplace" jdbcType="VARCHAR"/>   
+        	<result column="racountry" property="racountry" jdbcType="VARCHAR"/>   
+        	<result column="ranumber" property="ranumber" jdbcType="VARCHAR"/>   
+        	<result column="ratime" property="ratime" jdbcType="DATE"/>   
+        	<result column="rauserid" property="rauserid" jdbcType="VARCHAR" />  
+        	<result column="rastate" property="rastate" jdbcType="INTEGER" />  
+		    </association>
+		   
+		    <!-- (密封源录入信息) -->
+        	<association property="sealentry" javaType="com.cncompute.pojo.Sealentry" column="isid" >
+        	<id column="seid" property="seid" jdbcType="VARCHAR" />  
+			<result column="seentry" property="seentry" jdbcType="VARCHAR" />  
+        	<result column="sename" property="sename" jdbcType="VARCHAR" />  
+        	<result column="selive" property="selive" jdbcType="VARCHAR"/>  
+        	<result column="senumber" property="senumber" jdbcType="VARCHAR"/> 
+        	<result column="sephysical" property="sephysical" jdbcType="VARCHAR"/> 
+        	<result column="secategory" property="secategory" jdbcType="VARCHAR"/>   
+        	<result column="seoperation" property="seoperation" jdbcType="VARCHAR"/>   
+        	<result column="seplace" property="seplace" jdbcType="VARCHAR"/>   
+        	<result column="secountry" property="secountry" jdbcType="VARCHAR"/>   
+        	<result column="setablename" property="setablename" jdbcType="VARCHAR"/>   
+        	<result column="seuserid" property="seuserid" jdbcType="VARCHAR"/>   
+        	<result column="setime" property="setime" jdbcType="DATE" />  
+        	<result column="sestate" property="sestate" jdbcType="INTEGER" />  
+		    </association>
+		    
+		<!-- 辅助决策  -->
+		<association property="xauxiliary" javaType="com.cncompute.pojo.Xauxiliary" column="raid" >
+        	<id column="auid" property="auid" jdbcType="VARCHAR" />  
+			<result column="aunumber" property="aunumber" jdbcType="VARCHAR" />  
+        	<result column="ausecurity" property="ausecurity" jdbcType="VARCHAR" />  
+        	<result column="auname" property="auname" jdbcType="VARCHAR"/>  
+        	<result column="auexisting" property="auexisting" jdbcType="INTEGER"/> 
+        	<result column="austate" property="austate" jdbcType="INTEGER"/> 
+        	<result column="autime" property="autime" jdbcType="DATE"/> 
+        	<result column="auserial" property="auserial" jdbcType="VARCHAR"/>
+        	<result column="aucategory" property="aucategory" jdbcType="VARCHAR"/>
+		</association>	
+	</resultMap>
+	
+	<!-- 查询放射源全部信息 -->
+	<select id="isotAll" resultMap="IsotopesMap">
+	SELECT * FROM isotopes  WHERE isstate='1' ORDER BY istime DESC
+	</select>
+	
+    <!-- 查询放射源全部信息 -->
+	<select id="queryIsid" resultMap="IsotopesMap">
+	SELECT * FROM isotopes  WHERE isid=#{isid} AND isstate='1' ORDER BY istime DESC
+	</select>
+	
+	<!-- 添加放射源内容 -->
+	<insert id="isotAdd" parameterType="com.cncompute.pojo.Isotopes">
+	INSERT INTO isotopes 
+	(isid,isentry,islicense,isenviro,isprotection,
+	 isuserid,istime,isstate
+	) 
+	VALUES 
+	(#{isid},#{isentry},#{islicense},#{isenviro},#{isprotection},
+	 #{isuserid},now(),1)
+	</insert>
+	
+	<!-- 修改放射源 -->
+	<update id="upIsotopes"  parameterType="com.cncompute.pojo.Isotopes">
+    update isotopes <set> 
+    <if test="isentry!=null">isentry=#{isentry},</if>
+    <if test="islicense!=null">islicense=#{islicense},</if>
+    <if test="isenviro!=null">isenviro=#{isenviro},</if>
+    <if test="isprotection!=null">isprotection=#{isprotection},</if>
+    <if test="isstate!=null">isstate=#{isstate}</if>
+    </set>  WHERE isid=#{isid}
+	</update>
+	
+	<!-- 查询开放射性同位全部信息(radioactiveentry)-->
+	<select id="radioAll" resultMap="IsotopesMap">
+	SELECT 
+	r.raid,r.raentry,r.raname,r.radosage,r.raphysical,
+	r.raquantity,r.rayears,r.raway,r.raplace,r.racountry,
+	r.ranumber
+	FROM isotopes i LEFT JOIN radioactiveentry r
+	ON i.isid=r.raid
+	WHERE r.raid=#{raid} AND r.rastate='1' AND i.isstate='1' ORDER BY r.ratime DESC
+	</select>
+	
+	<!-- 查询密封源录入信息(sealentry)-->
+	<select id="sealAll" resultMap="IsotopesMap">
+	SELECT 
+	s.seid,s.seentry,s.sename,s.selive,s.senumber,
+	s.sephysical,s.secategory,s.seoperation,s.seplace,s.secountry,
+	s.setablename
+	FROM isotopes i LEFT JOIN sealentry s
+	ON i.isid=s.seid
+	WHERE s.seid=#{seid} AND s.sestate='1' AND i.isstate='1' ORDER BY s.setime DESC
+	</select>
+	
+	<!-- 查询密封源录入信息(通过信息ID)-->
+	<select id="selectSeal" resultMap="IsotopesMap">
+	SELECT 
+	s.seid,s.seentry,s.sename,s.selive,s.senumber,
+	s.sephysical,s.secategory,s.seoperation,s.seplace,s.secountry,
+	s.setablename
+	FROM isotopes i LEFT JOIN sealentry s
+	ON i.isid=s.seid
+	WHERE s.seentry=#{seentry} AND s.sestate='1' AND i.isstate='1' ORDER BY s.setime DESC
+	</select>
+	
+	<!-- 修改开放性同位素 -->
+	<update id="updateSeal"  parameterType="com.cncompute.pojo.Sealentry">
+    update sealentry <set> 
+    <if test="sename!=null">sename=#{sename},</if>
+    <if test="selive!=null">selive=#{selive},</if>
+    <if test="senumber!=null">senumber=#{senumber},</if>
+    <if test="sephysical!=null">sephysical=#{sephysical},</if>
+    <if test="secategory!=null">secategory=#{secategory},</if>
+    <if test="seoperation!=null">seoperation=#{seoperation},</if>
+    <if test="seplace!=null">seplace=#{seplace},</if>
+    <if test="secountry!=null">secountry=#{secountry},</if>
+    <if test="setablename!=null">setablename=#{setablename},</if>
+    <if test="sestate!=null">sestate=#{sestate}</if>
+    </set>  WHERE seentry=#{seentry}
+	</update>
+	
+	<!-- 添加开放性同位素 -->
+	<insert id="radioaAdd" parameterType="com.cncompute.pojo.Radioactiveentry">
+	INSERT INTO radioactiveentry 
+	(raid,raentry,raname,radosage,raphysical,
+	 raquantity,rayears,raway,raplace,racountry,
+	 ranumber,ratime,rauserid,rastate
+	) 
+	VALUES 
+	(#{raid},#{raentry},#{raname},#{radosage},#{raphysical},
+	 #{raquantity},#{rayears},#{raway},#{raplace},#{racountry},
+	 #{ranumber},now(),#{rauserid},1)
+	</insert>
+	
+	<!-- 修改开放性同位素 -->
+	<update id="updateRadi"  parameterType="com.cncompute.pojo.Radioactiveentry">
+    update radioactiveentry <set> 
+    <if test="raname!=null">raname=#{raname},</if>
+    <if test="radosage!=null">radosage=#{radosage},</if>
+    <if test="raphysical!=null">raphysical=#{raphysical},</if>
+    <if test="raquantity!=null">raquantity=#{raquantity},</if>
+    <if test="rayears!=null">rayears=#{rayears},</if>
+    <if test="raway!=null">raway=#{raway},</if>
+    <if test="raplace!=null">raplace=#{raplace},</if>
+    <if test="racountry!=null">racountry=#{racountry},</if>
+    <if test="ranumber!=null">ranumber=#{ranumber},</if>
+    <if test="rastate!=null">rastate=#{rastate}</if>
+    </set>  WHERE raentry=#{raentry}
+	</update>
+	
+	<!-- 查询开放射性同位全部信息(radioactiveentry)-->
+	<select id="radiSelect" resultMap="IsotopesMap">
+	SELECT 
+	r.raid,r.raentry,r.raname,r.radosage,r.raphysical,
+	r.raquantity,r.rayears,r.raway,r.raplace,r.racountry,
+	r.ranumber
+	FROM isotopes i LEFT JOIN radioactiveentry r
+	ON i.isid=r.raid
+	WHERE r.raentry=#{raentry} AND r.rastate='1' AND i.isstate='1' ORDER BY r.ratime DESC
+	</select>
+	
+	<!-- 添加-(密封源录入信息) -->
+	<insert id="sealeAdd" parameterType="com.cncompute.pojo.Sealentry">
+	INSERT INTO sealentry 
+	(seid,seentry,sename,selive,senumber,
+	 sephysical,secategory,seoperation,seplace,secountry,
+	 setablename,seuserid,setime,sestate
+	) 
+	VALUES 
+	(#{seid},#{seentry},#{sename},#{selive},#{senumber},
+	 #{sephysical},#{secategory},#{seoperation},#{seplace},#{secountry},
+	 #{setablename},#{seuserid},now(),1)
+	</insert>
+	
+	<!-- 通过ID查询辅助决策全部信息 -->
+	<select id="queryAux"  resultMap="IsotopesMap">
+	SELECT a.auid,a.aunumber,a.ausecurity,a.auname,a.auexisting,a.auserial,a.aucategory
+	FROM isotopes i LEFT JOIN xauxiliary a
+	ON i.isid=a.auid
+    WHERE a.auid=#{auid} AND a.austate='1' AND a.auexisting='1'  ORDER BY  a.autime DESC
+	</select>
+</mapper>  

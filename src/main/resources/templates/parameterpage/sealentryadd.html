@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cssmoban</title>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body style="padding:10px">
+    <div id="wrapper">
+
+
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                             <small>密封源</small>
+                        </h1>								
+		          </div>				
+                    <form   method="post" enctype="multipart/form-data" id="formid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-body">
+                                <div class="table-responsive">		
+								<input type="hidden" th:value="${isotid.isid}" name="isid" id="isid"/>
+								<input type="button" class="btn btn-default" id="btn1" name="colstore" value="添加数据" onclick="index(this)">	
+								<input type="button" class="btn btn-default"  value="保存" onclick="submitFunction()">
+								<div id="index" style="text-align:center;color:red"></div>
+                                    <table class="table table-striped table-bordered table-hover" id = "test">
+                                        <thead>
+										 <thead>									
+                                            <tr>
+                                                <th>核素名称</th>
+                                                <th>放射性活度（Bq）</th>
+                                                <th>编号</th>
+												<th>物理、化学性状</th>
+												<th>类别</th>
+												<th>操作放射</th>
+												<th>贮存方式与地点</th>
+												<th>国别</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control"  placeholder="" name="sename" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="selive" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="senumber" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="sephysical" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="secategory" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="seoperation" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="seplace" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="secountry" ></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                         </form>
+											
+					 <div class="panel panel-default">
+                        </div>
+
+                </div>
+				
+                <!-- /. ROW  -->
+			
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="js/bootstrap.min.js"></script>
+	 
+    <!-- Metis Menu Js -->
+    <script src="js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="js/morris/raphael-2.1.0.min.js"></script>
+    <script src="js/morris/morris.js"></script>
+	
+	
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	
+	 <script src="js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="js/custom-scripts.js"></script>
+      <script>
+  $("#btn1").click(function() {
+  var str="<tr>";
+   str+="<td><input type='text' class='form-control'   name='sename' ></td>";
+   str+="<td><input type='text' class='form-control'   name='selive' ></td>";
+   str+="<td><input type='text' class='form-control'   name='senumber' ></td>";
+   str+="<td><input type='text' class='form-control'   name='sephysical' ></td>";
+   str+="<td><input type='text' class='form-control'   name='secategory' ></td>";
+   str+="<td><input type='text' class='form-control'   name='seoperation' ></td>";
+   str+="<td><input type='text' class='form-control'   name='seplace' ></td>";
+   str+="<td><input type='text' class='form-control'   name='secountry' ></td>";
+   str+="</tr>";
+   $("#test tbody").prepend(str);
+});
+	  
+	  
+	  
+	  
+      
+      function submitFunction() {
+  	    //这里唯一需要注意的就是这个form-add的id
+  	    var formData = new FormData($("#formid")[0]);
+  	    $.ajax({
+  	        //接口地址
+  	        url: '/sealaddpost',
+  	        type: 'POST',
+  	        data: formData,
+  	        async: false,
+  	        cache: false,
+  	        contentType: false,
+  	        processData: false,
+  	        success: function (data) {
+  	            //成功的回调
+  	            if(data== 1){
+                      alert("保存成功");
+                      window.location.href='/isotopes';//
+  	            }else if(data== 2){
+  	            	$("#index").html("");
+  	            }else if(data== 3){
+  	            	$("#index").html("");
+  	            }
+  	        },
+  	        error: function (returndata) {
+  	           //请求异常的回调
+  	           modals.warn("网络访问失败，请稍后重试!");
+  	        }
+  	    });
+  	    }
+      </script>
+
+</body>
+
+</html>

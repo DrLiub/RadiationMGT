@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cssmoban</title>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body style="padding:10px">
+    <div id="wrapper">
+
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                             <small >辐射防护用品 </small>
+                        </h1>								
+		</div>				
+				
+			 				   				
+
+	 <div class="panel panel-default">
+                            <div class="panel-heading">
+                               辐射防护用品详情
+                            </div> 
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                 <a style="width:120px" class="btn btn-default"  th:href="@{/readd(retable=${regi.retable})}">添加防护用品</a>	
+                                    <table class="table table-striped table-bordered table-hover">
+   
+                                        <thead>
+                                            <tr>
+                                                <th>仪器名称</th>
+                                                <th>品牌</th>
+                                                <th>型号</th>
+												<th>购置日期</th>
+												<th>状态</th>
+                                                <th>数量</th>
+												<th>位置信息</th>
+                                                <th>管理责任人</th>
+												<th>删除/修改</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr  th:each="regall:${reg}">
+                                                <td><span class="reducedfrom" th:text="${regall.renameof}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${regall.rebrand}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${regall.remodel}" ></span></td>
+                                                <td><span class="reducedfrom" th:text="${regall.rebuytime}" ></span></td>
+												<td><span class="reducedfrom" th:text="${regall.reitemssatte}" ></span></td>
+												<td><span class="reducedfrom" th:text="${regall.renum}" ></span></td>
+												<td><span class="reducedfrom" th:text="${regall.relocation}" ></span></td>
+												<td><span class="reducedfrom" th:text="${regall.rehead}" ></span></td>
+												<td><a th:onclick="'javascript:del(\''+${regall.reid}+'\',\''+${regi.retable}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/reupdate(reid=${regall.reid},retable=${regi.retable})}">修改</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                            <div style="margin: 0 auto; width: 200px;">
+						</nav>
+						</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                </div>
+                <!-- /. ROW  -->
+			
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="js/bootstrap.min.js"></script>	 
+    <!-- Metis Menu Js -->
+    <script src="js/jquery.metisMenu.js"></script>
+	
+	
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	
+	 <script src="js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="js/custom-scripts.js"></script>
+
+      <script>
+      function del(reid,retable){
+    	  var r = confirm("确定要删除吗？");
+    	  if(r == true){
+    	  window.location.href="/regdelete?reid="+reid+ '&retable='+retable;
+    	  }else{
+    	  return false;
+    	  }
+    	  }
+      </script>
+
+</body>
+
+</html>

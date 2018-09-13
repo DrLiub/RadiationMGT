@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>找回密码</title>
+<!-- Bootstrap Styles-->
+<link href="css/bootstrap.css" rel="stylesheet" />
+<!-- FontAwesome Styles-->
+<link href="css/font-awesome.css" rel="stylesheet" />
+<!-- Morris Chart Styles-->
+<link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+<!-- Custom Styles-->
+
+<!-- Google Fonts-->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css">
+</head>
+
+<body>
+	<div id="wrapper">
+
+		<!--/. NAV TOP  -->
+
+		<!-- /. NAV SIDE  -->
+
+		<div id="page-wrapper">
+			<div style="margin: 0 auto; width: 1000px;">
+				<div class="header">
+					<h1 class="page-header">
+						<small>找回密码 </small>
+					</h1>
+				</div>
+				<div>
+					<div class="panel panel-default">
+
+						<div class="panel-body">
+							<div class="table-responsive">
+
+
+
+								<div style="margin: 0 auto; width: 500px;">
+									<div id="index1" style="text-align: center; color: red"></div>
+									<div class="form-group">
+										<label for="exampleInputName2">登录ID:</label> <input
+											type="text" class="form-control" id="userid" placeholder=""
+											name="userid" value="" style="width: 183px;"
+											onblur="index2()">
+									</div>
+									<br></br>
+
+									<div class="form-group">
+										<label for="exampleInputName2">新密码:</label> <input
+											type="password" class="form-control" id="password"
+											placeholder="" name="password" value="" style="width: 183px;">
+									</div>
+									<div class="form-group">
+										<label for="exampleInputName2">确认新密码:</label> <input
+											type="password" class="form-control" id="password2"
+											placeholder="" name="password2" value=""
+											style="width: 183px;">
+									</div>
+									<br> </br>
+									<div class="form-group">
+										<label for="exampleInputName2">找回密码问题:</label> <input
+											type="text" class="form-control" id="question" placeholder=""
+											name="question" value="" style="width: 183px;">
+									</div>
+									<br></br>
+									<div class="form-group">
+										<label for="exampleInputName2">找回密码答案:</label> <input
+											type="text" class="form-control" id="answer" placeholder=""
+											name="answer" value="" style="width: 183px;">
+									</div>
+									<br></br>
+									<div>
+										<input type="button" style="width: 100px" class="btn btn-info"
+											id="login" name="login" value="确认" onclick="index()">
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /. ROW  -->
+					</div>
+					<!-- /. PAGE INNER  -->
+				</div>
+				<!-- /. PAGE WRAPPER  -->
+			</div>
+			<!-- /. WRAPPER  -->
+			<!-- JS Scripts-->
+			<!-- jQuery Js -->
+			<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+			<script type="text/javascript">
+				function index() {
+					var userid = $("#userid").val();//登录ID
+					var username = $("#username").val();//姓名
+					var password = $("#password").val();//密码
+					var password2 = $("#password2").val();//确认密码
+					var question = $("#question").val();//找回密码问题
+					var answer = $("#answer").val();//找回密码答案
+					$
+							.post(
+									"/change",
+									{
+										userid : userid,
+										username : username,
+										password : password,
+										password2 : password2,
+										question : question,
+										answer : answer
+									},
+									function(data) {
+										if (data.index == 1) {
+											alert("修改成功");
+											window.location.href = '/index';//
+										} else if (data.index == 2) {
+											$("#index1").html("登录ID不能为空");
+										} else if (data.index == 3) {
+											$("#index1").html("密码不能小于6位数");
+										} else if (data.index == 4) {
+											$("#index1").html("两次密码不一致");
+										} else if (data.index == 5) {
+											$("#index1").html("找回密码答案不能为空")
+										} else if (data.index == 0) {
+											$("#index1").html("找回密码问题错误");
+										}
+									}, "json");
+				}
+				function index2() {
+					var userid = $("#userid").val();
+					$.get("/change", {
+						userid : userid
+					}, function(data) {
+						if (data.index == 0) {
+							$("#index1").html("该用户不存在");
+						} else {
+							$("#index1").html("");
+							$("#question").val(data.index);
+						}
+					}, "json");
+				}
+			</script>
+</body>
+
+</html>

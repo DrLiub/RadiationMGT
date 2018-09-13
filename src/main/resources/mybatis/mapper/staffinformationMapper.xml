@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.StaffinformationDao">
+	<resultMap id="StaffinformationMap" type="com.cncompute.pojo.Staffinformation">
+        	<id column="stid" property="stid" jdbcType="VARCHAR" />  
+   			<result column="stnumber" property="stnumber" jdbcType="VARCHAR" />  
+        	<result column="stinstitutions" property="stinstitutions" jdbcType="VARCHAR" />  
+        	<result column="stname" property="stname" jdbcType="VARCHAR"/>  
+        	<result column="stgender" property="stgender" jdbcType="VARCHAR"/> 
+        	<result column="stage" property="stage" jdbcType="VARCHAR"/> 
+        	<result column="stjobs" property="stjobs" jdbcType="VARCHAR" /> 
+        	<result column="stschooling" property="stschooling" jdbcType="VARCHAR" /> 
+        	<result column="sttrainingtime" property="sttrainingtime" jdbcType="DATE" /> 
+        	<result column="stcertificate" property="stcertificate" jdbcType="VARCHAR" />
+        	<result column="stnote" property="stnote" jdbcType="VARCHAR"/> 
+        	<result column="stbirth" property="stbirth" jdbcType="DATE" /> 
+        	<result column="stgraduation" property="stgraduation" jdbcType="DATE" /> 
+        	<result column="stoverdue" property="stoverdue" jdbcType="VARCHAR" /> 
+        	<result column="stsecurity" property="stsecurity" jdbcType="VARCHAR" />
+        	<result column="stdose" property="stdose" jdbcType="VARCHAR"/> 
+        	<result column="stquarter" property="stquarter" jdbcType="VARCHAR" /> 
+        	<result column="stexcessive" property="stexcessive" jdbcType="VARCHAR" /> 
+        	<result column="stannual" property="stannual" jdbcType="VARCHAR" /> 
+        	<result column="stuserid" property="stuserid" jdbcType="VARCHAR" /> 
+        	<result column="sttime" property="sttime" jdbcType="DATE" />
+        	<result column="ststate" property="ststate" jdbcType="INTEGER" />
+        	<result column="stdepartment" property="stdepartment" jdbcType="VARCHAR" />
+        	<result column="stoverdueyn" property="stoverdueyn" jdbcType="INTEGER" />
+	</resultMap>
+
+	<!--查询所有信息 -->
+	<select id="queryStaff" resultMap="StaffinformationMap">
+		select * FROM staffinformation where ststate='1' and stid=#{stid} ORDER BY sttime DESC ,stoverdueyn DESC
+	</select>
+	<!-- 根据stnumber查询员工所以信息 -->
+	<select id="stquery" resultMap="StaffinformationMap">
+		select * FROM staffinformation where stnumber=#{stnumber} 
+	</select>
+	<!-- 添加信息-->
+	<insert id="addStaff" parameterType="Staffinformation">
+		INSERT INTO staffinformation
+		(stid,stnumber,stinstitutions,stname,stgender,
+		 stage,stjobs,stschooling,sttrainingtime,stcertificate,
+		 stnote,stbirth,stgraduation,stoverdue,stsecurity,
+		 stdose,stquarter,stannual,stuserid,sttime,
+		 ststate,stexcessive,stdepartment,stoverdueyn)
+		VALUES
+		(#{stid},#{stnumber},#{stinstitutions},#{stname},#{stgender},
+		 #{stage},#{stjobs},#{stschooling},#{sttrainingtime},#{stcertificate},
+	  	 #{stnote},#{stbirth},#{stgraduation},#{stoverdue},#{stsecurity},
+	  	 #{stdose},#{stquarter},#{stannual},#{stuserid},#{sttime},
+		 #{ststate},#{stexcessive},#{stdepartment},#{stoverdueyn})
+	</insert>
+    <!-- 删除辐射工作人员信息-->
+    <update id="stdelete"  parameterType="Staffinformation">
+    update staffinformation <set> 
+    ststate='0'
+    </set>  WHERE stnumber=#{stnumber}
+	</update>
+	    <!-- 修改辐射管理人员信息-->
+    <update id="stupdate"  parameterType="Staffinformation">
+    update staffinformation <set> 
+    <if test="stname!=null">stname=#{stname},</if>
+    <if test="stgender!=null">stgender=#{stgender},</if>
+    <if test="stage!=null">stage=#{stage},</if>
+    <if test="stjobs!=null">stjobs=#{stjobs},</if>
+    <if test="stschooling!=null">stschooling=#{stschooling},</if>
+    <if test="sttrainingtime!=null">sttrainingtime=#{sttrainingtime},</if>
+    <if test="stsecurity!=null">stsecurity=#{stsecurity},</if>
+    <if test="stbirth!=null">stbirth=#{stbirth},</if>
+    <if test="stcertificate!=null">stcertificate=#{stcertificate},</if>
+    <if test="stgraduation!=null">stgraduation=#{stgraduation},</if>
+    <if test="stoverdue!=null">stoverdue=#{stoverdue},</if>
+    <if test="stgraduation!=null">stexcessive=#{stexcessive},</if>
+    <if test="stoverdueyn!=null">stoverdueyn=#{stoverdueyn},</if>
+    <if test="stnote!=null">stnote=#{stnote}</if>
+    </set>  WHERE stnumber=#{stnumber}
+	</update>
+	<!-- 查询全部信息 -->
+	<select id="stallAll" resultMap="StaffinformationMap">
+		select * FROM staffinformation where ststate='1' ORDER BY sttime DESC ,stoverdueyn DESC
+	</select>
+</mapper>  

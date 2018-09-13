@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.ProtectionfileDao" >  
+	<resultMap id="ProtectionfileMap" type="com.cncompute.pojo.Protectionfile">
+        	<id column="prid" property="prid" jdbcType="VARCHAR" />  
+   		    <result column="prname" property="prname" jdbcType="VARCHAR" />  
+        	<result column="pruserid" property="pruserid" jdbcType="VARCHAR" />  
+        	<result column="prtime" property="prtime" jdbcType="DATE"/>  
+        	<result column="prstate" property="prstate" jdbcType="INTEGER"/> 
+        	
+        	<!-- 许可证表实现类  -->
+        	<association property="license" javaType="com.cncompute.pojo.License" column="prid" >
+        	<id column="liid" property="liid" jdbcType="VARCHAR" />  
+			<result column="liunit" property="liunit" jdbcType="VARCHAR" />  
+        	<result column="linumber" property="linumber" jdbcType="VARCHAR" />  
+        	<result column="lidate" property="lidate" jdbcType="VARCHAR"/>  
+        	<result column="livalidity" property="livalidity" jdbcType="VARCHAR"/> 
+        	<result column="lispeciesid" property="lispeciesid" jdbcType="VARCHAR"/> 
+        	<result column="licertificateid" property="licertificateid" jdbcType="VARCHAR"/> 
+        	<result column="litime" property="litime" jdbcType="DATE"/> 
+        	<result column="liuserid" property="liuserid" jdbcType="VARCHAR"/> 
+        	<result column="listate" property="listate" jdbcType="INTEGER"/> 
+		    </association>
+		    
+		    <!-- 环境影响评价文件批复 -->
+        	<association property="environmental" javaType="com.cncompute.pojo.Environmental" column="prid" >
+        	<id column="enid" property="enid" jdbcType="VARCHAR" />  
+			<result column="enunit" property="enunit" jdbcType="VARCHAR" />  
+        	<result column="enfile" property="enfile" jdbcType="VARCHAR" />  
+        	<result column="enfileno" property="enfileno" jdbcType="VARCHAR"/>  
+        	<result column="endate" property="endate" jdbcType="VARCHAR"/> 
+        	<result column="enelectronic" property="enelectronic" jdbcType="VARCHAR"/> 
+        	<result column="entime" property="entime" jdbcType="DATE"/> 
+        	<result column="enuserid" property="enuserid" jdbcType="VARCHAR"/> 
+        	<result column="enstate" property="enstate" jdbcType="INTEGER"/> 
+		    </association>
+		    
+		    <!-- 环保竣工验收监测文件批复 -->
+        	<association property="completionreply" javaType="com.cncompute.pojo.Completionreply" column="prid" >
+        	<id column="coid" property="coid" jdbcType="VARCHAR" />  
+			<result column="counit" property="counit" jdbcType="VARCHAR" />  
+        	<result column="cofile" property="cofile" jdbcType="VARCHAR" />  
+        	<result column="cofileno" property="cofileno" jdbcType="VARCHAR"/>  
+        	<result column="codate" property="codate" jdbcType="VARCHAR"/> 
+        	<result column="coelectronic" property="coelectronic" jdbcType="VARCHAR"/> 
+        	<result column="cotime" property="cotime" jdbcType="DATE"/> 
+        	<result column="cousrid" property="cousrid" jdbcType="VARCHAR"/> 
+        	<result column="costate" property="costate" jdbcType="INTEGER"/> 
+		    </association>
+	</resultMap>
+	
+	<!-- 查询环保手续文件全部信息 -->
+	<select id="prall" resultMap="ProtectionfileMap">
+	SELECT *FROM protectionfile WHERE prstate='1' ORDER BY  prtime DESC
+	</select>
+	
+	<!-- 添加环保手续文件 -->
+	<insert id="pradd" parameterType="Protectionfile">
+	INSERT INTO protectionfile 
+	(prid,prname,pruserid,prtime,prstate) 
+	VALUES 
+	(#{prid},#{prname},#{pruserid},now(),#{prstate})
+	</insert>
+	
+	<!-- 添加许可证表内容 -->
+	<insert id="liceadd" parameterType="License">
+	INSERT INTO license (liid) VALUES (#{liid})
+	</insert>
+	<!-- 添加环境影响评价文件批复 -->
+	<insert id="enviadd" parameterType="Environmental">
+	INSERT INTO environmental (enid) VALUES (#{enid})
+	</insert>
+	<!-- 添加环保竣工验收监测文件批复 -->
+	<insert id="compadd" parameterType="Completionreply">
+	INSERT INTO completionreply (coid) VALUES (#{coid})
+	</insert>
+	
+	<!-- 根据liid查询License表信息 -->
+	<select id="liQuery" resultMap="ProtectionfileMap">
+	SELECT l.liunit,l.linumber,l.lidate,l.livalidity,l.lispeciesid,l.licertificateid,l.liid
+	FROM protectionfile p left join license l
+	ON p.prid=l.liid 
+	WHERE l.liid=#{liid} AND p.prstate='1' ORDER BY l.litime DESC	
+	</select>
+	
+	<!-- 根据enid查询environmental表信息 -->
+	<select id="enQuery" resultMap="ProtectionfileMap">
+	SELECT e.enunit,e.enfile,e.enfileno,e.endate,e.enelectronic,e.enid
+	FROM protectionfile p left join environmental e
+	ON p.prid=e.enid 
+	WHERE e.enid=#{enid} AND p.prstate='1' ORDER BY e.entime DESC	
+	</select>
+	
+    <!-- 根据coid查询completionreply表信息 -->
+	<select id="coQuery" resultMap="ProtectionfileMap">
+	SELECT c.coid,c.counit,c.cofile,c.cofileno,c.codate,c.coelectronic
+	FROM protectionfile p left join completionreply c
+	ON p.prid=c.coid 
+	WHERE c.coid=#{coid} AND p.prstate='1' ORDER BY c.cotime DESC	
+	</select>
+	
+	<!-- 修改 许可证表内容-->
+    <update id="updateLice"  parameterType="com.cncompute.pojo.License">
+    update license <set> 
+    <if test="liunit!=null">liunit=#{liunit},</if>
+    <if test="linumber!=null">linumber=#{linumber},</if>
+    <if test="lidate!=null">lidate=#{lidate},</if>
+    <if test="livalidity!=null">livalidity=#{livalidity},</if>
+    <if test="lispeciesid!=null">lispeciesid=#{lispeciesid},</if>
+    <if test="licertificateid!=null">licertificateid=#{licertificateid},</if>
+    <if test="listate!=null">listate=#{listate}</if>
+    </set> WHERE liid=#{liid}
+	</update> 
+	
+	<!-- 修改 环境影响评价文件批复 -->
+    <update id="updateEnvi"  parameterType="com.cncompute.pojo.Environmental">
+    update environmental <set> 
+    <if test="enid!=null">enid=#{enid},</if>
+    <if test="enunit!=null">enunit=#{enunit},</if>
+    <if test="enfile!=null">enfile=#{enfile},</if>
+    <if test="endate!=null">endate=#{endate},</if>
+    <if test="enfileno!=null">enfileno=#{enfileno},</if>
+    <if test="enelectronic!=null">enelectronic=#{enelectronic},</if>
+    <if test="enstate!=null">enstate=#{enstate}</if>
+    </set> WHERE enid=#{enid}
+	</update> 
+	
+	<!-- 修改 环保竣工验收监测文件批复-->
+    <update id="updateComp"  parameterType="com.cncompute.pojo.Completionreply">
+    update completionreply <set> 
+    <if test="coid!=null">coid=#{coid},</if>
+    <if test="counit!=null">counit=#{counit},</if>
+    <if test="cofile!=null">cofile=#{cofile},</if>
+    <if test="cofileno!=null">cofileno=#{cofileno},</if>
+    <if test="codate!=null">codate=#{codate},</if>
+    <if test="coelectronic!=null">coelectronic=#{coelectronic},</if>
+    <if test="costate!=null">costate=#{costate}</if>
+    </set> WHERE coid=#{coid}
+	</update> 
+	
+	<!-- 根据prid查询环保手续文件全部信息 -->
+	<select id="queryAll" resultMap="ProtectionfileMap">
+	SELECT
+	l.liunit,l.linumber,l.lidate,l.livalidity,l.lispeciesid,l.licertificateid,l.liid,
+	e.enunit,e.enfile,e.enfileno,e.endate,e.enelectronic,e.enid,
+	c.coid,c.counit,c.cofile,c.cofileno,c.codate,c.coelectronic
+	FROM protectionfile p 
+	LEFT JOIN license l ON p.prid=l.liid 
+	LEFT JOIN environmental e ON p.prid=e.enid
+	LEFT JOIN completionreply c ON p.prid=c.coid 
+	WHERE p.prid=#{prid} AND p.prstate='1' ORDER BY e.entime DESC
+	</select>
+	
+	<!-- 修改环保手续文件实现类  -->
+	<update id="updateProt" parameterType="com.cncompute.pojo.Protectionfile">
+	update protectionfile <set>
+	<if test="prname!=null">prname=#{prname},</if>
+	<if test="prstate!=null">prstate=#{prstate}</if>
+	</set> WHERE prid=#{prid}
+	</update>
+	
+	<!-- 通过ID查询环保手续文件全部信息 -->
+	<select id="prIdall" resultMap="ProtectionfileMap">
+	SELECT *FROM protectionfile WHERE prid=#{prid} AND prstate='1' ORDER BY  prtime DESC
+	</select>
+</mapper>  

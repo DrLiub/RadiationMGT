@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.XraydeviceDao" >  
+	<resultMap id="XraydeviceMap" type="com.cncompute.pojo.Xraydevice">
+        	<id column="raid" property="raid" jdbcType="VARCHAR" />  
+   		    <result column="raname" property="raname" jdbcType="VARCHAR" />  
+        	<result column="rauserid" property="rauserid" jdbcType="VARCHAR" />  
+        	<result column="ratime" property="ratime" jdbcType="DATE"/>  
+        	<result column="rastate" property="rastate" jdbcType="INTEGER"/> 
+        	
+        	<!-- 射线装置-加速器表 -->
+		<association property="xaccelerator" javaType="com.cncompute.pojo.Xaccelerator" column="raid" >
+        	<id column="acid" property="acid" jdbcType="VARCHAR" />  
+			<result column="acmodel" property="acmodel" jdbcType="VARCHAR" />  
+        	<result column="acmanufacturer" property="acmanufacturer" jdbcType="VARCHAR" />  
+        	<result column="acion" property="acion" jdbcType="VARCHAR"/>  
+        	<result column="acenergy" property="acenergy" jdbcType="VARCHAR"/> 
+        	<result column="acstrong" property="acstrong" jdbcType="VARCHAR"/> 
+        	<result column="acuse" property="acuse" jdbcType="VARCHAR"/> 
+        	<result column="acnote" property="acnote" jdbcType="VARCHAR"/> 
+        	<result column="acwaste" property="acwaste" jdbcType="VARCHAR"/> 
+        	<result column="acwastenum" property="acwastenum" jdbcType="VARCHAR"/> 
+        	<result column="acwasteactivity" property="acwasteactivity" jdbcType="VARCHAR" />  
+        	<result column="acradioactive" property="acradioactive" jdbcType="VARCHAR" />  
+        	<result column="acwastewhere" property="acwastewhere" jdbcType="VARCHAR" />  
+        	<result column="acgasnum" property="acgasnum" jdbcType="VARCHAR"/>  
+        	<result column="acgasactivity" property="acgasactivity" jdbcType="VARCHAR"/> 
+        	<result column="acgasradioactive" property="acgasradioactive" jdbcType="VARCHAR"/> 
+        	<result column="acgaswhere" property="acgaswhere" jdbcType="VARCHAR"/> 
+        	<result column="acliquidnum" property="acliquidnum" jdbcType="VARCHAR"/> 
+        	<result column="acliquidactivity" property="acliquidactivity" jdbcType="VARCHAR"/> 
+        	<result column="acliquidradioactive" property="acliquidradioactive" jdbcType="VARCHAR"/> 
+        	<result column="acliquidwhere" property="acliquidwhere" jdbcType="VARCHAR" /> 
+        	<result column="acliquidnactivityumber" property="acliquidnactivityumber" jdbcType="VARCHAR" />  
+        	<result column="acsolidactivity" property="acsolidactivity" jdbcType="VARCHAR" />  
+        	<result column="acsolidradioactive" property="acsolidradioactive" jdbcType="VARCHAR"/>  
+        	<result column="acsolidwhere" property="acsolidwhere" jdbcType="VARCHAR"/> 
+        	<result column="acusetime" property="acusetime" jdbcType="VARCHAR"/> 
+        	<result column="acbuilding" property="acbuilding" jdbcType="VARCHAR"/> 
+        	<result column="acroom" property="acroom" jdbcType="VARCHAR"/> 
+        	<result column="acuserid" property="acuserid" jdbcType="VARCHAR"/> 
+        	<result column="actime" property="actime" jdbcType="DATE"/> 
+        	<result column="acstate" property="acstate" jdbcType="INTEGER" /> 
+		</association>
+		
+        	<!-- 射线装置-中子发生器 -->
+		<association property="xneutron" javaType="com.cncompute.pojo.Xneutron" column="raid" >
+        	<id column="neid" property="neid" jdbcType="VARCHAR" />  
+			<result column="nemodel" property="nemodel" jdbcType="VARCHAR" />  
+        	<result column="nemanufacturer" property="nemanufacturer" jdbcType="VARCHAR" />  
+        	<result column="nevoltage" property="nevoltage" jdbcType="VARCHAR"/>  
+        	<result column="nebeflow" property="nebeflow" jdbcType="VARCHAR"/> 
+        	<result column="neneutron" property="neneutron" jdbcType="VARCHAR"/> 
+        	<result column="neuse" property="neuse" jdbcType="VARCHAR"/> 
+        	<result column="nenote" property="nenote" jdbcType="VARCHAR"/> 
+        	<result column="negasactivity" property="negasactivity" jdbcType="VARCHAR"/> 
+        	<result column="negasway" property="negasway" jdbcType="VARCHAR"/> 
+        	<result column="negasnote" property="negasnote" jdbcType="VARCHAR" />  
+        	<result column="negasnum" property="negasnum" jdbcType="VARCHAR" />  
+        	<result column="newasteactivity" property="newasteactivity" jdbcType="VARCHAR" />  
+        	<result column="newastered" property="newastered" jdbcType="VARCHAR"/>  
+        	<result column="newastewhere" property="newastewhere" jdbcType="VARCHAR"/> 
+        	<result column="neliquidlive" property="neliquidlive" jdbcType="VARCHAR"/> 
+        	<result column="neliquidway" property="neliquidway" jdbcType="VARCHAR"/> 
+        	<result column="neliquidnote" property="neliquidnote" jdbcType="VARCHAR"/> 
+        	<result column="neliquidnum" property="neliquidnum" jdbcType="VARCHAR"/> 
+        	<result column="nelwanum" property="nelwanum" jdbcType="VARCHAR"/> 
+        	<result column="nelwalive" property="nelwalive" jdbcType="VARCHAR" /> 
+        	<result column="nelwarad" property="nelwarad" jdbcType="VARCHAR" />  
+        	<result column="nelwawhere" property="nelwawhere" jdbcType="VARCHAR" />  
+        	<result column="netsolive" property="netsolive" jdbcType="VARCHAR"/>  
+        	<result column="netsoway" property="netsoway" jdbcType="VARCHAR"/> 
+        	<result column="netsonote" property="netsonote" jdbcType="VARCHAR"/> 
+        	<result column="nersonum" property="nersonum" jdbcType="VARCHAR"/> 
+        	<result column="neswanum" property="neswanum" jdbcType="VARCHAR"/> 
+        	<result column="neswalive" property="neswalive" jdbcType="VARCHAR"/> 
+        	<result column="neswarad" property="neswarad" jdbcType="VARCHAR" />  
+        	<result column="neswawhere" property="neswawhere" jdbcType="VARCHAR"/>  
+        	<result column="neswainput" property="neswainput" jdbcType="VARCHAR"/> 
+        	<result column="nebuikding" property="nebuikding" jdbcType="VARCHAR"/> 
+        	<result column="neroom" property="neroom" jdbcType="VARCHAR"/> 
+        	<result column="neswauserid" property="neswauserid" jdbcType="VARCHAR"/> 
+        	<result column="netime" property="netime" jdbcType="DATE"/> 
+        	<result column="nestate" property="nestate" jdbcType="INTEGER"/> 
+		</association>		
+		
+		    <!-- 射线装置-X射线机 -->
+		<association property="xraymachine" javaType="com.cncompute.pojo.Xraymachine" column="raid" >
+        	<id column="raid" property="raid" jdbcType="VARCHAR" />  
+			<result column="ranumber" property="ranumber" jdbcType="VARCHAR" />  
+        	<result column="raname" property="raname" jdbcType="VARCHAR" />  
+        	<result column="ramodel" property="ramodel" jdbcType="VARCHAR"/>  
+        	<result column="ravoltage" property="ravoltage" jdbcType="VARCHAR"/> 
+        	<result column="racurrent" property="racurrent" jdbcType="VARCHAR"/> 
+        	<result column="rause" property="rause" jdbcType="VARCHAR"/> 
+        	<result column="raplace" property="raplace" jdbcType="VARCHAR"/> 
+        	<result column="racategory" property="racategory" jdbcType="VARCHAR"/> 
+        	<result column="ranote" property="ranote" jdbcType="VARCHAR"/> 
+        	<result column="rainputtime" property="rainputtime" jdbcType="VARCHAR" />  
+        	<result column="rabuilding" property="rabuilding" jdbcType="VARCHAR" />  
+        	<result column="raroom" property="raroom" jdbcType="VARCHAR" />  
+        	<result column="ratime" property="ratime" jdbcType="DATE"/>  
+        	<result column="rauserid" property="rauserid" jdbcType="VARCHAR"/> 
+        	<result column="rastate" property="rastate" jdbcType="INTEGER"/> 
+		</association>	
+		
+		    <!-- 辅助决策  -->
+		<association property="xauxiliary" javaType="com.cncompute.pojo.Xauxiliary" column="raid" >
+        	<id column="auid" property="auid" jdbcType="VARCHAR" />  
+			<result column="aunumber" property="aunumber" jdbcType="VARCHAR" />  
+        	<result column="ausecurity" property="ausecurity" jdbcType="VARCHAR" />  
+        	<result column="auname" property="auname" jdbcType="VARCHAR"/>  
+        	<result column="auexisting" property="auexisting" jdbcType="INTEGER"/> 
+        	<result column="austate" property="austate" jdbcType="INTEGER"/> 
+        	<result column="autime" property="autime" jdbcType="DATE"/> 
+        	<result column="auserial" property="auserial" jdbcType="VARCHAR"/>
+        	<result column="aucategory" property="aucategory" jdbcType="VARCHAR"/>
+		</association>	
+	</resultMap>
+	
+	<!-- 查询环保手续文件全部信息 -->
+	<select id="raydAll" resultMap="XraydeviceMap">
+	SELECT * FROM xraydevice WHERE rastate='1' ORDER BY  ratime DESC
+	</select>
+	
+	<!-- 通过ID查询(射线装置) -->
+	<select id="raydID" resultMap="XraydeviceMap">
+	SELECT * FROM xraydevice WHERE raid=#{raid}  AND rastate='1' 
+	</select>
+	
+	<!-- 添加射线装置(xraydevice) -->
+	<insert id="addRaydevice" parameterType="com.cncompute.pojo.Xraydevice">
+	insert into xraydevice
+	(raid,raname,rauserid,ratime,rastate)
+	VALUES
+	(#{raid},#{raname},#{rauserid},now(),1)
+	</insert>
+	
+	<!-- 修改(射线装置) -->
+	<update id="updateRayd" parameterType="com.cncompute.pojo.Xraydevice">
+    update xraydevice <set> 
+    <if test="raname!=null">raname=#{raname},</if>
+    <if test="rastate!=null">rastate=#{rastate}</if>
+    </set>  WHERE raid=#{raid}
+	</update>
+	
+	<!-- 添加(加速器)(xaccelerator) -->
+	<insert id="addAccelerator" parameterType="com.cncompute.pojo.Xaccelerator">
+	insert into xaccelerator (acid,acstate) VALUES (#{acid},1)
+	</insert>
+	
+	<!-- 查询(加速器) ID xaccelerator全部信息 -->
+	<select id="acceleratorId"  resultMap="XraydeviceMap">
+	SELECT
+	a.acid , a.acmodel , a.acmanufacturer , a.acion , a.acenergy ,
+	a.acstrong , a.acuse , a.acnote , a.acwaste , a.acwastenum ,
+	a.acwasteactivity , a.acradioactive , a.acwastewhere , a.acgasnum , a.acgasactivity ,
+	a.acgasradioactive , a.acgaswhere , a.acliquidnum , a.acliquidactivity ,a.acliquidradioactive ,
+	a.acliquidwhere , a.acliquidnactivityumber , a.acsolidactivity , a.acsolidradioactive ,a.acsolidwhere ,
+	a.acusetime , a.acbuilding , a.acroom 
+	FROM xraydevice r left join xaccelerator a
+	ON r.raid=a.acid
+    WHERE a.acid=#{acid} AND a.acstate='1' AND r.rastate='1' ORDER BY  a.actime DESC
+	</select>
+	
+	<!-- 录入(加速器) -->
+	<update id="insertAccel" parameterType="com.cncompute.pojo.Xaccelerator">
+    update xaccelerator <set> 
+    <if test="acmodel!=null">acmodel=#{acmodel},</if>
+    <if test="acmanufacturer!=null">acmanufacturer=#{acmanufacturer},</if>
+    <if test="acion!=null">acion=#{acion},</if>
+    <if test="acenergy!=null">acenergy=#{acenergy},</if>
+    <if test="acstrong!=null">acstrong=#{acstrong},</if>
+    <if test="acuse!=null">acuse=#{acuse},</if>
+    <if test="acnote!=null">acnote=#{acnote},</if>
+    <if test="acwaste!=null">acwaste=#{acwaste},</if>
+    <if test="acwastenum!=null">acwastenum=#{acwastenum},</if>
+    <if test="acwasteactivity!=null">acwasteactivity=#{acwasteactivity},</if>
+    <if test="acradioactive!=null">acradioactive=#{acradioactive},</if>
+    <if test="acwastewhere!=null">acwastewhere=#{acwastewhere},</if>
+    <if test="acgasnum!=null">acgasnum=#{acgasnum},</if>
+    <if test="acgasactivity!=null">acgasactivity=#{acgasactivity},</if>
+    <if test="acgasradioactive!=null">acgasradioactive=#{acgasradioactive},</if>
+    <if test="acgaswhere!=null">acgaswhere=#{acgaswhere},</if>
+    <if test="acliquidnum!=null">acliquidnum=#{acliquidnum},</if>
+    <if test="acliquidactivity!=null">acliquidactivity=#{acliquidactivity},</if>
+    <if test="acliquidradioactive!=null">acliquidradioactive=#{acliquidradioactive},</if>
+    <if test="acliquidwhere!=null">acliquidwhere=#{acliquidwhere},</if>
+    <if test="acliquidnactivityumber!=null">acliquidnactivityumber=#{acliquidnactivityumber},</if>
+    <if test="acsolidactivity!=null">acsolidactivity=#{acsolidactivity},</if>
+    <if test="acsolidradioactive!=null">acsolidradioactive=#{acsolidradioactive},</if>
+    <if test="acsolidwhere!=null">acsolidwhere=#{acsolidwhere},</if>
+    <if test="acusetime!=null">acusetime=#{acusetime},</if>
+    <if test="acbuilding!=null">acbuilding=#{acbuilding},</if>
+    <if test="acroom!=null">acroom=#{acroom},</if>
+    <if test="acuserid!=null">acuserid=#{acuserid},</if>
+    <if test="actime!=null">actime=#{actime},</if>
+    <if test="acstate!=null">acstate=#{acstate}</if>
+    </set>  WHERE acid=#{acid}
+	</update>
+	
+	<!-- 添加(中子发生器)(xneutron) -->
+	<insert id="addNeutron" parameterType="com.cncompute.pojo.Xneutron">
+	insert into xneutron (neid,nestate) VALUES (#{neid},1)
+	</insert>
+	
+	<!-- 查询(中子发生器)全部信息 -->
+	<select id="queryNeut"  resultMap="XraydeviceMap">
+	SELECT
+	n.neid, n.nemodel, n.nemanufacturer, n.nevoltage, n.nebeflow,
+	n.neneutron, n.neuse, n.nenote, n.negasactivity, n.negasway,
+	n.negasnote, n.negasnum, n.newasteactivity, n.newastered, n.newastewhere,
+	n.neliquidlive, n.neliquidway, n.neliquidnote, n.neliquidnum, n.nelwanum,
+	n.nelwalive, n.nelwarad, n.nelwawhere, n.netsolive, n.netsoway,
+	n.netsonote, n.nersonum, n.neswanum, n.neswalive, n.neswarad,
+	n.neswawhere, n.neswainput, n.nebuikding, n.neroom
+	FROM xraydevice r left join xneutron n
+	ON r.raid=n.neid
+    WHERE n.neid=#{neid} AND n.nestate='1' AND r.rastate='1' ORDER BY  n.netime DESC
+	</select>
+	
+	<!-- 录入(中子发生器) -->
+	<update id="insertNeut" parameterType="com.cncompute.pojo.Xneutron">
+    update xneutron 
+    <set> 
+    <if test="nemodel!=null">nemodel=#{nemodel},</if>
+    <if test="nemanufacturer!=null">nemanufacturer=#{nemanufacturer},</if>
+    <if test="nevoltage!=null">nevoltage=#{nevoltage},</if>
+    <if test="nebeflow!=null">nebeflow=#{nebeflow},</if>
+    <if test="neneutron!=null">neneutron=#{neneutron},</if>
+    <if test="neuse!=null">neuse=#{neuse},</if>
+    <if test="nenote!=null">nenote=#{nenote},</if>
+    <if test="negasactivity!=null">negasactivity=#{negasactivity},</if>
+    <if test="negasway!=null">negasway=#{negasway},</if>
+    <if test="negasnote!=null">negasnote=#{negasnote},</if>
+    <if test="negasnum!=null">negasnum=#{negasnum},</if>
+    <if test="newasteactivity!=null">newasteactivity=#{newasteactivity},</if>
+    <if test="newastered!=null">newastered=#{newastered},</if>
+    <if test="newastewhere!=null">newastewhere=#{newastewhere},</if>
+    <if test="neliquidlive!=null">neliquidlive=#{neliquidlive},</if>
+    <if test="neliquidway!=null">neliquidway=#{neliquidway},</if>
+    <if test="neliquidnote!=null">neliquidnote=#{neliquidnote},</if>
+    <if test="neliquidnum!=null">neliquidnum=#{neliquidnum},</if>
+    <if test="nelwanum!=null">nelwanum=#{nelwanum},</if>
+    <if test="nelwalive!=null">nelwalive=#{nelwalive},</if>
+    <if test="nelwarad!=null">nelwarad=#{nelwarad},</if>
+    <if test="nelwawhere!=null">nelwawhere=#{nelwawhere},</if>
+    <if test="netsolive!=null">netsolive=#{netsolive},</if>
+    <if test="netsoway!=null">netsoway=#{netsoway},</if>
+    <if test="netsonote!=null">netsonote=#{netsonote},</if>
+    <if test="nersonum!=null">nersonum=#{nersonum},</if>
+    <if test="neswanum!=null">neswanum=#{neswanum},</if>
+    <if test="neswalive!=null">neswalive=#{neswalive},</if>
+    <if test="neswarad!=null">neswarad=#{neswarad},</if>
+    <if test="neswawhere!=null">neswawhere=#{neswawhere},</if>
+    <if test="neswainput!=null">neswainput=#{neswainput},</if>
+    <if test="nebuikding!=null">nebuikding=#{nebuikding},</if>
+    <if test="neroom!=null">neroom=#{neroom},</if>
+    <if test="neswauserid!=null">neswauserid=#{neswauserid},</if>
+    <if test="netime!=null">netime=#{netime},</if>
+    <if test="nestate!=null">nestate=#{nestate}</if>
+    </set>  WHERE neid=#{neid}
+	</update>
+	
+	<!-- 添加-(X射线机)(xraymachine) -->
+	<insert id="addRaymachine" parameterType="com.cncompute.pojo.Xraymachine">
+	insert into xraymachine (raid,rastate) VALUES (#{raid},1)
+	</insert>
+	
+	<!-- 查询-(X射线机) ID 全部信息 -->
+	<select id="queryRayma"  resultMap="XraydeviceMap">
+	SELECT
+    e.raid, e.ranumber, e.raname, e.ramodel, e.ravoltage, 
+	e.racurrent, e.rause, e.raplace, e.racategory, e.ranote,
+	e.rainputtime, e.rabuilding, e.raroom, e.ratime, e.rauserid, 
+	e.rastate
+	FROM xraydevice r left join xraymachine e
+	ON r.raid=e.raid
+    WHERE e.raid=#{raid} AND e.rastate='1' AND r.rastate='1' ORDER BY  e.ratime DESC
+	</select>
+	
+	<!-- 录入-(X射线机) -->
+	<update id="insertRayma" parameterType="com.cncompute.pojo.Xraymachine">
+    update xraymachine <set> 
+    <if test="ranumber!=null">ranumber=#{ranumber},</if>
+    <if test="raname!=null">raname=#{raname},</if>
+    <if test="ramodel!=null">ramodel=#{ramodel},</if>
+    <if test="ravoltage!=null">ravoltage=#{ravoltage},</if>
+    <if test="racurrent!=null">racurrent=#{racurrent},</if>
+    <if test="rause!=null">rause=#{rause},</if>
+    <if test="raplace!=null">raplace=#{raplace},</if>
+    <if test="racategory!=null">racategory=#{racategory},</if>
+    <if test="ranote!=null">ranote=#{ranote},</if>
+    <if test="rainputtime!=null">rainputtime=#{rainputtime},</if>
+    <if test="rabuilding!=null">rabuilding=#{rabuilding},</if>
+    <if test="raroom!=null">raroom=#{raroom},</if>
+    <if test="ratime!=null">ratime=#{ratime},</if>
+    <if test="rauserid!=null">rauserid=#{rauserid},</if>
+    <if test="rastate!=null">rastate=#{rastate}</if>
+    </set>  WHERE raid=#{raid}
+	</update>
+	
+	<!-- 添加(辅助决策)(xauxiliary) -->
+	<insert id="addAuxiliary" parameterType="com.cncompute.pojo.Xauxiliary">
+	insert into xauxiliary (
+	auid,aunumber,ausecurity,auname,auexisting,
+	austate,autime,auserial,aucategory
+	) 
+	VALUES (
+	#{auid},#{aunumber},#{ausecurity},#{auname},1,
+	1,now(),#{auserial},#{aucategory}
+	)
+	</insert>
+	
+	<!-- 修改(辅助决策) -->
+	<update id="qudatAuxi" parameterType="com.cncompute.pojo.Xauxiliary">
+    update xauxiliary <set> 
+    <if test="aunumber!=null">aunumber=#{aunumber},</if>
+    <if test="auid!=null">auid=#{auid},</if>
+    <if test="ausecurity!=null">ausecurity=#{ausecurity},</if>
+    <if test="austate!=null">austate=#{austate},</if>
+    <if test="auexisting!=null">auexisting=#{auexisting},</if>
+    <if test="aucategory!=null">aucategory=#{aucategory}</if>
+    </set>  WHERE auserial=#{auserial}
+	</update>
+	
+	<!-- 通过ID查询辅助决策全部信息 -->
+	<select id="queryRaidauxi"  resultMap="XraydeviceMap">
+	SELECT a.auid,a.aunumber,a.ausecurity,a.auname,a.auexisting,a.auserial,a.aucategory
+	FROM xraydevice r left join xauxiliary a
+	ON r.raid=a.auid
+    WHERE a.auid=#{auid} AND a.austate='1' AND a.auexisting='1'  ORDER BY  a.autime DESC
+	</select>
+	
+	<!-- 查询射线装置全部信息 -->
+	<select id="queryAll" resultMap="XraydeviceMap">
+	SELECT
+	a.acid , a.acmodel , a.acmanufacturer , a.acion , a.acenergy ,
+	a.acstrong , a.acuse , a.acnote , a.acwaste , a.acwastenum ,
+	a.acwasteactivity , a.acradioactive , a.acwastewhere , a.acgasnum , a.acgasactivity ,
+	a.acgasradioactive , a.acgaswhere , a.acliquidnum , a.acliquidactivity ,a.acliquidradioactive ,
+	a.acliquidwhere , a.acliquidnactivityumber , a.acsolidactivity , a.acsolidradioactive ,a.acsolidwhere ,
+	a.acusetime , a.acbuilding , a.acroom,
+	
+	n.neid, n.nemodel, n.nemanufacturer, n.nevoltage, n.nebeflow,
+	n.neneutron, n.neuse, n.nenote, n.negasactivity, n.negasway,
+	n.negasnote, n.negasnum, n.newasteactivity, n.newastered, n.newastewhere,
+	n.neliquidlive, n.neliquidway, n.neliquidnote, n.neliquidnum, n.nelwanum,
+	n.nelwalive, n.nelwarad, n.nelwawhere, n.netsolive, n.netsoway,
+	n.netsonote, n.nersonum, n.neswanum, n.neswalive, n.neswarad,
+	n.neswawhere, n.neswainput, n.nebuikding, n.neroom,
+	
+	e.raid, e.ranumber, e.raname, e.ramodel, e.ravoltage, 
+	e.racurrent, e.rause, e.raplace, e.racategory, e.ranote,
+	e.rainputtime, e.rabuilding, e.raroom, e.ratime, e.rauserid, 
+	e.rastate
+	FROM 
+	xraydevice r 
+	LEFT JOIN xaccelerator a ON r.raid=a.acid
+	LEFT JOIN xneutron n ON r.raid=n.neid
+    LEFT JOIN xraymachine e ON r.raid=e.raid
+    WHERE r.raid=#{raid}  AND r.rastate='1' ORDER BY  a.actime DESC
+	</select>
+	
+</mapper>  

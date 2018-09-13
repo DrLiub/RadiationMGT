@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.SafetysheetDao" >  
+	<resultMap id="SafetysheetMap" type="com.cncompute.pojo.Safetysheet">
+        	<id column="saname" property="saname" jdbcType="INTEGER" />  
+   		    <result column="sanumber" property="sanumber" jdbcType="VARCHAR" />  
+        	<result column="sapage" property="sapage" jdbcType="VARCHAR" />  
+        	<result column="saattribute" property="saattribute" jdbcType="INTEGER"/>  
+        	<result column="sanameof" property="sanameof" jdbcType="VARCHAR"/> 
+	</resultMap>
+	
+	<!-- 射线装置查询安全措施表-->
+	<select id="queryRayma" resultMap="SafetysheetMap">
+	SELECT * FROM safetysheet WHERE  saattribute=#{number1} OR saattribute=#{number2}
+	</select>
+	
+	<!-- 射线装置查询安全措施表-->
+	<select id="queryRay" resultMap="SafetysheetMap">
+	SELECT * FROM safetysheet WHERE  saattribute=#{number} 
+	</select>
+	
+	<!-- 通过ID查询辐射安全表信息-->
+	<select id="queryAuid" resultMap="SafetysheetMap">
+	SELECT * FROM safetysheet WHERE  saname=#{saname} 
+	</select>
+</mapper>  

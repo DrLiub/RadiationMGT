@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.LawsrulesDao" >  
+	<resultMap id="LawsrulesMap" type="com.cncompute.pojo.Lawsrules">
+        	<id column="laid" property="laid" jdbcType="VARCHAR" />  
+   		    <result column="laname" property="laname" jdbcType="VARCHAR" />  
+        	<result column="lanumber" property="lanumber" jdbcType="VARCHAR" />  
+        	<result column="laorgan" property="laorgan" jdbcType="VARCHAR"/>  
+        	<result column="lastarttime" property="lastarttime" jdbcType="VARCHAR"/> 
+            <result column="laelectronicid" property="laelectronicid" jdbcType="VARCHAR" /> 
+        	<result column="lauserid" property="lauserid" jdbcType="VARCHAR"/> 
+        	<result column="latime" property="latime" jdbcType="DATE"/> 
+        	<result column="lastate" property="lastate" jdbcType="INTEGER"/> 
+	</resultMap>
+	
+	<!-- 查询全部法律法规信息 -->
+	<select id="queryLaws" resultMap="LawsrulesMap">
+	SELECT * FROM lawsrules  WHERE lastate='1' ORDER BY latime DESC
+	</select>
+	
+	<!-- 添加法律法规 -->
+	<insert id="addLaws" parameterType="Lawsrules">
+	INSERT INTO lawsrules 
+	(laid,laname,lanumber,laorgan,lastarttime,
+	 laelectronicid,lauserid,latime,lastate
+	) 
+	VALUES 
+	(#{laid},#{laname},#{lanumber},#{laorgan},#{lastarttime},
+	 #{laelectronicid},#{lauserid},now(),1)
+	</insert>
+	
+</mapper>  

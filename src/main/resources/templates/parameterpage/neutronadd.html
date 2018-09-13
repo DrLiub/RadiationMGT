@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cssmoban</title>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body style="padding:10px">
+    <div id="wrapper">
+
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                             <small>中子发生器</small>
+                        </h1>								
+		          </div>				
+                    <form   method="post" enctype="multipart/form-data" id="formid">
+                        <div class="panel panel-default">
+
+                            <div class="panel-body">
+                                <div class="table-responsive">		
+								<input type="hidden" th:value="${raydid.raid}" name="raid" id="raid"/>
+								<input type="button" class="btn btn-default"  value="保存" onclick="submitFunction()">
+								<div id="index" style="text-align:center;color:red"></div>
+                                    <table class="table table-striped table-bordered table-hover" id = "test">
+                                        <thead>
+										 <thead>									
+                                            <tr>
+                                                <th>型号</th>
+                                                <th>生产厂家</th>
+                                                <th>电压（kV）</th>
+												<th >靶流（μA）</th>
+												<th>中子强度（n/s）</th>
+												<th>用途</th>
+												<th>备注</th>
+                                            </tr>
+                                        
+                                       
+                                            <tr>
+                                                <td><input type="text" class="form-control" th:value="${rayd.xneutron.nemodel}" placeholder="" name="nemodel" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nemanufacturer}" placeholder="" name="nemanufacturer" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nevoltage}" placeholder="" name="nevoltage" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nebeflow}" placeholder="" name="nebeflow" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neneutron}" placeholder="" name="neneutron" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neuse}" placeholder="" name="neuse" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nenote}" placeholder="" name="nenote" ></td>
+                                            </tr>
+                                        
+									    								
+                                            <tr>
+                                                <th colspan="3">氚靶情况（含废弃的）</th>
+                                                <th colspan="4">含放射性废物年产量（含感生的和含3H的废泵油）</th>
+                                            </tr>
+                                            <tr>
+                                                <th>活度（Bq）</th>
+                                                <th>保管方式</th>
+                                                <th>备注</th>
+												<th >数量</th>
+												<th>总活度（Bq）</th>
+												<th>放射性同位素</th>
+												<th>废物去向</th>
+                                            </tr>
+                                        </thead>
+										<tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control" th:value="${rayd.xneutron.negasactivity}" placeholder="" name="negasactivity" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.negasway}" placeholder="" name="negasway" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.negasnote}" placeholder="" name="negasnote" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.negasnum}" placeholder="气m3" name="negasnum" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.newasteactivity}" placeholder="" name="newasteactivity" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.newastered}" placeholder="" name="newastered" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.newastewhere}" placeholder="" name="newastewhere" ></td>
+                                            </tr>
+                                       
+										
+                                            <tr>
+                                                <td><input type="text" class="form-control" th:value="${rayd.xneutron.neliquidlive}" placeholder="" name="neliquidlive" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neliquidway}" placeholder="" name="neliquidway" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neliquidnote}" placeholder="" name="neliquidnote" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neliquidnum}" placeholder="液m3" name="neliquidnum" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nelwalive}" placeholder="" name="nelwalive" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nelwarad}" placeholder="" name="nelwarad" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nelwawhere}" placeholder="" name="nelwawhere" ></td>
+                                            </tr>
+											<tr>
+                                                <td><input type="text" class="form-control" th:value="${rayd.xneutron.netsolive}" placeholder="" name="netsolive" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.netsoway}" placeholder="" name="netsoway" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.netsonote}" placeholder="" name="netsonote" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nersonum}" placeholder="固kg" name="nersonum" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neswalive}" placeholder="" name="neswalive" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neswarad}" placeholder="" name="neswarad" ></td>
+												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neswawhere}" placeholder="" name="neswawhere" ></td>
+                                            </tr>
+										     <tr>
+                                                <th colspan="2">投入使用时间</th>
+                                                <th colspan="2">楼宇</th>
+                                                <th colspan="3">房间信息</th>
+                                            </tr>
+										    <tr>
+												<td colspan="2"><input type="date" class="form-control" th:value="${rayd.xneutron.neswainput}" placeholder="" name="neswainput" ></td>
+												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xneutron.nebuikding}" placeholder="" name="nebuikding" ></td>
+												<td colspan="3"><input type="text" class="form-control" th:value="${rayd.xneutron.neroom}" placeholder="" name="neroom" ></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                         </form>
+											
+					 <div class="panel panel-default">
+                        </div>
+
+                </div>
+				
+                <!-- /. ROW  -->
+			
+
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="js/bootstrap.min.js"></script>
+	 
+    <!-- Metis Menu Js -->
+    <script src="js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="js/morris/raphael-2.1.0.min.js"></script>
+    <script src="js/morris/morris.js"></script>
+	
+	
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	
+	 <script src="js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="js/custom-scripts.js"></script>
+      <script>
+      
+      
+      function submitFunction() {
+  	    //这里唯一需要注意的就是这个form-add的id
+  	    var prid = $("#prid");
+  	    var formData = new FormData($("#formid")[0]);
+  	    $.ajax({
+  	        //接口地址
+  	        url: '/neutpost',
+  	        type: 'POST',
+  	        data: formData,
+  	        async: false,
+  	        cache: false,
+  	        contentType: false,
+  	        processData: false,
+  	        success: function (data) {
+  	            //成功的回调
+  	            if(data== 1){
+                      alert("保存成功");
+                      window.location.href='/xraydall';//
+  	            }else if(data== 2){
+  	            	$("#index").html("请检测数量格式是否正确");
+  	            }else if(data== 3){
+  	            	$("#index").html("请填写日期");
+  	            }
+  	        },
+  	        error: function (returndata) {
+  	           //请求异常的回调
+  	           modals.warn("网络访问失败，请稍后重试!");
+  	        }
+  	    });
+  	    }
+      </script>
+
+</body>
+
+</html>

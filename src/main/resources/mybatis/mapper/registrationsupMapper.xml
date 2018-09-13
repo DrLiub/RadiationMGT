@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.RegistrationsupDao" >  
+	<resultMap id="RegistrationsupMap" type="com.cncompute.pojo.Registrationsup">
+        	<id column="reid" property="reid" jdbcType="VARCHAR" />  
+   		    <result column="retable" property="retable" jdbcType="INTEGER" />  
+        	<result column="renameof" property="renameof" jdbcType="VARCHAR" />  
+        	<result column="remodel" property="remodel" jdbcType="VARCHAR"/>  
+        	<result column="rebuytime" property="rebuytime" jdbcType="DATE"/> 
+            <result column="reitemssatte" property="reitemssatte" jdbcType="VARCHAR" /> 
+        	<result column="renum" property="renum" jdbcType="VARCHAR"/> 
+        	<result column="rebrand" property="rebrand" jdbcType="VARCHAR" /> 
+        	<result column="relocation" property="relocation" jdbcType="VARCHAR" /> 
+        	<result column="rehead" property="rehead" jdbcType="VARCHAR" /> 
+        	<result column="reuserid" property="reuserid" jdbcType="VARCHAR" />
+        	<result column="retime" property="retime" jdbcType="DATE"/> 
+        	<result column="restate" property="restate" jdbcType="INTEGER" />
+	</resultMap>
+	<!-- 插入表信息 -->
+	<insert id="reInsert" parameterType="Registrationsup">
+	INSERT INTO registrationsup 
+	(reid,retable,renameof,remodel,rebuytime,
+	 reitemssatte,renum,rebrand,relocation,rehead,
+	 reuserid,retime,restate
+	) 
+	VALUES 
+	(#{reid},#{retable},#{renameof},#{remodel},#{rebuytime},
+	 #{reitemssatte},#{renum},#{rebrand},#{relocation},#{rehead},
+	 #{reuserid},now(),#{restate})
+	</insert>
+	<!-- 根据表编号查询监测设备、报警仪器和辐射防护用品信息 -->
+	<select id="reQuery" resultMap="RegistrationsupMap">
+	SELECT * FROM registrationsup 
+	WHERE restate='1' AND retable=#{retable} ORDER BY retime DESC
+	</select>
+
+    <!-- 删除信息-->
+    <update id="reDelete"  parameterType="Registrationsup">
+    update registrationsup <set> 
+    restate='0'
+    </set>  WHERE reid=#{reid}
+	</update>
+	<!-- 根据reid查询信息 -->
+	<select id="reReid" resultMap="RegistrationsupMap">
+	SELECT * FROM registrationsup 
+	WHERE  reid=#{reid} 
+	</select>
+	<!-- 修改监测设备、报警仪器和辐射防护用品表信息-->
+    <update id="reUpdate"  parameterType="Registrationsup">
+    update registrationsup <set> 
+    <if test="renameof!=null">renameof=#{renameof},</if>
+    <if test="rebrand!=null">rebrand=#{rebrand},</if>
+    <if test="remodel!=null">remodel=#{remodel},</if>
+    <if test="rebuytime!=null">rebuytime=#{rebuytime},</if>
+    <if test="reitemssatte!=null">reitemssatte=#{reitemssatte},</if>
+    <if test="renum!=null">renum=#{renum},</if>
+    <if test="relocation!=null">relocation=#{relocation},</if>
+    <if test="rehead!=null">rehead=#{rehead}</if>
+    </set>  WHERE  reid=#{reid} 
+	</update>
+</mapper>  

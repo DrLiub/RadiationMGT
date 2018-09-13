@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncompute.dao.NonsealDao" >  
+	<resultMap id="NonsealMap" type="com.cncompute.pojo.Nonseal">
+        	<id column="noid" property="noid" jdbcType="VARCHAR" />  
+        	<result column="noname" property="noname" jdbcType="VARCHAR"/>  
+        	<result column="nolicense" property="nolicense" jdbcType="INTEGER"/> 
+        	<result column="noimpact" property="noimpact" jdbcType="INTEGER"/> 
+        	<result column="noreply" property="noreply" jdbcType="INTEGER"/> 
+            <result column="nouserid" property="nouserid" jdbcType="VARCHAR" /> 
+        	<result column="notime" property="notime" jdbcType="DATE"/> 
+        	<result column="nostate" property="nostate" jdbcType="INTEGER"/>
+        	<result column="nobuiding" property="nobuiding" jdbcType="VARCHAR" /> 
+        	<result column="nofloor" property="nofloor" jdbcType="VARCHAR" /> 
+        	<result column="noroomid" property="noroomid" jdbcType="VARCHAR" /> 
+        	<result column="nolevel" property="nolevel" jdbcType="VARCHAR" /> 
+        	<result column="nolimit" property="nolimit" jdbcType="VARCHAR" /> 
+        	
+        	<!-- 房间中的核素表 -->
+        	<association property="roomnuclide" javaType="com.cncompute.pojo.Roomnuclide" column="noid" >
+        	<id column="roid" property="roid" jdbcType="VARCHAR" />  
+			<result column="ronumber" property="ronumber" jdbcType="VARCHAR" />  
+        	<result column="roname" property="roname" jdbcType="VARCHAR"/> 
+        	<result column="rochemical" property="rochemical" jdbcType="VARCHAR"/>   
+        	<result column="roway" property="roway" jdbcType="VARCHAR" />  
+        	<result column="roquantity" property="roquantity" jdbcType="VARCHAR"/>  
+        	<result column="royear" property="royear" jdbcType="VARCHAR"/> 
+        	<result column="rooperation" property="rooperation" jdbcType="VARCHAR"/> 
+        	<result column="rocorrection" property="rocorrection" jdbcType="VARCHAR"/>  
+        	<result column="rotoxicity" property="rotoxicity" jdbcType="VARCHAR" />  
+        	<result column="rouse" property="rouse" jdbcType="VARCHAR"/>  
+        	<result column="rostorageway" property="rostorageway" jdbcType="VARCHAR"/> 
+        	<result column="rostorage" property="rostorage" jdbcType="VARCHAR"/> 
+        	<result column="robiggest" property="robiggest" jdbcType="VARCHAR"/>  
+        	<result column="rouserid" property="rouserid" jdbcType="VARCHAR"/> 
+        	<result column="rotime" property="rotime" jdbcType="DATE" />  
+        	<result column="rostate" property="rostate" jdbcType="INTEGER" />  
+		    </association>
+		    
+		    <!-- 辅助决策  -->
+		    <association property="xauxiliary" javaType="com.cncompute.pojo.Xauxiliary" column="noid" >
+        	<id column="auid" property="auid" jdbcType="VARCHAR" />  
+			<result column="aunumber" property="aunumber" jdbcType="VARCHAR" />  
+        	<result column="ausecurity" property="ausecurity" jdbcType="VARCHAR" />  
+        	<result column="auname" property="auname" jdbcType="VARCHAR"/>  
+        	<result column="auexisting" property="auexisting" jdbcType="INTEGER"/> 
+        	<result column="austate" property="austate" jdbcType="INTEGER"/> 
+        	<result column="autime" property="autime" jdbcType="DATE"/> 
+        	<result column="auserial" property="auserial" jdbcType="VARCHAR"/>
+        	<result column="aucategory" property="aucategory" jdbcType="VARCHAR"/>
+	    	</association>
+	</resultMap>
+	
+	<!-- 查询非密封性放射性物质全部信息 -->
+	<select id="nonsAll" resultMap="NonsealMap">
+	SELECT * FROM nonseal  WHERE nostate='1' ORDER BY notime DESC
+	</select>
+	
+	<!-- 查询非密封性放射性物质全部信息 -->
+	<select id="queryNonsid" resultMap="NonsealMap">
+	SELECT * FROM nonseal  WHERE noid=#{noid} AND nostate='1' ORDER BY notime DESC
+	</select>
+	
+	<!-- 添加非密封性放射性物质内容 -->
+	<insert id="nonsAdd" parameterType="com.cncompute.pojo.Nonseal">
+	INSERT INTO nonseal 
+	(noid,noname,nolicense,noimpact,noreply,
+	 nouserid,notime,nostate
+	) 
+	VALUES 
+	(#{noid},#{noname},#{nolicense},#{noimpact},#{noreply},
+	 #{nouserid},now(),1)
+	</insert>
+	
+	<!-- 修改非密封性放射性物质 -->
+	<update id="updateNonseal"  parameterType="com.cncompute.pojo.Nonseal">
+    update nonseal <set> 
+    <if test="noname!=null">noname=#{noname},</if>
+    <if test="nolicense!=null">nolicense=#{nolicense},</if>
+    <if test="noimpact!=null">noimpact=#{noimpact},</if>
+    <if test="noreply!=null">noreply=#{noreply},</if>
+    <if test="nostate!=null">nostate=#{nostate},</if>
+    <if test="nobuiding!=null">nobuiding=#{nobuiding},</if>
+    <if test="nofloor!=null">nofloor=#{nofloor},</if>
+    <if test="noroomid!=null">noroomid=#{noroomid},</if>
+    <if test="nolevel!=null">nolevel=#{nolevel},</if>
+    <if test="nolimit!=null">nolimit=#{nolimit}</if>
+    </set>  WHERE noid=#{noid}
+	</update>
+	
+	<!-- 添加房间中核素 -->
+	<insert id="roomAdd" parameterType="com.cncompute.pojo.Roomnuclide">
+	INSERT INTO roomnuclide 
+	(roid, ronumber, roname, rochemical, roway, roquantity, 
+     royear, rooperation, rocorrection, rotoxicity, rouse, 
+     rostorageway, rostorage, robiggest, rouserid, 
+     rotime, rostate
+	) 
+	VALUES 
+	(#{roid}, #{ronumber}, #{roname}, #{rochemical}, #{roway}, #{roquantity}, 
+     #{royear}, #{rooperation}, #{rocorrection}, #{rotoxicity}, #{rouse}, 
+     #{rostorageway}, #{rostorage}, #{robiggest}, #{rouserid}, 
+	 now(),1)
+	</insert>
+	
+	<!-- 通过ID查询辅助决策全部信息 -->
+	<select id="queryNons"  resultMap="NonsealMap">
+	SELECT a.auid,a.aunumber,a.ausecurity,a.auname,a.auexisting,a.auserial,a.aucategory
+	FROM nonseal n LEFT JOIN xauxiliary a
+	ON n.noid=a.auid
+    WHERE a.auid=#{auid} AND a.austate='1' AND a.auexisting='1'  ORDER BY  a.autime DESC
+	</select>
+	
+	<!-- 通过ID房间中的核素 -->
+	<select id="queryRoom"  resultMap="NonsealMap">
+	SELECT r.roid, r.ronumber, r.roname, r.rochemical, r.roway, r.roquantity, 
+     r.royear, r.rooperation, r.rocorrection, r.rotoxicity, r.rouse, 
+     r.rostorageway, r.rostorage, r.robiggest, r.rouserid
+	FROM nonseal n LEFT JOIN roomnuclide r
+	ON n.noid=r.roid
+    WHERE r.roid=#{roid} AND r.rostate='1' AND n.nostate='1'  ORDER BY  r.rotime DESC
+	</select>
+</mapper>  

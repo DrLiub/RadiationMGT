@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cssmoban</title>
+    <!-- Bootstrap Styles-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
+</head>
+
+<body style="padding:10px">
+    <div id="wrapper">
+    
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                             <small >规章制度简况</small>
+                        </h1>								
+		</div>				
+				
+			 				   				
+
+	          <div class="panel panel-default">
+                            <div class="panel-heading">
+                                规章制度
+                            </div> 
+                            <div class="panel-body">
+                                <div class="table-responsive">
+								 <div id="index" style="text-align:center;color:red"></div>
+								 <a style="width:120px" class="btn btn-default"  th:href="@{/fiunadd(type=${fileid.flid})}">添规章制度</a>
+                                    <table class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <td>规章制度名称</td>
+                                                <td>文件号</td>
+												<td>开始实施时间</td>
+												<td>电子版规章制度</td>
+												<td>删除/修改</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="file:${fileall}">
+                                                <td><span class="reducedfrom" th:text="${file.unitsystem.unname}" ></span></td>
+												<td><span class="reducedfrom" th:text="${file.unitsystem.unfile}" ></span></td>
+												<td><span class="reducedfrom" th:text="${file.unitsystem.ununittime}" ></span></td>
+												<td><a th:href="@{/onpage(page=${file.unitsystem.unaddress})}">下载文件</a></td>
+												<td><a th:onclick="'javascript:del(\''+${file.unitsystem.udnumber}+'\',\''+${fileid.flid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/unupdate(number=${file.unitsystem.udnumber})}">修改</a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+               </div>
+			   
+
+			   
+                </div>
+                <!-- /. ROW  -->
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <!-- Bootstrap Js -->
+    <script src="js/bootstrap.min.js"></script>	 
+    <!-- Metis Menu Js -->
+    <script src="js/jquery.metisMenu.js"></script>
+	
+	
+	<script src="js/easypiechart.js"></script>
+	<script src="js/easypiechart-data.js"></script>
+	
+	 <script src="js/Lightweight-Chart/jquery.chart.js"></script>
+	
+    <!-- Custom Js -->
+    <script src="js/custom-scripts.js"></script>
+
+      <script>
+      function del(udnumber,flid){
+    	  var r = confirm("确定要删除吗？");
+    	  if(r == true){
+    	  window.location.href="/undelete?type="+udnumber+ '&flid='+flid;
+    	  }else{
+    	  return false;
+    	  }
+    	  }
+      
+	   function index1(nodata){
+	　　       var nodata=nodata;
+	       $.get(
+	   	    	"/onpage",
+	   	    	{
+	   	    		nodata:nodata,
+	   	    	},function(data){
+	   	            if(data.index==1){
+	   	            	$("#index").html("没有上传文件");
+	   	            }else if(data.index==2){
+	   	            	$("#index").html("账号不存在");
+	   	            }else if(data.index==0){
+	   	            window.location.href='/main';//
+	   	            }     
+	   	    	},"json");  
+	        }
+      </script>
+
+</body>
+
+</html>
