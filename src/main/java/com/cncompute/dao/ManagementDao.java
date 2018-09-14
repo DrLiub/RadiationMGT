@@ -54,4 +54,14 @@ public interface ManagementDao {
 	 * @return
 	 */
 	public Management queryMaid(Management man);
+	/**
+	 * 通过ID查询辐射管理机构
+	 * @param maid
+	 */
+	public Management quMaid(String maid);
+	/**
+	 * 修改辐射管理机构
+	 * @param mana
+	 */
+	public void updateModi(Management mana);
 }

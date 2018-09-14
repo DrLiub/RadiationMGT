@@ -24,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.cncompute.pojo.User;
+import com.github.pagehelper.Page;
 /**
  * 重复调用方法
  * 
@@ -281,4 +282,72 @@ public class Methods {
         }
         return null;
     }
-}
+    /**
+     * 分页
+     * @param page
+     * @param pag 当前页数
+     * @param starting 起始页面
+     * @param end 末尾页数
+     * @param index 当前页数
+     * @param request 
+     */
+	public void sendPage(Page page,String pag,int starting,int end,int index,HttpServletRequest request,String jnum) {
+		int eachnum =3;//每页显示几页数据*
+		int Pages=page.getPages();//总页面
+		if(!("".equals(jnum)||jnum==null)) {
+			if(Pages>eachnum) {
+			    request.setAttribute("sta", Pages-eachnum+1);
+				request.setAttribute("end", Pages);
+			}else {
+			    request.setAttribute("sta", 1);
+				request.setAttribute("end", Pages);
+			}
+			return;
+		}
+		if(Pages==0) {
+			request.setAttribute("sta", 1);//起始页面
+			request.setAttribute("end", 1);//结束页面
+			return;
+		}
+		if("".equals(pag)||pag==null) {
+			//默认向页面传值
+			request.setAttribute("sta", starting);
+			if(Pages>eachnum) {
+				request.setAttribute("end", eachnum);//末尾页数
+			}else {
+				request.setAttribute("end", Pages);
+			}
+		}else {
+			//前台传来页面请求
+			if(index+(eachnum/2)<=Pages&&index>(eachnum/2)) {
+				request.setAttribute("sta", index-(eachnum/2));//起始页面
+				request.setAttribute("end", index+(eachnum/2));//结束页面
+			}else if(index+(eachnum/2)<=Pages&&index<(eachnum/2)&&eachnum<=Pages) {
+				request.setAttribute("sta", 1);//起始页面
+				request.setAttribute("end", eachnum);//结束页面
+			}else if(index+(eachnum/2)<=Pages&&index<=(eachnum/2)&&eachnum>Pages) {
+				request.setAttribute("sta", 1);//起始页面
+				request.setAttribute("end", Pages);//结束页面
+			}else if(index+(eachnum/2)<=Pages&&index<=(eachnum/2)&&eachnum<Pages) {
+				request.setAttribute("sta", 1);//起始页面
+				request.setAttribute("end", eachnum);//结束页面
+			}else if(index+(eachnum/2)>=Pages&&index<=(eachnum/2)&&eachnum>Pages) {
+				request.setAttribute("sta", 1);//起始页面
+				request.setAttribute("end", Pages);//结束页面
+			}else if(index+(eachnum/2)>=Pages&&index>(eachnum/2)&&eachnum>Pages) {
+				request.setAttribute("sta", 1);//起始页面
+				request.setAttribute("end", Pages);//结束页面
+			}else if(index==1){
+				request.setAttribute("sta", index);
+				if(Pages>eachnum) {
+					request.setAttribute("end", eachnum);
+				}else {
+					request.setAttribute("end", Pages);
+				}
+			}else {
+				request.setAttribute("sta", Pages-eachnum+1);
+				request.setAttribute("end", Pages);
+			}
+		}
+		}
+	}

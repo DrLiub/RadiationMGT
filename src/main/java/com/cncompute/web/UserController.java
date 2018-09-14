@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cncompute.repeat.Methods;
 import com.cncompute.service.UserService;
 
 /**
@@ -21,6 +22,8 @@ import com.cncompute.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userservice;
+	@Autowired
+	private Methods methods;
 	/**
 	 * 用户登录验证
 	 * @param request
@@ -92,6 +95,10 @@ public class UserController {
 	}
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String main(HttpServletRequest request) {
+		String userid=methods.getUser(request);
+		if("".equals(userid)||userid==null) {
+			return "login";
+		}
 		return "main";
 	}
 }

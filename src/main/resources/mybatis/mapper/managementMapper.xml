@@ -59,6 +59,22 @@
 	<select id="queryMang" resultMap="ManagementMap">
 	SELECT * FROM management  WHERE mastate='1' ORDER BY matime DESC
 	</select>
+	
+	<!-- 通过ID查询辐射管理机构 -->
+	<select id="quMaid" resultMap="ManagementMap">
+	SELECT * FROM management WHERE maid=#{maid} AND mastate='1' ORDER BY matime DESC
+	</select>
+	
+	<!-- 修改辐射管理机构-->
+    <update id="updateModi"  parameterType="Management">
+    update management <set> 
+    <if test="maname!=null">maname=#{maname},</if>
+    <if test="mahead!=null">mahead=#{mahead},</if>
+    <if test="maphone!=null">maphone=#{maphone},</if>
+    <if test="mastate!=null">mastate=#{mastate}</if>
+    </set>  WHERE maid=#{maid}
+	</update>
+	
 	<!-- 查询管理人员信息-->
 	<select id="queryId" resultMap="ManagementMap">
 	SELECT p.peid,m.maname,m.mahead,m.maphone,

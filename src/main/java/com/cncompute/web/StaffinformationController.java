@@ -29,10 +29,10 @@ public class StaffinformationController {
 	 */
 	@RequestMapping(value="staff",method=RequestMethod.GET)
 	public String staff(HttpServletRequest request)  {
-		String userid=methods.getUser(request);
-		if("".equals(userid)||userid==null) {
-			return "login";
-		}
+//		String userid=methods.getUser(request);
+//		if("".equals(userid)||userid==null) {
+//			return "login";
+//		}
 		staffservice.sendStaff(request);
 	    return "institutionspage/staffpeople";
 	}

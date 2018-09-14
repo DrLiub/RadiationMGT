@@ -18,6 +18,8 @@ import com.cncompute.dao.StaffinformationDao;
 import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Staffinformation;
 import com.cncompute.repeat.Methods;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 辐射员工表的Service层
@@ -52,7 +54,26 @@ public class StaffinformationService {
 	public void encapsulation(HttpServletRequest request, String stid) {
 		Staffinformation staff = new Staffinformation();
 		staff.setStid(stid);
+		int each =3; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Staffinformation> staffAll = staffDao.queryStaff(staff);
+			index=(staffAll.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+
 		List<Staffinformation> staffAll = staffDao.queryStaff(staff);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("staff", staffAll);
 		request.setAttribute("staffid", staff);
 	}

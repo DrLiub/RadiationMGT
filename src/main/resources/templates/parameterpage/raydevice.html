@@ -61,8 +61,26 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                            <div style="margin: 0 auto; width: 200px;">
-						</div>
+                       <div style="margin: 0 auto; width: 200px;">
+                        <nav aria-label="Page navigation">
+							<ul class="pagination">
+								<li>
+								<a th:href="@{/xraydall(sta=${sta})}" aria-label="Previous"> 
+								<span aria-hidden="true">&laquo;</span>
+								</a>
+								</li>
+								<li th:each="i : ${#numbers.sequence(sta, end)}">
+								<a  th:href="@{/xraydall(newpaging=${i})}"  >
+								<span  th:text="${i}"></span>
+								</a>
+								</li>
+								<li><a th:href="@{/xraydall(end=${end})}" aria-label="Next"> 
+								<span aria-hidden="true">&raquo;</span>
+								</a>
+								</li>
+							</ul>
+						</nav>
+                    </div>
                             </div>
                             </div>
                         </div>

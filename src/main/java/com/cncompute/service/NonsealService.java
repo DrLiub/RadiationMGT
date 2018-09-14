@@ -13,11 +13,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cncompute.dao.NonsealDao;
 import com.cncompute.dao.SafetysheetDao;
 import com.cncompute.dao.XraydeviceDao;
+import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Nonseal;
 import com.cncompute.pojo.Roomnuclide;
 import com.cncompute.pojo.Safetysheet;
 import com.cncompute.pojo.Xauxiliary;
 import com.cncompute.repeat.Methods;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 /**
  * 非密封放射性物质表DAO层
  * @author Admin
@@ -39,7 +42,25 @@ public class NonsealService {
 	 * @param request
 	 */
 	public void nonsealAll(HttpServletRequest request) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Nonseal> nonsall= nonsealdao.nonsAll();
+			index=(nonsall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
 		List<Nonseal> nonsall= nonsealdao.nonsAll();
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("nonsall", nonsall);
 	}
 	/**

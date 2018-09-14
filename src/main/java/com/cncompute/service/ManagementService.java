@@ -14,6 +14,8 @@ import com.cncompute.dao.ManagementDao;
 import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Personnel;
 import com.cncompute.repeat.Methods;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 辐射安全管理人员表的Service层
@@ -82,6 +84,7 @@ public class ManagementService {
 
 		String peuserid = methods.getUser(request);// 当前登录用户ID
 		Date petime = methods.getTime();// 当前时间
+		try {
 		for (int i = 0; i < pemanagement.length; i++) {
 			Personnel per = new Personnel();
 			per.setPeid(peid);
@@ -107,6 +110,9 @@ public class ManagementService {
 			}
 			mangdao.insertPersonnel(per);// 保存到数据库
 		}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	/**
@@ -116,10 +122,29 @@ public class ManagementService {
 	 * @param response
 	 */
 	public void sendMang(HttpServletRequest request) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Management> manAll = mangdao.queryMang();
+			index=(manAll.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		
+		
 		List<Management> manAll = mangdao.queryMang();
+		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("install", manAll);
 	}
-
 	/**
 	 * 向辐射管理人员显示界面发送信息
 	 * 
@@ -148,6 +173,23 @@ public class ManagementService {
 	 * @param maid
 	 */
 	public void sendInformation(String maid, HttpServletRequest request) {
+		int each =4; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Management> manAll = mangdao.queryMang();
+			index=(manAll.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
 		Management man = new Management();
 		man.setMaid(maid);
 		List<Management> list = mangdao.queryId(man);
@@ -161,6 +203,7 @@ public class ManagementService {
 		}
 		request.setAttribute("mangp", list);
 		request.setAttribute("mang", man);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
 	}
 
 	/**
@@ -239,5 +282,41 @@ public class ManagementService {
 		per.setPeinformation(peinformation);
 		Management man = mangdao.perId(per);
 		request.setAttribute("man", man);
+	}
+	/**
+	 * 删除辐射管理机构构成
+	 * @param request
+	 * @param type
+	 */
+	public void upModi(HttpServletRequest request,String type) {
+		Management mana=new Management();
+		mana.setMaid(type);
+		mana.setMastate(0);
+		mangdao.updateModi(mana);
+	}
+	/**
+	 * 向修改辐射管理界面发送信息
+	 * @param request
+	 * @param type
+	 */
+	public void sendUpMana(HttpServletRequest request,String type) {
+		Management mana=mangdao.quMaid(type);
+		request.setAttribute("mana",mana);
+	}
+	/**
+	 * 修改辐射管理机构
+	 * @param request
+	 * @param response
+	 * @param mana
+	 */
+	public void updateMana(HttpServletRequest request,HttpServletResponse response,Management mana) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		mangdao.updateModi(mana);
+		pw.print("1");
 	}
 }

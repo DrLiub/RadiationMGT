@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cncompute.pojo.Management;
 import com.cncompute.repeat.Methods;
 import com.cncompute.service.ManagementService;
 
@@ -31,10 +32,10 @@ public class ManagementController {
 	 */
 	@RequestMapping(value="manag",method=RequestMethod.GET)
 	public String registered(HttpServletRequest request, HttpServletResponse response)  {
-		String userid=methods.getUser(request);
-		if("".equals(userid)||userid==null) {
-			return "login";
-		}
+//		String userid=methods.getUser(request);
+//		if("".equals(userid)||userid==null) {
+//			return "login";
+//		}
 	    return "institutionspage/management";
 	}
 	/**
@@ -64,6 +65,39 @@ public class ManagementController {
 //		}
 		mangservice.sendMang(request);
 	    return "institutionspage/institution";
+	}
+	/**
+	 * 删除-辐射管理机构
+	 * @param request
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping(value="manidel",method=RequestMethod.GET)
+	public String deleteMana(HttpServletRequest request,String type) {
+		mangservice.upModi(request, type);
+		mangservice.sendMang(request);
+		return "institutionspage/institution";
+	}
+	/**
+	 * 修改-辐射管理机构界面
+	 * @param request
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping(value="maupdate",method=RequestMethod.GET)
+	public String updateMana(HttpServletRequest request,String type) {
+		mangservice.sendUpMana(request,type);
+		return "institutionspage/managementupdate";
+	}
+	/**
+	 * 修改-辐射管理机构
+	 * @param request
+	 * @param response
+	 * @param mana
+	 */
+	@RequestMapping(value="maupmana",method=RequestMethod.POST)
+	public void upMana(HttpServletRequest request,HttpServletResponse response,Management mana) {
+		mangservice.updateMana(request, response, mana);
 	}
 	/**
 	 * 辐射管理人员显示页面
