@@ -14,8 +14,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cncompute.dao.EntrustDao;
 import com.cncompute.dao.OneselfDao;
 import com.cncompute.pojo.Entrust;
+import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Oneself;
 import com.cncompute.repeat.Methods;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 表oneself(辐射环境监测数据)表service层
@@ -38,7 +41,25 @@ public class OneselfService {
 	 * @param request
 	 */
 	public void senDonunitpreview(HttpServletRequest request) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Entrust> enall = entrdao.enQuery();
+			index=(enall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
 		List<Entrust> enall = entrdao.enQuery();
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("enall", enall);
 	}
 
@@ -77,7 +98,25 @@ public class OneselfService {
 	 * @param type
 	 */
 	public void reunit(HttpServletRequest request, String type) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Oneself> onall = oneselfdao.onQuery(type, 1);
+			index=(onall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
 		List<Oneself> onall = oneselfdao.onQuery(type, 1);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("onall", onall);
 		sendNoid(request, type);
 	}
@@ -202,7 +241,25 @@ public class OneselfService {
 	 * @param request
 	 */
 	public void queryEntrust(HttpServletRequest request) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Oneself>ones=oneselfdao.queryEntrust(2);
+			index=(ones.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
 		List<Oneself>ones=oneselfdao.queryEntrust(2);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("onall", ones);
 	}
 	/**

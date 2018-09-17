@@ -23,8 +23,8 @@ import com.cncompute.service.ManagementService;
 public class ManagementController {
 	@Autowired
 	private ManagementService mangservice;
-	@Autowired
-	private Methods methods;
+//	@Autowired
+//	private Methods methods;
 	/**
 	 * 管理机构页面
 	 * @param request

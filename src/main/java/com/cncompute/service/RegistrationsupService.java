@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cncompute.dao.RegistrationsupDao;
+import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Registrationsup;
 import com.cncompute.repeat.Methods;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 监测设备、报警仪器和辐射防护用品登记表service层
@@ -35,7 +38,25 @@ public class RegistrationsupService {
 	 * @param retable
 	 */
 	public void reQuery(HttpServletRequest request, Integer retable) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Registrationsup> reg = regDao.reQuery(retable);
+			index=(reg.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
 		List<Registrationsup> reg = regDao.reQuery(retable);
+		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		sendRetable(request, retable);
 		request.setAttribute("reg", reg);
 	}

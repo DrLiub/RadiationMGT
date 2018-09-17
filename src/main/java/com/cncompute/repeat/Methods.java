@@ -294,6 +294,11 @@ public class Methods {
 	public void sendPage(Page page,String pag,int starting,int end,int index,HttpServletRequest request,String jnum) {
 		int eachnum =3;//每页显示几页数据*
 		int Pages=page.getPages();//总页面
+		if(Pages==0) {
+			request.setAttribute("sta", 1);//起始页面
+			request.setAttribute("end", 1);//结束页面
+			return;
+		}
 		if(!("".equals(jnum)||jnum==null)) {
 			if(Pages>eachnum) {
 			    request.setAttribute("sta", Pages-eachnum+1);
@@ -302,11 +307,6 @@ public class Methods {
 			    request.setAttribute("sta", 1);
 				request.setAttribute("end", Pages);
 			}
-			return;
-		}
-		if(Pages==0) {
-			request.setAttribute("sta", 1);//起始页面
-			request.setAttribute("end", 1);//结束页面
 			return;
 		}
 		if("".equals(pag)||pag==null) {

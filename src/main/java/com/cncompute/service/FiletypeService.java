@@ -13,8 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cncompute.dao.FiletypeDao;
 import com.cncompute.pojo.Filetype;
+import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Unitsystem;
 import com.cncompute.repeat.Methods;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 /**
  * 单位辐射安全规章制度模块 
  * 文件类别Service层
@@ -33,7 +36,25 @@ public class FiletypeService {
 	 * @param request
 	 */
 	public void fileAll(HttpServletRequest request) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Filetype> file =fileDao.fileAll();
+			index=(file.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
 		List<Filetype> file =fileDao.fileAll();
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
 	    request.setAttribute("fileall", file);
 	}
 	/**
@@ -103,7 +124,25 @@ public class FiletypeService {
 	 * @param flid
 	 */
 	public void viewFile(HttpServletRequest request,String flid) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Filetype>fileall= fileDao.fileIdall(flid);
+			index=(fileall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
 		List<Filetype>fileall= fileDao.fileIdall(flid);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("fileall", fileall);
 		sendfileid(request,flid);
 	}

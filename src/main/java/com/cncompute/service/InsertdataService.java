@@ -18,6 +18,8 @@ import com.cncompute.pojo.Insertdata;
 import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Staffinformation;
 import com.cncompute.repeat.Methods;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 工作人员职业健康情况表的Service层
@@ -124,6 +126,23 @@ public class InsertdataService {
      * @param request
      */
     public void queryAll(HttpServletRequest request) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Insertdata>lnser= inserdao.queryAll();
+			index=(lnser.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
     	List<Insertdata>lnser= inserdao.queryAll();
     	for (Insertdata insertdata : lnser) {
             if(insertdata.getInresults()>5) {
@@ -138,6 +157,7 @@ public class InsertdataService {
             }
 		}
     	request.setAttribute("lnser", lnser);
+    	methods.sendPage(page, pag, starting, end, index, request, jnum);
     }
     /**
      * 删除员工辐射记录

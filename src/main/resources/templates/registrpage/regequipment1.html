@@ -68,8 +68,25 @@
                                         </tbody>
                                     </table>
                             <div style="margin: 0 auto; width: 200px;">
+                        <nav aria-label="Page navigation">
+							<ul class="pagination">
+								<li>
+								<a th:href="@{/reequip(sta=${sta},retable=1)}" aria-label="Previous"> 
+								<span aria-hidden="true">&laquo;</span>
+								</a>
+								</li>
+								<li th:each="i : ${#numbers.sequence(sta, end)}">
+								<a  th:href="@{/reequip(newpaging=${i},retable=1)}"  >
+								<span  th:text="${i}"></span>
+								</a>
+								</li>
+								<li><a th:href="@{/reequip(end=${end},retable=1)}" aria-label="Next"> 
+								<span aria-hidden="true">&raquo;</span>
+								</a>
+								</li>
+							</ul>
 						</nav>
-						</div>
+                    </div>
                                 </div>
                             </div>
                         </div>
