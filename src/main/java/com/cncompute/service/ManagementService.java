@@ -140,7 +140,6 @@ public class ManagementService {
 			page = PageHelper.startPage(index, each);
 		}
 		
-		
 		List<Management> manAll = mangdao.queryMang();
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("install", manAll);
