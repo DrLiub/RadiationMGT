@@ -93,6 +93,11 @@ public class UserController {
 	public String index(HttpServletRequest request) {
 		return "login";
 	}
+	/**
+	 * 主页面
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "main", method = RequestMethod.GET)
 	public String main(HttpServletRequest request) {
 		String userid=methods.getUser(request);

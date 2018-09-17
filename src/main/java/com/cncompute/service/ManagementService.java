@@ -37,7 +37,13 @@ public class ManagementService {
 	 * @param response
 	 * @throws IOException
 	 */
-	public void personnel(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void personnel(HttpServletRequest request, HttpServletResponse response)  {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		// List<Management> manall=mangdao.queryMang();//查询Management表所有内容
 		String maid = "jg" + Methods.getUUID();// 表ID
 		String mainformation = "xl" + Methods.getUUID();// 信息ID
@@ -45,6 +51,10 @@ public class ManagementService {
 		String maname = request.getParameter("maname");// 机构名称
 		String mahead = request.getParameter("mahead");// 负责人
 		String maphone = request.getParameter("maphone");// 电话
+		if("".equals(maname)||maname==null) {
+			pw.print("2");//机构名称非空
+			return;
+		}
 		Date matime = methods.getTime();// 当前时间
 		String mauserid = methods.getUser(request);// 当前登录ID
 		Integer mastate = 1;// 表状态0删除1正常
@@ -59,7 +69,7 @@ public class ManagementService {
 		man.setMauserid(mauserid);
 		man.setMastate(mastate);
 		mangdao.insertMangemen(man);// 保存到数据库
-		addManagement(request, maid);
+		addManagement(request, maid,response);
 	}
 
 	/**
@@ -68,7 +78,13 @@ public class ManagementService {
 	 * @param request
 	 * @param peid
 	 */
-	public void addManagement(HttpServletRequest request, String peid) {
+	public void addManagement(HttpServletRequest request, String peid,HttpServletResponse response) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		String[] peusername = request.getParameterValues("peusername");// 姓名
 		String[] pemanagement = request.getParameterValues("pemanagement");// 管理岗位
 		String[] pegender = request.getParameterValues("pegender");// 性别
@@ -113,6 +129,7 @@ public class ManagementService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		pw.print("1");
 	}
 
 	/**
@@ -172,7 +189,7 @@ public class ManagementService {
 	 * @param maid
 	 */
 	public void sendInformation(String maid, HttpServletRequest request) {
-		int each =4; //每页显示条数*
+		int each =3; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数
 		int starting=1;//起始页面

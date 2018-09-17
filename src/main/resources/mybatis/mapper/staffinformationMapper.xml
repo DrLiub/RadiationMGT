@@ -78,6 +78,6 @@
 	</update>
 	<!-- 查询全部信息 -->
 	<select id="stallAll" resultMap="StaffinformationMap">
-		select * FROM staffinformation where ststate='1' ORDER BY sttime DESC ,stoverdueyn DESC
+		SELECT * FROM staffinformation WHERE ststate='1' ORDER BY stoverdueyn DESC,sttime DESC 
 	</select>
 </mapper>  

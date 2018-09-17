@@ -3,6 +3,8 @@ package com.cncompute.web;
 import java.text.ParseException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.ws.http.HTTPBinding;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,11 +56,9 @@ public class StaffinformationController {
 	 * @return
 	 * @throws ParseException
 	 */
-	@RequestMapping(value="addst",method=RequestMethod.POST)
-	public String addst(HttpServletRequest request) throws ParseException  {
-		staffservice.addStaff(request);
-		staffservice.sendStaff(request);
-	    return "institutionspage/staffpeople";
+	@RequestMapping(value="stadd",method=RequestMethod.POST)
+	public void addst(HttpServletRequest request,HttpServletResponse response) throws ParseException  {
+		staffservice.addStaff(request,response);
 	}
 	/**
 	 * 删除工作人员信息人员信息

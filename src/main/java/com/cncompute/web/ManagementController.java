@@ -1,19 +1,14 @@
 package com.cncompute.web;
 
 import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import com.cncompute.pojo.Management;
-import com.cncompute.repeat.Methods;
 import com.cncompute.service.ManagementService;
-
 /**
  * 管理机构管理人员控制层
  * @author 劉
@@ -46,10 +41,8 @@ public class ManagementController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="manag",method=RequestMethod.POST)
-	public String registeredPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	public void registeredPost(HttpServletRequest request, HttpServletResponse response) {
 		mangservice.personnel(request,response);
-		mangservice.sendMang(request);
-	    return "institutionspage/institution";
 	}
 	/**
 	 * 辐射管理机构构成页面
@@ -106,7 +99,7 @@ public class ManagementController {
 	 * @return
 	 */
 	@RequestMapping(value="mpeople",method=RequestMethod.GET)
-	public String manPeople(HttpServletRequest request, HttpServletResponse response)  {
+	public String manPeople(HttpServletRequest request)  {
 //		String userid=methods.getUser(request);
 //		if("".equals(userid)||userid==null) {
 //			return "login";
@@ -136,11 +129,9 @@ public class ManagementController {
 	 * @return
 	 */
 	@RequestMapping(value="addmanag",method=RequestMethod.POST)
-	public String addManag(HttpServletRequest request, HttpServletResponse response)  {
+	public void addManag(HttpServletRequest request, HttpServletResponse response)  {
 		String peid=request.getParameter("type");
-		mangservice.addManagement(request,peid);
-		mangservice.setMpeople(request);
-	    return "institutionspage/managpeople";
+		mangservice.addManagement(request,peid,response);
 	}
 	/**
 	 * 删除辐射管理人员界面

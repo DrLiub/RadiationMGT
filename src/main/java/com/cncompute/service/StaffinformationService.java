@@ -84,7 +84,13 @@ public class StaffinformationService {
 	 * @param request
 	 * @throws ParseException
 	 */
-	public void addStaff(HttpServletRequest request) throws ParseException {
+	public void addStaff(HttpServletRequest request,HttpServletResponse response) throws ParseException {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		String stid = request.getParameter("type");// 表ID
 		String stnumber = Methods.getUUID();// 信息编号
 		String stinstitutions = Methods.getUUID();// 机构编号
@@ -149,6 +155,8 @@ public class StaffinformationService {
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
+				pw.print("2");//录入培训毕业时间
+				return;
 			}
 			try {
 				staff.setStsecurity((String) list1.get(i));
@@ -160,6 +168,7 @@ public class StaffinformationService {
 			staff.setSttime(sttime);
 			staff.setStstate(1);
 			staffDao.addStaff(staff);
+			pw.print("1");
 		}
 	}
 
@@ -284,6 +293,28 @@ public class StaffinformationService {
 	 * @param request
 	 */
 	public void staffAll(HttpServletRequest request) {
+		List<Staffinformation> all=staffDao.stallAll();
+		for (Staffinformation sta : all) {
+			DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = null;
+				try {
+					date = format1.parse(sta.getStgraduation());
+					SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+					Date now = new Date();
+					sdf2.format(now);
+					Boolean bool = Methods.belongDate(now, date, 1460);
+					if (bool) {
+						sta.setStoverdue("是");// 证书是否过期
+						sta.setStoverdueyn(1);
+					} else {
+						sta.setStoverdue("否");// 证书是否过期
+						sta.setStoverdueyn(0);
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				staffDao.stupdate(sta);
+		}
 		int each =3; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数
