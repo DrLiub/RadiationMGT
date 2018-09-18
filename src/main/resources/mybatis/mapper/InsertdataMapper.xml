@@ -61,4 +61,9 @@
 	<select id="inserupdate" resultMap="InsertdataMap">
 	select * from insertdata where innumber=#{innumber}
 	</select>
+	
+	<!-- 模糊查询 -->
+	<select id="fuzzyQueryin" resultMap="InsertdataMap">
+	 SELECT * FROM  insertdata WHERE inname LIKE CONCAT(CONCAT("%",#{inname}),"%") AND instate='1' ORDER BY intime DESC, inquartertag DESC, inyearstag DESC
+	</select>
 </mapper>  

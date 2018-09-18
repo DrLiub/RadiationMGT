@@ -93,4 +93,19 @@ public class InsertdataController {
 	public void inexport(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		inserservice.downloadClastall(request, response);
 	}
+	/**
+	 * 查询信息
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value="inquery",method=RequestMethod.POST)
+	public String inQuery(HttpServletRequest request,HttpServletResponse response,String inname) {
+		inserservice.inQuery(request, response, inname);
+		return "institutionspage/insertdatafuzzy";
+	}
+	@RequestMapping(value="inquery",method=RequestMethod.GET)
+	public String inQueryget(HttpServletRequest request,HttpServletResponse response,String inname) {
+		inserservice.inQuery(request, response, inname);
+		return "institutionspage/insertdatafuzzy";
+	}
 }

@@ -3,29 +3,16 @@ package com.cncompute.service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.cncompute.dao.InsertdataDao;
-import com.cncompute.dao.ManagementDao;
-import com.cncompute.dao.StaffinformationDao;
-import com.cncompute.pojo.Insertdata;
-import com.cncompute.pojo.Management;
-import com.cncompute.pojo.Registrationsup;
-import com.cncompute.pojo.Staffinformation;
+import com.cncompute.dao.*;
+import com.cncompute.pojo.*;
 import com.cncompute.repeat.Methods;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.*;
 
 /**
  * 工作人员职业健康情况表的Service层
@@ -267,5 +254,46 @@ public class InsertdataService {
         response.setHeader("Content-disposition", "attachment;filename=" + fileName);
         response.flushBuffer();
         workbook.write(response.getOutputStream());
+    }
+    /**
+     * 查询
+     * @param request
+     * @param response
+     * @param chaxun
+     */
+    public void inQuery(HttpServletRequest request,HttpServletResponse response,String inname) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Insertdata> inlist = inserdao.fuzzyQueryin(inname);
+			index=(inlist.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+    	List<Insertdata> inlist = inserdao.fuzzyQueryin(inname);
+    	for (Insertdata insertdata : inlist) {
+            if(insertdata.getInresults()>5) {
+            	insertdata.setInquarcolor("color:red");
+            }else {
+            	insertdata.setInquarcolor("color:black");
+            }
+            if(insertdata.getInyears()>20) {
+            	insertdata.setInyearscolor("color:red");
+            }else {
+            	insertdata.setInyearscolor("color:black");
+            }
+		}
+    	methods.sendPage(page, pag, starting, end, index, request, jnum);
+    	request.setAttribute("inname", inname);
+    	request.setAttribute("lnser", inlist);
     }
 }

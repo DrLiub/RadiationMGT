@@ -38,4 +38,10 @@ public interface InsertdataDao {
      * @return
      */
 	public Insertdata inserupdate(String innumber);
+	/**
+	 * 通过名字迷糊查询
+	 * @param inname
+	 * @return
+	 */
+	public List<Insertdata> fuzzyQueryin(String inname);
 }
