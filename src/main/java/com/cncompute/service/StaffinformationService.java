@@ -1,5 +1,6 @@
 package com.cncompute.service;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,6 +10,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -353,4 +359,104 @@ public class StaffinformationService {
 		staffDao.stdelete(staff);
 		staffAll(request);
 	}
+	/**
+	 * 导出Excel(工作人员)
+	 * @param request
+	 * @param response
+	 * @param type
+	 * @throws IOException 
+	 */
+	public void export(HttpServletRequest request,HttpServletResponse response,String type) throws IOException {
+		Staffinformation staff = new Staffinformation();
+		staff.setStid(type);
+		List<Staffinformation> staffAll = staffDao.queryStaff(staff);
+		downloadClassmate(response, staffAll);
+	}
+	/**
+	 * 导出Excel工作人员
+	 * @param response
+	 * @param classmateList
+	 * @throws IOException
+	 */
+	public void downloadClassmate(HttpServletResponse response ,List<Staffinformation> classmateList) throws IOException {
+	        HSSFWorkbook workbook = new HSSFWorkbook();
+	        HSSFSheet sheet = workbook.createSheet("信息表");
+	        String fileName = "information"  + ".xls";//设置要导出的文件的名字
+	        //新增数据行，并且设置单元格数据
+	        int rowNum = 1;
+	        String[] headers = { "姓名", "性别", "年龄", "工作岗位", "学历及专业","培训时间", "出生日期", "培训证书编号","证书是否到期","备注"};
+	        //headers表示excel表中第一行的表头
+
+	        HSSFRow row = sheet.createRow(0);
+	        //在excel表中添加表头
+
+	        for(int i=0;i<headers.length;i++){
+	            HSSFCell cell = row.createCell(i);
+	            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+	            cell.setCellValue(text);
+	        }
+
+	        //在表中存放查询到的数据放入对应的列
+	        for (Staffinformation teacher : classmateList) {
+	            HSSFRow row1 = sheet.createRow(rowNum);
+	            row1.createCell(0).setCellValue(teacher.getStname());
+	            row1.createCell(1).setCellValue(teacher.getStgender());
+	            row1.createCell(2).setCellValue(teacher.getStage());
+	            row1.createCell(3).setCellValue(teacher.getStjobs());
+	            row1.createCell(4).setCellValue(teacher.getStschooling());
+	            row1.createCell(5).setCellValue(teacher.getSttrainingtime());
+	            row1.createCell(6).setCellValue(teacher.getStbirth());
+	            row1.createCell(7).setCellValue(teacher.getStcertificate());
+	            row1.createCell(8).setCellValue(teacher.getStoverdue());
+	            row1.createCell(9).setCellValue(teacher.getStnote());
+	            rowNum++;
+	        }
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+	        response.flushBuffer();
+	        workbook.write(response.getOutputStream());
+	    }
+	/**
+	 * 导出Excel辐射工作人员培训情况
+	 * @param response
+	 * @param classmateList
+	 * @throws IOException
+	 */
+	public void downloadClastall(HttpServletRequest request,HttpServletResponse response ) throws IOException {
+	        HSSFWorkbook workbook = new HSSFWorkbook();
+	        HSSFSheet sheet = workbook.createSheet("信息表");
+	        String fileName = "information"  + ".xls";//设置要导出的文件的名字
+	        //新增数据行，并且设置单元格数据
+	        int rowNum = 1;
+	        String[] headers = { "姓名", "性别", "年龄", "所属部门","工作岗位","培训日期","培训毕业时间", "培训证书编号", "证书是否到期"};
+	        //headers表示excel表中第一行的表头
+
+	        HSSFRow row = sheet.createRow(0);
+	        //在excel表中添加表头
+
+	        for(int i=0;i<headers.length;i++){
+	            HSSFCell cell = row.createCell(i);
+	            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+	            cell.setCellValue(text);
+	        }
+	        List<Staffinformation> classmateList=staffDao.stallAll();
+	        //在表中存放查询到的数据放入对应的列
+	        for (Staffinformation teacher : classmateList) {
+	            HSSFRow row1 = sheet.createRow(rowNum);
+	            row1.createCell(0).setCellValue(teacher.getStname());
+	            row1.createCell(1).setCellValue(teacher.getStgender());
+	            row1.createCell(2).setCellValue(teacher.getStage());
+	            row1.createCell(3).setCellValue(teacher.getStdepartment());
+	            row1.createCell(4).setCellValue(teacher.getStjobs());
+	            row1.createCell(5).setCellValue(teacher.getSttrainingtime());
+	            row1.createCell(6).setCellValue(teacher.getStgraduation());
+	            row1.createCell(7).setCellValue(teacher.getStcertificate());
+	            row1.createCell(8).setCellValue(teacher.getStoverdue());
+	            rowNum++;
+	        }
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+	        response.flushBuffer();
+	        workbook.write(response.getOutputStream());
+	    }
 }

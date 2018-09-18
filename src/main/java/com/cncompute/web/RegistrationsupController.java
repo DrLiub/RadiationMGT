@@ -88,7 +88,7 @@ public class RegistrationsupController {
 		regService.updatePost(request, reg,response);
 	}
 	/**
-	 * 导出
+	 * 导出Excel辐射环境监测设备
 	 * @param request
 	 * @param response
 	 * @param retable

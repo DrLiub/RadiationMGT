@@ -1,15 +1,14 @@
 package com.cncompute.web;
 
+import java.io.IOException;
 import java.text.ParseException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.http.HTTPBinding;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.cncompute.repeat.Methods;
 import com.cncompute.service.StaffinformationService;
 
 /**
@@ -21,8 +20,8 @@ import com.cncompute.service.StaffinformationService;
 public class StaffinformationController {
 	@Autowired
 	private StaffinformationService staffservice;
-	@Autowired
-	private Methods methods;
+//	@Autowired
+//	private Methods methods;
 	/**
 	 * 辐射工作人员显示界面
 	 * @param request
@@ -107,5 +106,25 @@ public class StaffinformationController {
 	public String stdelete(HttpServletRequest request,String type) {
 		staffservice.stdel(request,type);
 		return "institutionspage/stalltraining";
+	}
+	/**
+	 * 导出Excel(工作人员)
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	@RequestMapping(value="stexport",method=RequestMethod.GET)
+	public void export(HttpServletRequest request,HttpServletResponse response,String type) throws IOException {
+		staffservice.export(request, response, type);
+	}
+	/**
+	 * 导出Excel辐射工作人员培训情况全部
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	@RequestMapping(value="ststaff",method=RequestMethod.GET)
+	public void ststaff(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		staffservice.downloadClastall(request, response);
 	}
 }

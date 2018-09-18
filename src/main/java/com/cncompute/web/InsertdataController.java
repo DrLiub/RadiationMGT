@@ -1,5 +1,7 @@
 package com.cncompute.web;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -71,8 +73,24 @@ public class InsertdataController {
 		inserservice.inPdate(request, type);
 		return "institutionspage/inserupdate";
 	}
+	/**
+	 * 修改员工辐射记录
+	 * @param request
+	 * @param inser
+	 * @param response
+	 */
 	@RequestMapping(value="inpdaten",method=RequestMethod.POST)
 	public void inPdate(HttpServletRequest request, Insertdata inser,HttpServletResponse response)  {
 		inserservice.updatePost(request, inser, response);
+	}
+	/**
+	 * 导出Excel
+	 * @param request
+	 * @param response
+	 * @throws IOException 
+	 */
+	@RequestMapping(value="inexport",method=RequestMethod.GET)
+	public void inexport(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		inserservice.downloadClastall(request, response);
 	}
 }
