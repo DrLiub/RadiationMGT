@@ -177,8 +177,37 @@ public class OneselfContorller {
 		onservice.onModify(request, onnum);
 		return "registrpage/onentrustmodify";
 	}
-//	@RequestMapping(value="onmodifypost")
-//	public void modifyPost(HttpServletRequest request,Oneself one,HttpServletResponse response) {
-//		
-//	}
+	/**
+	 * 删除单位自行监测数据
+	 * @param request
+	 * @param meid
+	 * @return
+	 */
+	@RequestMapping(value="onenup",method=RequestMethod.GET)
+	public String enDelete(HttpServletRequest request,String enid) {
+		onservice.onDel(request, enid);
+		onservice.senDonunitpreview(request);
+		return "registrpage/onunitpreview";
+	}
+	/**
+	 * 修改单位自行监测数据-界面
+	 * @param request
+	 * @param enid
+	 * @return
+	 */
+	@RequestMapping(value="onupdatyen",method=RequestMethod.GET)
+	public String ondatyen(HttpServletRequest request,String enid) {
+		onservice.updateEn(request, enid);
+		return"registrpage/entrustqudate";
+	}
+	/**
+	 * 修改单位自行监测数据
+	 * @param request
+	 * @param response
+	 * @param entr
+	 */
+	@RequestMapping(value="onupentrust",method=RequestMethod.POST)
+	public void uodateEn(HttpServletRequest request,HttpServletResponse response,Entrust entr) {
+		onservice.updateEntrust(request, response, entr);
+	}
 }

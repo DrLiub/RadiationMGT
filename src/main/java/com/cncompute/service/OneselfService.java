@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cncompute.dao.EntrustDao;
 import com.cncompute.dao.OneselfDao;
 import com.cncompute.pojo.Entrust;
-import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Oneself;
 import com.cncompute.repeat.Methods;
 import com.github.pagehelper.Page;
@@ -324,5 +323,41 @@ public class OneselfService {
 	public void onModify(HttpServletRequest request,String onnum) {
 		Oneself one= oneselfdao.onOnid(onnum);
 		request.setAttribute("one", one);
+	}
+	/**
+	 * 删除单位自行监测数据
+	 * @param requets
+	 * @param enid
+	 */
+	public void onDel(HttpServletRequest request,String enid) {
+		Entrust entr =new Entrust();
+		entr.setEnid(enid);
+		entr.setEnstate(0);
+		entrdao.enUpdate(entr);
+	}
+	/**
+	 * 向修改单位自行监测界面发送信息
+	 * @param request
+	 * @param enid
+	 */
+	public void updateEn(HttpServletRequest request,String enid) {
+		Entrust entr=entrdao.enid(enid);
+		request.setAttribute("entr", entr);
+	}
+	/**
+	 * 修改单位自行监测数据
+	 * @param request
+	 * @param response
+	 * @param entr
+	 */
+	public void updateEntrust(HttpServletRequest request,HttpServletResponse response,Entrust entr) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		entrdao.enUpdate(entr);
+		pw.print("1");
 	}
 }

@@ -26,9 +26,20 @@
 	SELECT * FROM entrust 
 	WHERE enstate='1' ORDER BY entime DESC
 	</select>
+	
 	 <!-- 根据ID查询单位全部信息 -->
 	<select id="enid" resultMap="EntrustMap">
 	SELECT * FROM entrust 
 	WHERE enid=#{enid}
 	</select>
+	
+	<!-- 修改oneself表信息-->
+    <update id="enUpdate"  parameterType="com.cncompute.pojo.Entrust">
+    update entrust <set> 
+    <if test="entypeen!=null">entypeen=#{entypeen},</if>
+    <if test="enproject!=null">enproject=#{enproject},</if>
+    <if test="enunit!=null">enunit=#{enunit},</if>
+    <if test="enstate!=null">enstate=#{enstate}</if>
+    </set> WHERE enid=#{enid}
+	</update>
 </mapper>  

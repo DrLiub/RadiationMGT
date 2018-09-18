@@ -157,4 +157,15 @@ public class RegistrationsupService {
 		}
 		pw.print("1");
 	}
+	/**
+	 * 导出
+	 * @param request
+	 * @param response
+	 * @param retable
+	 * @throws IOException 
+	 */
+	public void export(HttpServletRequest request,HttpServletResponse response,Integer retable) throws IOException {
+		List<Registrationsup> reg = regDao.reQuery(retable);
+		methods.downloadAllClassmate(response, reg);
+	}
 }

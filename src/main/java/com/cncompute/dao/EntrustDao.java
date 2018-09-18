@@ -26,4 +26,9 @@ public interface EntrustDao {
 	 * @return
 	 */
 	public Entrust enid(String enid);
+	/**
+	 * 修改辐射监测单位表信息
+	 * @param entr
+	 */
+	public void enUpdate(Entrust entr);
 }

@@ -1,5 +1,7 @@
 package com.cncompute.web;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -84,5 +86,16 @@ public class RegistrationsupController {
 	@RequestMapping(value="reuppost",method=RequestMethod.POST)
 	public void updatePost(HttpServletRequest request,Registrationsup reg,HttpServletResponse response) {
 		regService.updatePost(request, reg,response);
+	}
+	/**
+	 * 导出
+	 * @param request
+	 * @param response
+	 * @param retable
+	 * @throws IOException 
+	 */
+	@RequestMapping(value="reexport",method=RequestMethod.GET)
+	public void export(HttpServletRequest request,HttpServletResponse response,Integer retable) throws IOException {
+		regService.export(request, response, retable);
 	}
 }

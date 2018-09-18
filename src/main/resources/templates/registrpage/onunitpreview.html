@@ -48,6 +48,7 @@
                                                 <th>负责人</th>
                                                 <th>电话</th>
                                                 <th>监测项目</th>
+                                                <th>删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -56,6 +57,11 @@
                                                 <td><span class="reducedfrom" th:text="${ena.enproject}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${ena.enunit}" ></span></td>
                                                 <td><a th:href="@{/reunit(type=${ena.enid})}">查看</a></td>
+                                                <td>
+                                                <a th:onclick="'javascript:del(\''+${ena.enid}+'\')'">删除</a>
+                                                &nbsp;&nbsp;&nbsp;
+                                                <a th:href="@{/onupdatyen(enid=${ena.enid})}">修改</a>
+                                                </td>
                                             </tr>
                    
 
@@ -84,10 +90,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                 </div>
                 <!-- /. ROW  -->
 			
@@ -116,7 +118,14 @@
     <script src="js/custom-scripts.js"></script>
 
       <script>
-    
+      function del(enid){
+    	  var r = confirm("确定要删除吗？");
+    	  if(r == true){
+    	  window.location.href="/onenup?enid="+enid;
+    	  }else{
+    	  return false;
+    	  }
+    	  }
       </script>
 
 </body>

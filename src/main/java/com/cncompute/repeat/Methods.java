@@ -20,9 +20,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.cncompute.pojo.Registrationsup;
 import com.cncompute.pojo.User;
 import com.github.pagehelper.Page;
 /**
@@ -349,5 +356,47 @@ public class Methods {
 				request.setAttribute("end", Pages);
 			}
 		}
-		}
+    	}
+	/**
+	 * 导出Excel辐射环境监测设备
+	 * @param response
+	 * @param classmateList
+	 * @throws IOException
+	 */
+	public void downloadAllClassmate(HttpServletResponse response ,List<Registrationsup> classmateList) throws IOException {
+	        HSSFWorkbook workbook = new HSSFWorkbook();
+	        HSSFSheet sheet = workbook.createSheet("信息表");
+	        String fileName = "information"  + ".xls";//设置要导出的文件的名字
+	        //新增数据行，并且设置单元格数据
+	        int rowNum = 1;
+	        String[] headers = { "仪器名称", "品牌", "型号", "购置日期", "状态", "数量", "位置信息", "管理责任人"};
+	        //headers表示excel表中第一行的表头
+
+	        HSSFRow row = sheet.createRow(0);
+	        //在excel表中添加表头
+
+	        for(int i=0;i<headers.length;i++){
+	            HSSFCell cell = row.createCell(i);
+	            HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+	            cell.setCellValue(text);
+	        }
+
+	        //在表中存放查询到的数据放入对应的列
+	        for (Registrationsup teacher : classmateList) {
+	            HSSFRow row1 = sheet.createRow(rowNum);
+	            row1.createCell(0).setCellValue(teacher.getRenameof());
+	            row1.createCell(1).setCellValue(teacher.getRebrand());
+	            row1.createCell(2).setCellValue(teacher.getRemodel());
+	            row1.createCell(3).setCellValue(teacher.getRebuytime());
+	            row1.createCell(4).setCellValue(teacher.getReitemssatte());
+	            row1.createCell(5).setCellValue(teacher.getRenum());
+	            row1.createCell(6).setCellValue(teacher.getRelocation());
+	            row1.createCell(7).setCellValue(teacher.getRehead());
+	            rowNum++;
+	        }
+	        response.setContentType("application/octet-stream");
+	        response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+	        response.flushBuffer();
+	        workbook.write(response.getOutputStream());
+	    }
 	}
