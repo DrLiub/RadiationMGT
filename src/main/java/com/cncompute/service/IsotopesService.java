@@ -367,7 +367,7 @@ public class IsotopesService {
 		List<Isotopes> raidall= isotdao.queryAux(isid);//查询安全措施表全部信息
 		for (Isotopes xra : raidall) {
 			String page=xra.getXauxiliary().getAuserial();//安全措施表编号
-			List<Object> list1 = methods.handleFileUpload(request, page, ".docx", "D://aim//");
+			List<Object> list1 = methods.handleFileUpload(request, page, "D://aim//");
 			for (Object object : list1) {
 				Xauxiliary au=new Xauxiliary();
 				au.setAuserial(page);

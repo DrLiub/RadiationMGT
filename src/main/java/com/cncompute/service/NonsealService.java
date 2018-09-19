@@ -317,7 +317,7 @@ public class NonsealService {
 		List<Nonseal> raidall= nonsealdao.queryNons(type);//查询安全措施表全部信息
 		for (Nonseal xra : raidall) {
 			String page=xra.getXauxiliary().getAuserial();//安全措施表编号
-			List<Object> list1 = methods.handleFileUpload(request, page, ".docx", "D://aim//");
+			List<Object> list1 = methods.handleFileUpload(request, page, "D://aim//");
 			for (Object object : list1) {
 				Xauxiliary au=new Xauxiliary();
 				au.setAuserial(page);

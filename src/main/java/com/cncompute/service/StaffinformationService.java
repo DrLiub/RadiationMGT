@@ -113,7 +113,7 @@ public class StaffinformationService {
     	Management man=new Management();
     	man.setMaid(stid);
     	Management manga=mandao.queryMaid(man);
-		List<Object> list1 = methods.handleFileUpload(request, "file1", ".jpg", "D://aim//");
+		List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 
 		// String stsecurity;//安全培训证书ID
 		// String stdose;//个人剂量监测结果ID
@@ -284,7 +284,7 @@ public class StaffinformationService {
 		}
 
 		try {
-			List<Object> list1 = methods.handleFileUpload(request, "file1", ".jpg", "D://aim//");
+			List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 			staff.setStsecurity((String) list1.get(0));
 		} catch (Exception e) {
 			// TODO: handle exception

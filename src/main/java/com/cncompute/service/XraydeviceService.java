@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cncompute.dao.SafetysheetDao;
 import com.cncompute.dao.XraydeviceDao;
-import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Safetysheet;
 import com.cncompute.pojo.Xaccelerator;
 import com.cncompute.pojo.Xauxiliary;
@@ -314,7 +313,7 @@ public class XraydeviceService {
 		List<Xraydevice> raidall= raydevicedao.queryRaidauxi(raid);//查询安全措施表全部信息
 		for (Xraydevice xra : raidall) {
 			String page=xra.getXauxiliary().getAuserial();//安全措施表编号
-			List<Object> list1 = methods.handleFileUpload(request, page, ".docx", "D://aim//");
+			List<Object> list1 = methods.handleFileUpload(request, page, "D://aim//");
 			for (Object object : list1) {
 				Xauxiliary au=new Xauxiliary();
 				au.setAuserial(page);

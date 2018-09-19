@@ -152,7 +152,7 @@ public class OneselfService {
 		String []noplace=request.getParameterValues("noplace");// 监测地点
 		String []notype=request.getParameterValues("notype");// 选择监测类型
 //		String []nodata=request.getParameterValues("nodata");// 监测数据地址
-		List<Object> list1 = methods.handleFileUpload(request, "file1", ".xlsx", "D://aim//");
+		List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 		for(int i=0;i<noproject.length;i++) {
 			Oneself ones=new Oneself();
 			ones.setNoid(noid);
@@ -221,7 +221,7 @@ public class OneselfService {
 	 */
 	public void onUpdate(HttpServletRequest request,Oneself one,HttpServletResponse response) {
 		try {
-			List<Object> list1 = methods.handleFileUpload(request, "file1", ".xlsx", "D://aim//");
+			List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 			one.setNodata((String)list1.get(0));
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -281,7 +281,7 @@ public class OneselfService {
 		String []nounit=request.getParameterValues("nounit");// 单位名称1
 		String []notype=request.getParameterValues("notype");// 选择监测类型1
 //		String []nodata=request.getParameterValues("nodata");// 监测数据地址1
-		List<Object> list1 = methods.handleFileUpload(request, "file1", ".xlsx", "D://aim//");
+		List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 		for(int i=0;i<noproject.length;i++) {
 			Oneself ones=new Oneself();
 			ones.setNoid("wt"+Methods.getUUID());

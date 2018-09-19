@@ -147,7 +147,7 @@ public class Methods {
 	 * address 上传地址
 	 * @return
 	 */
-	public List<Object> handleFileUpload(HttpServletRequest request, String fileName, String format, String address) {
+	public List<Object> handleFileUpload(HttpServletRequest request, String fileName, String address) {
 		List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles(fileName);
 		MultipartFile file = null;
 		String path = null;
@@ -168,8 +168,14 @@ public class Methods {
 				try {
 					byte[] bytes = file.getBytes();
 					rannumber = getUUID();
-					stream = new BufferedOutputStream(new FileOutputStream(new File(filePath + rannumber + format)));// 设置文件路径及名字
-					path = "Path/" + rannumber + format;
+					//文件名称
+					String fileName1 = file.getOriginalFilename();
+//					System.out.println(fileName1.indexOf("."));//获得某个指定的字符串值在字符串中首次出现的位置
+//					System.out.println(fileName1.substring(2, 3));
+				    //获得文件后缀名
+					String suffixName = fileName1.substring(fileName1.lastIndexOf("."));
+					stream = new BufferedOutputStream(new FileOutputStream(new File(filePath + rannumber + suffixName)));// 设置文件路径及名字
+					path = "Path/" + rannumber + suffixName;
 					list.add(path);
 					stream.write(bytes);// 写入
 					stream.close();

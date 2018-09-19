@@ -95,8 +95,8 @@ public class ManagementService {
 		String[] perecord = request.getParameterValues("perecord");// 学历
 		String[] peprofessional = request.getParameterValues("peprofessional");// 专业
 
-		List<Object> list1 = methods.handleFileUpload(request, "file1", ".jpg", "D://aim//");
-		List<Object> list2 = methods.handleFileUpload(request, "file2", ".jpg", "D://aim//");
+		List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
+		List<Object> list2 = methods.handleFileUpload(request, "file2", "D://aim//");
 
 		String peuserid = methods.getUser(request);// 当前登录用户ID
 		Date petime = methods.getTime();// 当前时间
@@ -270,13 +270,13 @@ public class ManagementService {
 		per.setPerecord(perecord);
 		per.setPeprofessional(peprofessional);
 		try {
-			List<Object> list1 = methods.handleFileUpload(request, "file1", ".jpg", "D://aim//");
+			List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 			per.setPecertificateid((String) list1.get(0));
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 		try {
-			List<Object> list2 = methods.handleFileUpload(request, "file2", ".jpg", "D://aim//");
+			List<Object> list2 = methods.handleFileUpload(request, "file2", "D://aim//");
 			per.setPeradiationid((String) list2.get(0));
 		} catch (Exception e) {
 			// TODO: handle exception
