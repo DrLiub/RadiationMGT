@@ -86,7 +86,6 @@ public class RegistrationsupService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String reid="jh"+Methods.getUUID();// 表ID
 		String []renameof=request.getParameterValues("renameof");;// 仪器名称
 		String []remodel=request.getParameterValues("remodel");// 型号
 		String []rebuytime=request.getParameterValues("rebuytime");// 购置日期
@@ -96,6 +95,7 @@ public class RegistrationsupService {
 		String []relocation=request.getParameterValues("relocation");;// 位置信息
 		String []rehead=request.getParameterValues("rehead");;// 管理责任人
 		for (int i=0;i<renameof.length;i++) {
+			String reid="jh"+Methods.getUUID();// 表ID
 			Registrationsup reg=new Registrationsup();
 			reg.setReid(reid);
 			reg.setRetable(retable);
@@ -138,7 +138,9 @@ public class RegistrationsupService {
 	 * @param reid
 	 */
 	public void reReid(HttpServletRequest request,String reid) {
+		System.out.println("reid="+reid);
 		Registrationsup reg=regDao.reReid(reid);
+		System.out.println("reg="+reg.getRebrand());
 		request.setAttribute("reg", reg);
 	}
 	/**

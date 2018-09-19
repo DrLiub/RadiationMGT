@@ -16,6 +16,7 @@
         	<result column="retime" property="retime" jdbcType="DATE"/> 
         	<result column="restate" property="restate" jdbcType="INTEGER" />
 	</resultMap>
+	
 	<!-- 插入表信息 -->
 	<insert id="reInsert" parameterType="Registrationsup">
 	INSERT INTO registrationsup 
@@ -28,6 +29,7 @@
 	 #{reitemssatte},#{renum},#{rebrand},#{relocation},#{rehead},
 	 #{reuserid},now(),#{restate})
 	</insert>
+	
 	<!-- 根据表编号查询监测设备、报警仪器和辐射防护用品信息 -->
 	<select id="reQuery" resultMap="RegistrationsupMap">
 	SELECT * FROM registrationsup 
@@ -40,11 +42,12 @@
     restate='0'
     </set>  WHERE reid=#{reid}
 	</update>
+	
 	<!-- 根据reid查询信息 -->
 	<select id="reReid" resultMap="RegistrationsupMap">
-	SELECT * FROM registrationsup 
-	WHERE  reid=#{reid} 
+	SELECT * FROM registrationsup WHERE  reid=#{reid} AND restate='1'
 	</select>
+	
 	<!-- 修改监测设备、报警仪器和辐射防护用品表信息-->
     <update id="reUpdate"  parameterType="Registrationsup">
     update registrationsup <set> 
