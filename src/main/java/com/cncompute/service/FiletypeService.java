@@ -10,10 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.cncompute.dao.FiletypeDao;
 import com.cncompute.pojo.Filetype;
-import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Unitsystem;
 import com.cncompute.repeat.Methods;
 import com.github.pagehelper.Page;

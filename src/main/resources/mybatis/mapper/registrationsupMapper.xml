@@ -61,4 +61,10 @@
     <if test="rehead!=null">rehead=#{rehead}</if>
     </set>  WHERE  reid=#{reid} 
 	</update>
+	
+	<!-- 模糊查询 -->
+	<select id="fuzzyQueryre" resultMap="RegistrationsupMap">
+	 SELECT * FROM  registrationsup 
+     WHERE  CONCAT(renameof,rebrand,rehead) LIKE CONCAT(CONCAT("%",#{name}),"%") AND restate='1' AND retable=#{retable} ORDER BY retime DESC
+	</select>
 </mapper>  

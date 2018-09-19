@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -126,5 +125,16 @@ public class StaffinformationController {
 	@RequestMapping(value="ststaff",method=RequestMethod.GET)
 	public void ststaff(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		staffservice.downloadClastall(request, response);
+	}
+	/**
+	 * 辐射工作人员培训情况-模糊查询
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="stfuzzyquery",method=RequestMethod.GET)
+	public String fuzzyQuery(HttpServletRequest request,HttpServletResponse response,String name) {
+		staffservice.fuzzyQueryst(request, response, name);
+		return"institutionspage/stalltrainingfuzzy";
 	}
 }

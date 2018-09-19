@@ -99,4 +99,14 @@ public class RegistrationsupController {
 	public void export(HttpServletRequest request,HttpServletResponse response,Integer retable) throws IOException {
 		regService.export(request, response, retable);
 	}
+	/**
+	 * 模糊查询
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value="requery",method=RequestMethod.GET)
+	public String requery(HttpServletRequest request,String name,Integer retable) {
+		regService.fuzzy(request, name, retable);
+		return"registrpage/regequipmentfuzzy"+retable;
+	}
 }

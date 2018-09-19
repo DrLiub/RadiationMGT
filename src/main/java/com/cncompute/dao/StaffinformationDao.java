@@ -40,4 +40,11 @@ public interface StaffinformationDao {
 	 * @return
 	 */
 	public  List<Staffinformation> stallAll();
+	/**
+	 * 模糊查询
+	 * @param name
+	 * @return
+	 */
+	public  List<Staffinformation> fuzzyQueryst(String name);
+	
 }

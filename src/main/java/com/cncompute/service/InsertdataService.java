@@ -256,7 +256,7 @@ public class InsertdataService {
         workbook.write(response.getOutputStream());
     }
     /**
-     * 查询
+     * 模糊查询
      * @param request
      * @param response
      * @param chaxun

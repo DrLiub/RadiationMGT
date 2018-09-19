@@ -36,4 +36,10 @@ public interface RegistrationsupDao {
 	 * @return
 	 */
 	public Registrationsup reReid(String reid);
+	/**
+	 * 模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Registrationsup> fuzzyQueryre(String name,Integer retable);
 }

@@ -459,4 +459,40 @@ public class StaffinformationService {
 	        response.flushBuffer();
 	        workbook.write(response.getOutputStream());
 	    }
+	/**
+	 * 模糊查询
+	 * @param request
+	 * @param response
+	 * @param name
+	 */
+	public void fuzzyQueryst(HttpServletRequest request,HttpServletResponse response,String name) {
+		int each =3; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Staffinformation> staff= staffDao.fuzzyQueryst(name);
+			index=(staff.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		List<Staffinformation> staff= staffDao.fuzzyQueryst(name);
+		for (Staffinformation staffin : staff) {
+			if(staffin.getStoverdue().equals("是")) {
+				staffin.setColor("color:red");
+			}else {
+				staffin.setColor("color:black");
+			}
+		}
+		request.setAttribute("staff", staff);
+		request.setAttribute("name", name);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
+	}
 }
