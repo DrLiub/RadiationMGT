@@ -45,6 +45,14 @@
         	<result column="seuserid" property="seuserid" jdbcType="VARCHAR"/>   
         	<result column="setime" property="setime" jdbcType="DATE" />  
         	<result column="sestate" property="sestate" jdbcType="INTEGER" />  
+        	
+        	<result column="sefactory" property="sefactory" jdbcType="VARCHAR"/> 
+        	<result column="seoutfactory" property="seoutfactory" jdbcType="VARCHAR"/> 
+        	<result column="seproduction" property="seproduction" jdbcType="VARCHAR"/> 
+        	<result column="secoding" property="secoding" jdbcType="VARCHAR"/> 
+        	<result column="seuse" property="seuse" jdbcType="VARCHAR"/> 
+        	<result column="sedecay" property="sedecay" jdbcType="VARCHAR"/> 
+        	<result column="seactivity" property="seactivity" jdbcType="VARCHAR"/> 
 		    </association>
 		    
 		<!-- 辅助决策  -->
@@ -109,7 +117,7 @@
 	SELECT 
 	s.seid,s.seentry,s.sename,s.selive,s.senumber,
 	s.sephysical,s.secategory,s.seoperation,s.seplace,s.secountry,
-	s.setablename
+	s.setablename,s.sefactory,s.seoutfactory,s.seproduction,s.secoding,s.seuse,s.sedecay,s.seactivity
 	FROM isotopes i LEFT JOIN sealentry s
 	ON i.isid=s.seid
 	WHERE s.seid=#{seid} AND s.sestate='1' AND i.isstate='1' ORDER BY s.setime DESC
@@ -120,7 +128,7 @@
 	SELECT 
 	s.seid,s.seentry,s.sename,s.selive,s.senumber,
 	s.sephysical,s.secategory,s.seoperation,s.seplace,s.secountry,
-	s.setablename
+	s.setablename,s.sefactory,s.seoutfactory,s.seproduction,s.secoding,s.seuse,s.sedecay,s.seactivity
 	FROM isotopes i LEFT JOIN sealentry s
 	ON i.isid=s.seid
 	WHERE s.seentry=#{seentry} AND s.sestate='1' AND i.isstate='1' ORDER BY s.setime DESC
@@ -138,7 +146,15 @@
     <if test="seplace!=null">seplace=#{seplace},</if>
     <if test="secountry!=null">secountry=#{secountry},</if>
     <if test="setablename!=null">setablename=#{setablename},</if>
-    <if test="sestate!=null">sestate=#{sestate}</if>
+    <if test="sestate!=null">sestate=#{sestate},</if>
+    
+    <if test="sefactory!=null">sefactory=#{sefactory},</if>
+    <if test="seoutfactory!=null">seoutfactory=#{seoutfactory},</if>
+    <if test="seproduction!=null">seproduction=#{seproduction},</if>
+    <if test="secoding!=null">secoding=#{secoding},</if>
+    <if test="seuse!=null">seuse=#{seuse},</if>
+    <if test="sedecay!=null">sedecay=#{sedecay},</if>
+    <if test="seactivity!=null">seactivity=#{seactivity}</if>
     </set>  WHERE seentry=#{seentry}
 	</update>
 	
@@ -187,12 +203,15 @@
 	INSERT INTO sealentry 
 	(seid,seentry,sename,selive,senumber,
 	 sephysical,secategory,seoperation,seplace,secountry,
-	 setablename,seuserid,setime,sestate
+	 setablename,seuserid,setime,sestate,
+	 sefactory,seoutfactory,seproduction,secoding,seuse,sedecay,seactivity
 	) 
 	VALUES 
 	(#{seid},#{seentry},#{sename},#{selive},#{senumber},
 	 #{sephysical},#{secategory},#{seoperation},#{seplace},#{secountry},
-	 #{setablename},#{seuserid},now(),1)
+	 #{setablename},#{seuserid},now(),1,
+	 #{sefactory},#{seoutfactory},#{seproduction},#{secoding},#{seuse},#{sedecay},#{seactivity}
+	 )
 	</insert>
 	
 	<!-- 通过ID查询辅助决策全部信息 -->

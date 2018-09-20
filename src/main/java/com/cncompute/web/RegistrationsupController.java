@@ -73,7 +73,6 @@ public class RegistrationsupController {
 	 */
 	@RequestMapping(value="reupdate",method=RequestMethod.GET)
 	public String reuPdate(HttpServletRequest request,Integer retable,String reid) {
-		System.out.println(2222);
 		regService.reReid(request,reid);
 		return "registrpage/reupdate"+retable;
 	}

@@ -26,13 +26,25 @@ public class Sealentry implements Serializable {
 	private String seuserid;// 当前登录ID
 	private Date setime;//当前时间
 	private Integer sestate;// 状态：0删除1正常
+	
+	private String sefactory;//生产厂家
+	private String seoutfactory;//出厂活度（Bq）
+	private String seproduction;//生产日期
+	private String secoding;//出厂编码
+	private String seuse;//用途
+	private String sedecay;//衰变常数
+	private String seactivity;//当前活度值
+	
 	private Isotopes isotopes;//放射性同位素
 	Set<Isotopes> isotopess=new HashSet<Isotopes>();
 	public Sealentry() {
 	}
 	public Sealentry(String seid, String seentry, String sename, String selive, String senumber, String sephysical,
 			String secategory, String seoperation, String seplace, String secountry, String setablename,
-			String seuserid, Date setime, Integer sestate, Isotopes isotopes, Set<Isotopes> isotopess) {
+			String seuserid, Date setime, Integer sestate, String sefactory, String seoutfactory, String seproduction,
+			String secoding, String seuse, String sedecay, String seactivity, Isotopes isotopes,
+			Set<Isotopes> isotopess) {
+		super();
 		this.seid = seid;
 		this.seentry = seentry;
 		this.sename = sename;
@@ -47,6 +59,13 @@ public class Sealentry implements Serializable {
 		this.seuserid = seuserid;
 		this.setime = setime;
 		this.sestate = sestate;
+		this.sefactory = sefactory;
+		this.seoutfactory = seoutfactory;
+		this.seproduction = seproduction;
+		this.secoding = secoding;
+		this.seuse = seuse;
+		this.sedecay = sedecay;
+		this.seactivity = seactivity;
 		this.isotopes = isotopes;
 		this.isotopess = isotopess;
 	}
@@ -133,6 +152,48 @@ public class Sealentry implements Serializable {
 	}
 	public void setSestate(Integer sestate) {
 		this.sestate = sestate;
+	}
+	public String getSefactory() {
+		return sefactory;
+	}
+	public void setSefactory(String sefactory) {
+		this.sefactory = sefactory;
+	}
+	public String getSeoutfactory() {
+		return seoutfactory;
+	}
+	public void setSeoutfactory(String seoutfactory) {
+		this.seoutfactory = seoutfactory;
+	}
+	public String getSeproduction() {
+		return seproduction;
+	}
+	public void setSeproduction(String seproduction) {
+		this.seproduction = seproduction;
+	}
+	public String getSecoding() {
+		return secoding;
+	}
+	public void setSecoding(String secoding) {
+		this.secoding = secoding;
+	}
+	public String getSeuse() {
+		return seuse;
+	}
+	public void setSeuse(String seuse) {
+		this.seuse = seuse;
+	}
+	public String getSedecay() {
+		return sedecay;
+	}
+	public void setSedecay(String sedecay) {
+		this.sedecay = sedecay;
+	}
+	public String getSeactivity() {
+		return seactivity;
+	}
+	public void setSeactivity(String seactivity) {
+		this.seactivity = seactivity;
 	}
 	public Isotopes getIsotopes() {
 		return isotopes;

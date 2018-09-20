@@ -41,7 +41,6 @@
                                         <thead>
                                             <tr>
 											    <th>放射源名称</th>
-                                                <th>开放性同位素</th>
                                                 <th>密封源</th>
 												<th>辅助决策</th>
 											    <th>查看详情</th>
@@ -51,7 +50,6 @@
                                         <tbody>
                                             <tr  th:each="isot:${isotall}">
                                                 <td><span class="reducedfrom" th:text="${isot.isentry}" ></span></td>
-                                                <td><a th:href="@{/isopen(type=${isot.isid})}">录入</a></td>
 												<td><a th:href="@{/issource(type=${isot.isid})}">录入</a></td>
 												<td><a th:href="@{/isauxiliary(type=${isot.isid})}">添加</a></td>
 												<td><a th:href="@{/isdetails(type=${isot.isid})}">详情</a></td>

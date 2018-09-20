@@ -11,12 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cncompute.dao.IsotopesDao;
 import com.cncompute.dao.SafetysheetDao;
 import com.cncompute.dao.XraydeviceDao;
-import com.cncompute.pojo.Isotopes;
-import com.cncompute.pojo.Management;
-import com.cncompute.pojo.Radioactiveentry;
-import com.cncompute.pojo.Safetysheet;
-import com.cncompute.pojo.Sealentry;
-import com.cncompute.pojo.Xauxiliary;
+import com.cncompute.pojo.*;
 import com.cncompute.repeat.Methods;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -195,6 +190,14 @@ public class IsotopesService {
 		String []seoperation=request.getParameterValues("seoperation");
 		String []seplace=request.getParameterValues("seplace");
 		String []secountry=request.getParameterValues("secountry");
+		
+		String []sefactory=request.getParameterValues("sefactory");//生产厂家
+		String []seoutfactory=request.getParameterValues("seoutfactory");//出厂活度（Bq）
+		String []seproduction=request.getParameterValues("seproduction");//生产日期
+		String []secoding=request.getParameterValues("secoding");//出厂编码
+		String []seuse=request.getParameterValues("seuse");//用途
+		String []sedecay=request.getParameterValues("sedecay");//衰变常数
+		String seactivity=null;//当前活度值
 		for (int i=0;i<sename.length;i++) {
 			Sealentry seal=new Sealentry();
 			seal.setSeid(isid);
@@ -208,6 +211,14 @@ public class IsotopesService {
 			seal.setSeoperation(seoperation[i]);
 			seal.setSeplace(seplace[i]);
 			seal.setSecountry(secountry[i]);
+			
+			seal.setSefactory(sefactory[i]);
+			seal.setSeoutfactory(seoutfactory[i]);
+			seal.setSeproduction(seproduction[i]);
+			seal.setSecoding(secoding[i]);
+			seal.setSeuse(seuse[i]);
+			seal.setSedecay(sedecay[i]);
+//			String seactivity=null;//当前活度值
 			isotdao.sealeAdd(seal);
 		}
 		pw.print("1");

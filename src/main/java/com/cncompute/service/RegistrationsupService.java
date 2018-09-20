@@ -137,9 +137,7 @@ public class RegistrationsupService {
 	 * @param reid
 	 */
 	public void reReid(HttpServletRequest request,String reid) {
-		System.out.println("reid="+reid);
 		Registrationsup reg=regDao.reReid(reid);
-		System.out.println("reg="+reg.getRebrand());
 		request.setAttribute("reg", reg);
 	}
 	/**

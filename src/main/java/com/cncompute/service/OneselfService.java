@@ -161,7 +161,6 @@ public class OneselfService {
 			ones.setNoproject(noproject[i]);// 监测项目名称
 			ones.setNonumber(nonumber[i]);
 			try {
-				System.out.println("time="+notimeno[i]);
 				ones.setNotimeno(notimeno[i]);
 			} catch (Exception e) {
 				// TODO: handle exception
