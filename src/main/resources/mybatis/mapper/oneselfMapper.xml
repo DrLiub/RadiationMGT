@@ -16,19 +16,21 @@
         	<result column="notime" property="notime" jdbcType="DATE"/> 
         	<result column="nostate" property="nostate" jdbcType="INTEGER" />
         	<result column="nonumberid" property="nonumberid" jdbcType="VARCHAR" />
+        	<result column="maplng" property="maplng" jdbcType="VARCHAR" />
+        	<result column="maplat" property="maplat" jdbcType="VARCHAR" />
 	</resultMap>
 	<!-- 插入表信息 -->
 	<insert id="onInsert" parameterType="Oneself">
 	INSERT INTO oneself 
 	(noid,notag,nounit,noproject,nonumber,
 	 notimeno,nopeople,noplace,notype,nodata,
-	 nouserid,notime,nostate,nonumberid
+	 nouserid,notime,nostate,nonumberid,maplng,maplat
 	) 
 	VALUES 
 	(#{noid},#{notag},#{nounit},#{noproject},#{nonumber},
 	#{notimeno},
 	#{nopeople},#{noplace},#{notype},#{nodata},
-	 #{nouserid},now(),#{nostate},#{nonumberid})
+	 #{nouserid},now(),#{nostate},#{nonumberid},#{maplng},#{maplat})
 	 </insert>
 	 
 	<!-- 根据表编号查oneself表信息 1位单位2位委托 -->
@@ -64,7 +66,9 @@
     <if test="nopeople!=null">nopeople=#{nopeople},</if>
     <if test="noplace!=null">noplace=#{noplace},</if>
     <if test="notype!=null">notype=#{notype},</if>
-    <if test="nodata!=null">nodata=#{nodata}</if>
+    <if test="nodata!=null">nodata=#{nodata},</if>
+    <if test="nodata!=null">maplng=#{maplng},</if>
+    <if test="nodata!=null">maplat=#{maplat}</if>
     </set> WHERE nonumberid=#{nonumberid}
 	</update>
 </mapper>  

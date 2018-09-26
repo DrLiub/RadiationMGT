@@ -30,8 +30,9 @@
 
 	<!--查询所有信息 -->
 	<select id="queryStaff" resultMap="StaffinformationMap">
-		select * FROM staffinformation where ststate='1' and stid=#{stid} ORDER BY sttime DESC ,stoverdueyn DESC
+		select * FROM staffinformation where ststate='1'  ORDER BY sttime DESC ,stoverdueyn DESC
 	</select>
+	
 	<!-- 根据stnumber查询员工所以信息 -->
 	<select id="stquery" resultMap="StaffinformationMap">
 		select * FROM staffinformation where stnumber=#{stnumber} 
@@ -57,7 +58,8 @@
     ststate='0'
     </set>  WHERE stnumber=#{stnumber}
 	</update>
-	    <!-- 修改辐射管理人员信息-->
+	
+	<!-- 修改辐射管理人员信息-->
     <update id="stupdate"  parameterType="Staffinformation">
     update staffinformation <set> 
     <if test="stname!=null">stname=#{stname},</if>

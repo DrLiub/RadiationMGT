@@ -46,7 +46,7 @@
                                                 <th>负责人</th>
                                                 <th>电话</th>
                                                 <th>管理人员</th>
-                                                <th>工作人员</th>
+                                               
                                                 <th>删除/修改</th>
                                             </tr>
                                         </thead>
@@ -56,7 +56,7 @@
                                                 <td><span class="reducedfrom" th:text="${institutions.mahead}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${institutions.maphone}" ></span></td>
                                                 <td><a th:href="@{/mpeople(type=${institutions.maid})}">查看</a></td>
-                                                <td><a th:href="@{/staff(type=${institutions.maid})}">查看</a></td>
+                                                
                                                 <td><a th:onclick="'javascript:del(\''+${institutions.maid}+'\');'">删除</a>
                                                   &nbsp;
                                                 <a th:href="@{/maupdate(type=${institutions.maid})}">修改</a></td>

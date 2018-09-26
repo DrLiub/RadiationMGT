@@ -37,9 +37,8 @@ public class InsertdataController {
 	 * @return
 	 */
 	@RequestMapping(value="ininsert",method=RequestMethod.POST)
-	public String stinsertPost(HttpServletRequest request) {
-		inserservice.inInsert(request);
-		return"institutionspage/staffpeople";
+	public void stinsertPost(HttpServletRequest request,HttpServletResponse response) {
+		inserservice.inInsert(request,response);
 	}
 	/**
 	 * 辐射工作人员培训情况界面
@@ -103,6 +102,13 @@ public class InsertdataController {
 		inserservice.inQuery(request, response, inname);
 		return "institutionspage/insertdatafuzzy";
 	}
+	/**
+	 * 模糊查询
+	 * @param request
+	 * @param response
+	 * @param inname
+	 * @return
+	 */
 	@RequestMapping(value="inquery",method=RequestMethod.GET)
 	public String inQueryget(HttpServletRequest request,HttpServletResponse response,String inname) {
 		inserservice.inQuery(request, response, inname);

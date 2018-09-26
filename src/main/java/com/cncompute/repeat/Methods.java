@@ -297,7 +297,7 @@ public class Methods {
     /**
      * 分页
      * @param page
-     * @param pag 当前页数
+     * @param pag 当前页数页面传来
      * @param starting 起始页面
      * @param end 末尾页数
      * @param index 当前页数

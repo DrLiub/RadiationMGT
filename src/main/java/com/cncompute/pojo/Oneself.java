@@ -22,11 +22,14 @@ public class Oneself implements Serializable {
 	private String notime;// 当前时间
 	private Integer nostate;// 表状态0删除1正常
 	private String nonumberid;//信息ID
+	private String maplng;//经度
+	private String maplat;//维度
+	private Integer maplong;//覆盖点个数
 	public Oneself() {
 	}
 	public Oneself(String noid, Integer notag, String nounit, String noproject, String nonumber, String notimeno,
 			String nopeople, String noplace, String notype, String nodata, String nouserid, String notime,
-			Integer nostate, String nonumberid) {
+			Integer nostate, String nonumberid, String maplng, String maplat, Integer maplong) {
 		this.noid = noid;
 		this.notag = notag;
 		this.nounit = nounit;
@@ -41,6 +44,9 @@ public class Oneself implements Serializable {
 		this.notime = notime;
 		this.nostate = nostate;
 		this.nonumberid = nonumberid;
+		this.maplng = maplng;
+		this.maplat = maplat;
+		this.maplong = maplong;
 	}
 	public String getNoid() {
 		return noid;
@@ -125,5 +131,23 @@ public class Oneself implements Serializable {
 	}
 	public void setNonumberid(String nonumberid) {
 		this.nonumberid = nonumberid;
+	}
+	public String getMaplng() {
+		return maplng;
+	}
+	public void setMaplng(String maplng) {
+		this.maplng = maplng;
+	}
+	public String getMaplat() {
+		return maplat;
+	}
+	public void setMaplat(String maplat) {
+		this.maplat = maplat;
+	}
+	public Integer getMaplong() {
+		return maplong;
+	}
+	public void setMaplong(Integer maplong) {
+		this.maplong = maplong;
 	}
 }

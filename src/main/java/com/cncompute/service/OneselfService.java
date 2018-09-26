@@ -2,7 +2,9 @@ package com.cncompute.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -358,5 +360,30 @@ public class OneselfService {
 		}
 		entrdao.enUpdate(entr);
 		pw.print("1");
+	}
+	/**
+	 * 获取地图上点的位置信息
+	 * @param request
+	 * @param response
+	 * @param ones
+	 */
+	public void getMap(HttpServletRequest request,HttpServletResponse response,Oneself ones) {
+		PrintWriter pw=null;
+		try {
+			 pw= response.getWriter();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(ones.getMaplong()==1) {
+			String json= "{\"index\":1}";//用户不存在
+			pw.print(json);
+		}else if(ones.getMaplong()>1) {
+			String json= "{\"index\":2}";//用户不存在
+			pw.print(json);
+		}else if(ones.getMaplong()<1) {
+			String json= "{\"index\":3}";//用户不存在
+			pw.print(json);
+		}
 	}
 }

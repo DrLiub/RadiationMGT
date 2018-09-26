@@ -34,7 +34,13 @@ public class InsertdataService {
 	 * 插入工作人员职业健康情况
 	 * @param request
 	 */
-    public void inInsert(HttpServletRequest request) {
+    public void inInsert(HttpServletRequest request,HttpServletResponse response) {
+    	PrintWriter pw=null;
+    	try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
         String inid=request.getParameter("type");//表ID
         String innumber=Methods.getUUID();//信息编号
         double inresults = 0;
@@ -42,8 +48,10 @@ public class InsertdataService {
         	inresults= new Double(request.getParameter("inresults"));//季度剂量监测数据
 		} catch (Exception e) {
 			// TODO: handle exception
+			pw.print("2");//请检测输入是否正确
+			return;
 		}
-        Management man= queryDepartment(request);
+//        Management man= queryDepartment(request);
         Insertdata inser=new Insertdata();
         inser.setInid(inid);
         inser.setInnumber(innumber);
@@ -55,10 +63,11 @@ public class InsertdataService {
         	inser.setInquarterend("否");//季度是否过量
         	inser.setInquartertag(0);//季度：0正常1超标
         }
-        inser.setIndepartment(man.getManame());//所属部门
+//        inser.setIndepartment(man.getManame());//所属部门
 //        inser.setIntime(methods.getTime());//当前时间
         inser.setInuser(methods.getUser(request));
         inser.setInstate(1);//表状态0删除1正常
+
         Staffinformation staffid= queryStaff(inid);
         inser.setInname(staffid.getStname());//姓名
         inser.setIngender(staffid.getStgender());//性别
@@ -78,22 +87,23 @@ public class InsertdataService {
         	inser.setInyearstag(0);//年度：0正常1超标
         }
         inserdao.inupdate(inser);
-		Staffinformation staff = new Staffinformation();
-		staff.setStid(man.getMaid());
-		List<Staffinformation> staffAll = staffDao.queryStaff(staff);
-		request.setAttribute("staff", staffAll);
-		request.setAttribute("staffid", staff);
+//		Staffinformation staff = new Staffinformation();
+//		staff.setStid(man.getMaid());
+//		List<Staffinformation> staffAll = staffDao.queryStaff(staff);
+//		request.setAttribute("staff", staffAll);
+//		request.setAttribute("staffid", staff);
+		pw.print("1");
     }
     /**
      * 通过stnumber查询部门名称  返回部门对象
      * @param request
      */
-    public Management queryDepartment(HttpServletRequest request) {
-    	String stnumber=request.getParameter("type");
-    	Management man=new Management();
-    	man.setMaid(queryStaff(stnumber).getStid());
-        return mandao.queryMaid(man);
-    }
+//    public Management queryDepartment(HttpServletRequest request) {
+//    	String stnumber=request.getParameter("type");
+//    	Management man=new Management();
+//    	man.setMaid(queryStaff(stnumber).getStid());
+//        return mandao.queryMaid(man);
+//    }
     /**
      * 通过stnumber 查询员工全部信息返回员工对象
      * @param stnumber
@@ -223,7 +233,7 @@ public class InsertdataService {
         String fileName = "information"  + ".xls";//设置要导出的文件的名字
         //新增数据行，并且设置单元格数据
         int rowNum = 1;
-        String[] headers = { "姓名", "性别", "年龄", "所属部门", "监测时间", 
+        String[] headers = { "姓名", "性别", "年龄", "监测时间", 
         		"季度监测数据", "季度是否过量", "年度监测数据","年度是否过量"};
         //headers表示excel表中第一行的表头
 
@@ -242,12 +252,12 @@ public class InsertdataService {
             row1.createCell(0).setCellValue(teacher.getInname());
             row1.createCell(1).setCellValue(teacher.getIngender());
             row1.createCell(2).setCellValue(teacher.getInage());
-            row1.createCell(3).setCellValue(teacher.getIndepartment());
-            row1.createCell(4).setCellValue(teacher.getIntime());
-            row1.createCell(5).setCellValue(teacher.getInresults());
-            row1.createCell(6).setCellValue(teacher.getInquarterend());
-            row1.createCell(7).setCellValue(teacher.getInyears());
-            row1.createCell(8).setCellValue(teacher.getInyearsend());
+//            row1.createCell(3).setCellValue(teacher.getIndepartment());
+            row1.createCell(3).setCellValue(teacher.getIntime());
+            row1.createCell(4).setCellValue(teacher.getInresults());
+            row1.createCell(5).setCellValue(teacher.getInquarterend());
+            row1.createCell(6).setCellValue(teacher.getInyears());
+            row1.createCell(7).setCellValue(teacher.getInyearsend());
             rowNum++;
         }
         response.setContentType("application/octet-stream");

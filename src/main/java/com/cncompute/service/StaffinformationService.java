@@ -98,7 +98,7 @@ public class StaffinformationService {
 			// TODO: handle exception
 		}
 		String stid = request.getParameter("type");// 表ID
-		String stnumber = Methods.getUUID();// 信息编号
+		
 		String stinstitutions = Methods.getUUID();// 机构编号
 		String[] stname = request.getParameterValues("stname");// 姓名
 		String[] stgender = request.getParameterValues("stgender");// 性别
@@ -110,9 +110,9 @@ public class StaffinformationService {
 		String[] stnote = request.getParameterValues("stnote");// 备注
 		String[] stbirth = request.getParameterValues("stbirth");// 出生日期
 		String[] stgraduation = request.getParameterValues("stgraduation");// 培训毕业时间
-    	Management man=new Management();
-    	man.setMaid(stid);
-    	Management manga=mandao.queryMaid(man);
+//    	Management man=new Management();
+//    	man.setMaid(stid);
+//    	Management manga=mandao.queryMaid(man);
 		List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 
 		// String stsecurity;//安全培训证书ID
@@ -123,6 +123,7 @@ public class StaffinformationService {
 		Date sttime = methods.getTime();// 当前时间
 
 		for (int i = 0; i < stname.length; i++) {
+			String stnumber = Methods.getUUID();// 信息编号
 			Staffinformation staff = new Staffinformation();
 			staff.setStid(stid);
 			staff.setStnumber(stnumber);
@@ -132,7 +133,7 @@ public class StaffinformationService {
 			staff.setStage(stage[i]);
 			staff.setStjobs(stjobs[i]);
 			staff.setStschooling(stschooling[i]);
-			staff.setStdepartment(manga.getManame());
+//			staff.setStdepartment(manga.getManame());
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			try {
 				staff.setSttrainingtime(Methods.getStringDate(sdf.parse(sttrainingtime[i])));
@@ -174,8 +175,8 @@ public class StaffinformationService {
 			staff.setSttime(sttime);
 			staff.setStstate(1);
 			staffDao.addStaff(staff);
-			pw.print("1");
 		}
+		pw.print("1");
 	}
 
 	/**
@@ -428,7 +429,7 @@ public class StaffinformationService {
 	        String fileName = "information"  + ".xls";//设置要导出的文件的名字
 	        //新增数据行，并且设置单元格数据
 	        int rowNum = 1;
-	        String[] headers = { "姓名", "性别", "年龄", "所属部门","工作岗位","培训日期","培训毕业时间", "培训证书编号", "证书是否到期"};
+	        String[] headers = { "姓名", "性别", "年龄","工作岗位","培训日期","培训毕业时间", "培训证书编号", "证书是否到期"};
 	        //headers表示excel表中第一行的表头
 
 	        HSSFRow row = sheet.createRow(0);
@@ -446,12 +447,12 @@ public class StaffinformationService {
 	            row1.createCell(0).setCellValue(teacher.getStname());
 	            row1.createCell(1).setCellValue(teacher.getStgender());
 	            row1.createCell(2).setCellValue(teacher.getStage());
-	            row1.createCell(3).setCellValue(teacher.getStdepartment());
-	            row1.createCell(4).setCellValue(teacher.getStjobs());
-	            row1.createCell(5).setCellValue(teacher.getSttrainingtime());
-	            row1.createCell(6).setCellValue(teacher.getStgraduation());
-	            row1.createCell(7).setCellValue(teacher.getStcertificate());
-	            row1.createCell(8).setCellValue(teacher.getStoverdue());
+//	            row1.createCell(3).setCellValue(teacher.getStdepartment());
+	            row1.createCell(3).setCellValue(teacher.getStjobs());
+	            row1.createCell(4).setCellValue(teacher.getSttrainingtime());
+	            row1.createCell(5).setCellValue(teacher.getStgraduation());
+	            row1.createCell(6).setCellValue(teacher.getStcertificate());
+	            row1.createCell(7).setCellValue(teacher.getStoverdue());
 	            rowNum++;
 	        }
 	        response.setContentType("application/octet-stream");
@@ -465,7 +466,7 @@ public class StaffinformationService {
 	 * @param response
 	 * @param name
 	 */
-	public void fuzzyQueryst(HttpServletRequest request,HttpServletResponse response,String name) {
+	public void fuzzyQueryst(HttpServletRequest request,String name) {
 		int each =3; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数

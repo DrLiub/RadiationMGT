@@ -133,8 +133,19 @@ public class StaffinformationController {
 	 * @return
 	 */
 	@RequestMapping(value="stfuzzyquery",method=RequestMethod.GET)
-	public String fuzzyQuery(HttpServletRequest request,HttpServletResponse response,String name) {
-		staffservice.fuzzyQueryst(request, response, name);
+	public String fuzzyQuery(HttpServletRequest request,String name) {
+		staffservice.fuzzyQueryst(request, name);
 		return"institutionspage/stalltrainingfuzzy";
+	}
+	/**
+	 * 辐射工作人员模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="stafffuzzy",method=RequestMethod.GET)
+	public String staffFuzzy(HttpServletRequest request,String name) {
+		staffservice.fuzzyQueryst(request, name);
+		return "institutionspage/staffpeoplefuzzy";
 	}
 }

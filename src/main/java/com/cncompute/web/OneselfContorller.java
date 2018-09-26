@@ -63,7 +63,7 @@ public class OneselfContorller {
 		return "registrpage/reunit";
 	}
 	/**
-	 * 添加单位自行监测数据界面
+	 * 添加单位自行监测数据界面-室内
 	 * @param request
 	 * @param type
 	 * @return
@@ -72,6 +72,17 @@ public class OneselfContorller {
 	public String onUnitadd(HttpServletRequest request,String type) {
 		onservice.sendNoid(request, type);
 		return"registrpage/reunitadd";
+	}
+	/**
+	 * 添加单位自行监测数据界面-室外
+	 * @param request
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping(value="onoutdoor",method=RequestMethod.GET)
+	public String outdoorAdd(HttpServletRequest request,String type) {
+		onservice.sendNoid(request, type);
+		return"registrpage/reunitadd2";
 	}
 	/**
 	 * 添加添加单位自行监测数据
@@ -209,5 +220,27 @@ public class OneselfContorller {
 	@RequestMapping(value="onupentrust",method=RequestMethod.POST)
 	public void uodateEn(HttpServletRequest request,HttpServletResponse response,Entrust entr) {
 		onservice.updateEntrust(request, response, entr);
+	}
+	/**
+	 * 地图界面
+	 * @param request
+	 * @param type
+	 */
+	@RequestMapping(value="onmap",method=RequestMethod.GET)
+	public String onmap(HttpServletRequest request,String type) {
+		onservice.sendNoid(request, type);
+		return"registrpage/map";
+	}
+	/**
+	 * 添加获取覆盖物信息
+	 * @param request
+	 * @param response
+	 * @param maplng
+	 * @param maplat
+	 * @param maplong
+	 */
+	@RequestMapping(value="ongetmap",method=RequestMethod.GET)
+	public void getMap(HttpServletRequest request,HttpServletResponse response,Oneself ones) {
+		onservice.getMap(request, response, ones);
 	}
 }
