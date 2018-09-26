@@ -67,8 +67,8 @@
     <if test="noplace!=null">noplace=#{noplace},</if>
     <if test="notype!=null">notype=#{notype},</if>
     <if test="nodata!=null">nodata=#{nodata},</if>
-    <if test="nodata!=null">maplng=#{maplng},</if>
-    <if test="nodata!=null">maplat=#{maplat}</if>
+    <if test="maplng!=null">maplng=#{maplng},</if>
+    <if test="maplat!=null">maplat=#{maplat}</if>
     </set> WHERE nonumberid=#{nonumberid}
 	</update>
 </mapper>  

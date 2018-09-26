@@ -46,7 +46,6 @@
 		<input type="button" value="清除所有覆盖物" onclick="clearAll()"/>
 		<input type="hidden" th:value="${one.noid}" name="noid" id="noid"/>
 		<input type="hidden" th:value="${one.nonumberid}" name="nonumberid" id="nonumberid"/>
-		<input type="hidden" th:value="${one}" name="oneself" id="oneself"/>
 	</div>
 	<div id="index" style="text-align:center;color:red"></div>
 	<script type="text/javascript"  src="js/jquery-3.3.1.min.js"></script>
@@ -124,8 +123,8 @@
 				maplong:maplong
    	    	},function(data){
    	            if(data.index==1){
-   	            	alert("录入成功");
-   	            	window.location.href='/onoutdoor?type='+noid+'&nonumberid='+nonumberid+'&maplng='+maplng+'&maplat='+maplat;//
+   	            	alert("修改成功");
+   	            	window.location.href='/pnupmap?nonumberid='+nonumberid+'&maplng='+maplng+'&maplat='+maplat;//
    	            }else if(data.index==2){
    	            	alert("只能选择一个标记");
    	            }else if(data.index==3){
@@ -133,20 +132,18 @@
    	            }     
    	    	},"json");  
         }
-	
-	
-//城市搜索功能
-//var point = new BMap.Point(116.404, 39.915);
-//map.centerAndZoom(point, 14);
-//map.enableScrollWheelZoom();
-//map.enableInertialDragging();
 
-//map.enableContinuousZoom();
+var point = new BMap.Point(116.404, 39.915);
+map.centerAndZoom(point, 14);
+map.enableScrollWheelZoom();
+map.enableInertialDragging();
 
-//var size = new BMap.Size(10, 20);
-//map.addControl(new BMap.CityListControl({
- //   anchor: BMAP_ANCHOR_TOP_LEFT,
- //   offset: size,
+map.enableContinuousZoom();
+
+var size = new BMap.Size(10, 20);
+map.addControl(new BMap.CityListControl({
+    anchor: BMAP_ANCHOR_TOP_LEFT,
+    offset: size,
     // 切换城市之间事件
     // onChangeBefore: function(){
     //    alert('before');
@@ -155,89 +152,7 @@
     // onChangeAfter:function(){
     //   alert('after');
     // }
-//}));
-
-
-
-   // 百度地图API功能搜索功能
-    function G(id) {
-        return document.getElementById(id);
-    }
- 
-            // 初始化地图,设置城市和地图级别。
- 
-    // 定义一个控件类,即function
-    function ZoomControl() {
-        this.defaultAnchor = BMAP_ANCHOR_TOP_LEFT;
-        this.defaultOffset = new BMap.Size(10, 10);
-    }
- 
-    // 通过JavaScript的prototype属性继承于BMap.Control
-    ZoomControl.prototype = new BMap.Control();
- 
-    // 自定义控件必须实现自己的initialize方法,并且将控件的DOM元素返回
-    // 在本方法中创建个p元素作为控件的容器,并将其添加到地图容器中
-    ZoomControl.prototype.initialize = function(map){
-      // 创建一个DOM元素
-      var p = document.createElement("p");
-      p.innerHTML = '<p id="r-result">搜索地址:<input type="text" id="suggestId" size="20" value="百度" style="width:150px;" /></p><p id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></p>';
- 
-      // 添加DOM元素到地图中
-      map.getContainer().appendChild(p);
-      // 将DOM元素返回
-      return p;
-    }
- 
-    // 创建控件
-    var myZoomCtrl = new ZoomControl();
-    // 添加到地图当中
-    map.addControl(myZoomCtrl);
- 
- 
-    var ac = new BMap.Autocomplete(    //建立一个自动完成的对象
-        {"input" : "suggestId"
-        ,"location" : map
-    });
- 
-    ac.addEventListener("onhighlight", function(e) {  //鼠标放在下拉列表上的事件
-    var str = "";
-        var _value = e.fromitem.value;
-        var value = "";
-        if (e.fromitem.index > -1) {
-            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-        }
-        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
- 
-        value = "";
-        if (e.toitem.index > -1) {
-            _value = e.toitem.value;
-            value = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-        }
-        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
-        G("searchResultPanel").innerHTML = str;
-    });
- 
-    var myValue;
-    ac.addEventListener("onconfirm", function(e) {    //鼠标点击下拉列表后的事件
-    var _value = e.item.value;
-        myValue = _value.province +  _value.city +  _value.district +  _value.street +  _value.business;
-        G("searchResultPanel").innerHTML ="onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
- 
-        setPlace();
-    });
- 
-    function setPlace(){
-        map.clearOverlays();    //清除地图上所有覆盖物
-        function myFun(){
-            var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
-            map.centerAndZoom(pp, 14);
-            map.addOverlay(new BMap.Marker(pp));    //添加标注
-        }
-        var local = new BMap.LocalSearch(map, { //智能搜索
-          onSearchComplete: myFun
-        });
-        local.search(myValue);
-    }
+}));
 </script>
 </body>
 </html>

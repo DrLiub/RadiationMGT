@@ -2,9 +2,7 @@ package com.cncompute.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cncompute.dao.EntrustDao;
 import com.cncompute.dao.OneselfDao;
@@ -131,6 +130,25 @@ public class OneselfService {
 		on.setNoid(noid);
 		request.setAttribute("one", on);
 	}
+	/**
+	 * 向页面发送onid  nonumberid
+	 * @param request
+	 * @param noid
+	 */
+	public void sendNoidNonumberid(HttpServletRequest request, String noid,Oneself on) {
+		on.setNoid(noid);
+		request.setAttribute("one", on);
+	}
+	/**
+	 * 向页面发送onid  nonumberid
+	 * @param request
+	 * @param noid
+	 */
+	public void sendNonumberid(HttpServletRequest request,Oneself on,String type) {
+		on.setNonumberid(Methods.getUUID());
+		on.setNoid(type);
+		request.setAttribute("one", on);
+	}
 
 	/**
 	 * 添加添加单位自行监测数据方法
@@ -155,6 +173,12 @@ public class OneselfService {
 		String []notype=request.getParameterValues("notype");// 选择监测类型
 //		String []nodata=request.getParameterValues("nodata");// 监测数据地址
 		List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
+		for(int i=0;i<noplace.length;i++) {
+            if("".equals(noplace[i])||noplace[i]==null) {
+            	pw.print("2");
+            	return;
+            }
+		}
 		for(int i=0;i<noproject.length;i++) {
 			Oneself ones=new Oneself();
 			ones.setNoid(noid);
@@ -376,14 +400,61 @@ public class OneselfService {
 			e.printStackTrace();
 		}
 		if(ones.getMaplong()==1) {
-			String json= "{\"index\":1}";//用户不存在
+			String json= "{\"index\":1}";//一个覆盖物
 			pw.print(json);
 		}else if(ones.getMaplong()>1) {
-			String json= "{\"index\":2}";//用户不存在
+			String json= "{\"index\":2}";//覆盖物大于1
 			pw.print(json);
 		}else if(ones.getMaplong()<1) {
-			String json= "{\"index\":3}";//用户不存在
+			String json= "{\"index\":3}";//覆盖物小于1
 			pw.print(json);
 		}
+	}
+	/**
+	 * 单位自行监测数据添加--室外
+	 * @param request
+	 * @param response
+	 * @param ones
+	 */
+	public void addOutdoor(HttpServletRequest request,HttpServletResponse response,Oneself ones,MultipartFile file) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		if("".equals(ones.getNonumberid())||ones.getNonumberid()==null) {
+			pw.print("2");//没有在地图上取点
+			return;
+		}
+		ones.setNotag(1);// 1位单位2位委托
+		ones.setNouserid(methods.getUser(request));
+		ones.setNostate(1);
+		String page = methods.fileUpload(request, file);
+		if (!page.equals("文件为空")) {
+			ones.setNodata(page);
+		}
+		oneselfdao.onInsert(ones);
+		pw.print("1");
+	}
+	/**
+	 * 通过numberid向页面发送数据
+	 * @param request
+	 * @param nonumberid
+	 */
+	public void onView(HttpServletRequest request,String nonumberid) {
+		Oneself on=oneselfdao.onOnid(nonumberid);
+		request.setAttribute("one", on);
+	}
+	/**
+	 * 修改地图坐标
+	 * @param request
+	 * @param response
+	 * @param nonumberid
+	 */
+	public void updateMaplng(HttpServletRequest request,Oneself ones) {
+		oneselfdao.onUpdate(ones);
+		Oneself on=oneselfdao.onOnid(ones.getNonumberid());
+		request.setAttribute("one", on);
 	}
 }

@@ -25,18 +25,19 @@
 		<div id="page-wrapper">
 		  <div class="header"> 
                         <h1 class="page-header">
-                             <small>修改单位自行监测数据</small>
+                             <small>添加室外单位自行监测数据</small>
                         </h1>								
 		          </div>				
                     <form   method="post" enctype="multipart/form-data" id="formid">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <div class="table-responsive">		
+                                <div class="table-responsive">	
 								<input type="hidden" th:value="${one.noid}" name="noid" id="noid"/>
 								<input type="hidden" th:value="${one.nonumberid}" name="nonumberid" id="nonumberid"/>
+								<input type="hidden" th:value="${one.maplng}" name="maplng" id="maplng"/>
+								<input type="hidden" th:value="${one.maplat}" name="maplat" id="maplat"/>
 								<input type="button" class="btn btn-default"  value="提交" onclick="submitFunction()">
 								<div id="index" style="text-align:center;color:red"></div>
-								 <div id="index" style="text-align:center;color:red"></div>
                                     <table class="table table-striped table-bordered table-hover" id = "test">
                                         <thead>
 										 <thead>									
@@ -52,14 +53,12 @@
                                         </thead>
                                         <tbody>
                                             <tr >
-                                                <td><input type="text" class="form-control" th:value="${one.noproject}" placeholder="" name="noproject" ></td>
-												<td><input type="text" class="form-control" th:value="${one.nonumber}" placeholder="" name="nonumber" ></td>
-												<td><input type="date" class="form-control" th:value="${one.notimeno}" placeholder="" name="notimeno" ></td>
-												<td><input type="text" class="form-control" th:value="${one.nopeople}" placeholder="" name="nopeople" ></td>
-												<td><a th:href="@{/onviewupdate(nonumberid=${one.nonumberid})}" th:if="${one.noplace==null}">录入</a> 
-												    <input type="text" class="form-control" th:value="${one.noplace}"  name="noplace"  th:if="${one.noplace!=null}">
-												</td>
-												<td><input type="text" class="form-control" th:value="${one.notype}" placeholder="" name="notype" ></td>
+                                                <td><input type="text" class="form-control"  placeholder="" name="noproject" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nonumber" ></td>
+												<td><input type="date" class="form-control"  placeholder="" name="notimeno" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nopeople" ></td>
+												<td><a th:href="@{/onmap(type=${one.noid})}">录入</a></td>
+												<td><input type="text" class="form-control" placeholder="" name="notype" ></td>
 												<td><input type="file" class="form-control" name="file1"/></td>
                                             </tr>
                                         </tbody>
@@ -68,10 +67,8 @@
                             </div>
                         </div>
                          </form>
-											
 					 <div class="panel panel-default">
                         </div>
-
                 </div>
 				
                 <!-- /. ROW  -->
@@ -104,7 +101,7 @@
     <!-- Custom Js -->
     <script src="js/custom-scripts.js"></script>
       <script>
-      
+
       
       function submitFunction() {
   	    //这里唯一需要注意的就是这个form-add的id
@@ -112,7 +109,7 @@
   	    var formData = new FormData($("#formid")[0]);
   	    $.ajax({
   	        //接口地址
-  	        url: '/onsupdate' ,
+  	        url: '/onoutdooradd' ,
   	        type: 'POST',
   	        data: formData,
   	        async: false,
@@ -122,10 +119,10 @@
   	        success: function (data) {
   	            //成功的回调
   	            if(data== 1){
-                      alert("修改成功");
+                      alert("添加成功");
                       window.location.href='/reunit?type='+noid.val();//
   	            }else if(data== 2){
-  	            	$("#index").html("请检测数量格式是否正确");
+  	            	$("#index").html("请先在地图上取点");
   	            }else if(data== 3){
   	            	$("#index").html("请填写日期");
   	            }

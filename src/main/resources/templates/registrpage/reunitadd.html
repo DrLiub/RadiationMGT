@@ -52,12 +52,12 @@
                                         </thead>
                                         <tbody>
                                             <tr >
-                                                <td><input type="text" class="form-control" id="noproject" placeholder="" name="noproject" ></td>
-												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="nonumber" ></td>
-												<td><input type="date" class="form-control" id="exampleInputName2" placeholder="" name="notimeno" ></td>
-												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="nopeople" ></td>
-												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="noplace" ></td>
-												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="notype" ></td>
+                                                <td><input type="text" class="form-control"  placeholder="" name="noproject" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nonumber" ></td>
+												<td><input type="date" class="form-control"  placeholder="" name="notimeno" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nopeople" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="noplace" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="notype" ></td>
 												<td><input type="file" class="form-control" name="file1"/></td>
                                             </tr>
                                         </tbody>
@@ -103,7 +103,7 @@
     <script src="js/custom-scripts.js"></script>
       <script>
       $("#btn1").click(function() {
-	      var str="<tr>";
+	var str="<tr>";
    str+="<td><input type='text' class='form-control' id='pemanagement'  name='noproject' ></td>";
    str+="<td><input type='text' class='form-control' id='peusername'  name='nonumber' ></td>";
    str+="<td><input type='date' class='form-control' id='exampleInputName2' name='notimeno' ></td>";
@@ -135,7 +135,7 @@
                       alert("添加成功");
                       window.location.href='/reunit?type='+noid.val();//
   	            }else if(data== 2){
-  	            	$("#index").html("请检测数量格式是否正确");
+  	            	$("#index").html("请输入监测点位");
   	            }else if(data== 3){
   	            	$("#index").html("请填写日期");
   	            }

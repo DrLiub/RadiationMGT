@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cncompute.pojo.Entrust;
 import com.cncompute.pojo.Oneself;
@@ -80,12 +82,12 @@ public class OneselfContorller {
 	 * @return
 	 */
 	@RequestMapping(value="onoutdoor",method=RequestMethod.GET)
-	public String outdoorAdd(HttpServletRequest request,String type) {
-		onservice.sendNoid(request, type);
-		return"registrpage/reunitadd2";
+	public String outdoorAdd(HttpServletRequest request,String type,Oneself oneself) {
+		onservice.sendNoidNonumberid(request, type,oneself);
+		return"registrpage/reunitaddmap";
 	}
 	/**
-	 * 添加添加单位自行监测数据
+	 * 添加添加单位自行监测数据-室内
 	 * @param request
 	 * @param response
 	 * @param noid
@@ -227,8 +229,8 @@ public class OneselfContorller {
 	 * @param type
 	 */
 	@RequestMapping(value="onmap",method=RequestMethod.GET)
-	public String onmap(HttpServletRequest request,String type) {
-		onservice.sendNoid(request, type);
+	public String onmap(HttpServletRequest request,Oneself on,String type) {
+		onservice.sendNonumberid(request, on, type);
 		return"registrpage/map";
 	}
 	/**
@@ -242,5 +244,46 @@ public class OneselfContorller {
 	@RequestMapping(value="ongetmap",method=RequestMethod.GET)
 	public void getMap(HttpServletRequest request,HttpServletResponse response,Oneself ones) {
 		onservice.getMap(request, response, ones);
+	}
+	/**
+	 * 添加室外数据
+	 * @param request
+	 * @param response
+	 * @param ones
+	 */
+	@RequestMapping(value="onoutdooradd",method=RequestMethod.POST)
+	public void onOutdooradd(HttpServletRequest request,HttpServletResponse response,Oneself ones,@RequestParam("file1") MultipartFile file) {
+		onservice.addOutdoor(request, response, ones, file);
+	}
+	/**
+	 * 查看地图上取点位置
+	 * @param request
+	 * @param nonumberid
+	 * @return
+	 */
+	@RequestMapping(value="onview",method=RequestMethod.GET)
+	public String onView(HttpServletRequest request,String nonumberid) {
+		onservice.onView(request, nonumberid);
+		return"registrpage/maplocation";
+	}
+	/**
+	 * 修改-室外取点地图界面
+	 * @return
+	 */
+	@RequestMapping(value="onviewupdate")
+	public String onViewupdate(HttpServletRequest request,String nonumberid) {
+		onservice.onView(request, nonumberid);
+		return"registrpage/mapupdate";
+	}
+	/**
+	 * 修改-室外取点地图
+	 * @param request
+	 * @param ones
+	 * @return
+	 */
+	@RequestMapping(value="pnupmap",method=RequestMethod.GET)
+	public String updateMap(HttpServletRequest request,Oneself ones) {
+		onservice.updateMaplng(request, ones);
+		return"registrpage/reunitupdate";
 	}
 }
