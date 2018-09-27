@@ -22,6 +22,13 @@ public interface OneselfDao {
 	 */
 	public List<Oneself> onQuery(String noid, Integer notag);
 	/**
+	 * 模糊查询
+	 * @param name
+	 * @param notag
+	 * @return
+	 */
+	public List<Oneself> fuzzyOnes(String name,Integer notag);
+	/**
 	 * 根据notag查询信息返回一个集合
 	 * 1位单位2位委托
 	 * @param notag

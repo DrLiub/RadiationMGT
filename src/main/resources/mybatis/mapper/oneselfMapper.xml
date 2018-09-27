@@ -71,4 +71,10 @@
     <if test="maplat!=null">maplat=#{maplat}</if>
     </set> WHERE nonumberid=#{nonumberid}
 	</update>
+	
+	<!-- 委托监测数据模糊查询 1位单位2位委托-->
+	<select id="fuzzyOnes" resultMap="OneselfMap"> 
+	 SELECT * FROM  oneself 
+     WHERE  CONCAT(nounit,noproject,nonumber) LIKE CONCAT(CONCAT("%",#{name}),"%") AND nostate='1' AND notag=#{notag}  ORDER BY notime DESC
+	</select>
 </mapper>  

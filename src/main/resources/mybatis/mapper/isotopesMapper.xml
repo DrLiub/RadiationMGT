@@ -221,4 +221,10 @@
 	ON i.isid=a.auid
     WHERE a.auid=#{auid} AND a.austate='1' AND a.auexisting='1'  ORDER BY  a.autime DESC
 	</select>
+	
+	<!-- 模糊查询 -->
+	<select id="fuzzyIsot" resultMap="IsotopesMap">
+	 SELECT * FROM  isotopes 
+     WHERE  CONCAT(isentry) LIKE CONCAT(CONCAT("%",#{name}),"%") AND isstate='1' ORDER BY istime DESC 
+	</select>
 </mapper>  

@@ -120,4 +120,10 @@
 	ON n.noid=r.roid
     WHERE r.roid=#{roid} AND r.rostate='1' AND n.nostate='1'  ORDER BY  r.rotime DESC
 	</select>
+	
+    <!-- 模糊查询 -->
+	<select id="fuzzyNons" resultMap="NonsealMap"> 
+	 SELECT * FROM  nonseal 
+     WHERE  CONCAT(noname) LIKE CONCAT(CONCAT("%",#{name}),"%") AND nostate='1' ORDER BY notime DESC
+	</select>
 </mapper>  

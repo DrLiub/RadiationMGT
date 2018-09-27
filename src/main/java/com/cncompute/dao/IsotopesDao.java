@@ -16,6 +16,12 @@ public interface IsotopesDao {
 	 */
 	public List<Isotopes> isotAll();
 	/**
+	 * 放射源模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Isotopes> fuzzyIsot(String name);
+	/**
 	 * 添加放射源
 	 * @param isot
 	 */

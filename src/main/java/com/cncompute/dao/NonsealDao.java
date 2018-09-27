@@ -17,6 +17,12 @@ public interface NonsealDao {
 	 */
 	public List<Nonseal> nonsAll();
 	/**
+	 * 模糊查询-非密封放射性物质
+	 * @param name
+	 * @return
+	 */
+	public List<Nonseal> fuzzyNons(String name);
+	/**
 	 * 添加-非密封放射性物质
 	 * @param nons
 	 */

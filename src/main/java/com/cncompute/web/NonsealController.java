@@ -144,4 +144,15 @@ public class NonsealController {
 	public void updateSafetysheet(HttpServletRequest request,HttpServletResponse response,String noid) {
 		nonservice.file(request, response, noid);
 	}
+	/**
+	 * 非密封放射性物质模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="nonsfuzzy")
+	public String nonsFuzzy(HttpServletRequest request,String name) {
+		nonservice.fuzzyNonseal(request, name);
+		return"parameterpage/nonsealfuzzy";
+	}
 }

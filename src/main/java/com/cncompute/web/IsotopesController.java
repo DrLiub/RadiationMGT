@@ -227,4 +227,15 @@ public class IsotopesController {
 	public void isoUpdatename(HttpServletResponse response,HttpServletRequest request,Isotopes isot) {
 		isotservice.isoname(response,request, isot);
 	}
+	/**
+	 * 放射源模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="isotfuzzy",method=RequestMethod.GET)
+	public String isotfuzzy(HttpServletRequest request,String name) {
+		isotservice.fuzzyIs(request, name);
+		return"parameterpage/isotopesfuzzy";
+	}
 }

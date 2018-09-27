@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cncompute.dao.NonsealDao;
 import com.cncompute.dao.SafetysheetDao;
 import com.cncompute.dao.XraydeviceDao;
-import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Nonseal;
 import com.cncompute.pojo.Roomnuclide;
 import com.cncompute.pojo.Safetysheet;
@@ -340,5 +339,33 @@ public class NonsealService {
 		request.setAttribute("issafet", issafet);
 		request.setAttribute("nons", nons);
 		sendId(request, type);
+	}
+	/**
+	 * 非密封放射性物质模糊查询
+	 * @param request
+	 * @param name
+	 */
+	public void fuzzyNonseal(HttpServletRequest request,String name) {
+		int each =3; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Nonseal> nonsall= nonsealdao.fuzzyNons(name);
+			index=(nonsall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		List<Nonseal> nonsall= nonsealdao.fuzzyNons(name);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
+		request.setAttribute("nonsall", nonsall);
+		request.setAttribute("name", name);
 	}
 }

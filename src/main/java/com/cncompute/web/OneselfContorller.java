@@ -286,4 +286,15 @@ public class OneselfContorller {
 		onservice.updateMaplng(request, ones);
 		return"registrpage/reunitupdate";
 	}
+	/**
+	 * 委托检测数据模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="onenfuzzy",method=RequestMethod.GET)
+	public String onenFuzzy(HttpServletRequest request,String name) {
+		onservice.onenFuzzy(request, name);
+		return "registrpage/onentrustfuzzy";
+	}
 }
