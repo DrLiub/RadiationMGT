@@ -51,6 +51,11 @@ public class ManagementService {
 		String maname = request.getParameter("maname");// 机构名称
 		String mahead = request.getParameter("mahead");// 负责人
 		String maphone = request.getParameter("maphone");// 电话
+		boolean phone= methods.isNumeric(maphone);
+		if(!phone||maphone.length()!=11) {
+			pw.print("3");//电话格式不正确
+			return;
+		}
 		if("".equals(maname)||maname==null) {
 			pw.print("2");//机构名称非空
 			return;
@@ -331,6 +336,11 @@ public class ManagementService {
 			pw=response.getWriter();
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+		boolean phone= methods.isNumeric(mana.getMaphone());
+		if(!phone||mana.getMaphone().length()!=11) {
+			pw.print("3");//电话格式不正确
+			return;
 		}
 		mangdao.updateModi(mana);
 		pw.print("1");

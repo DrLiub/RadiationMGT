@@ -185,4 +185,14 @@ public class XraydeviceController {
 	public void xraupdatePost(HttpServletRequest request,HttpServletResponse response,Xraydevice rayd) {
 		xraydeviceservice.xraUpdate(request, response, rayd);
 	}
+	/**
+	 * 射线装置模糊查询
+	 * @param request
+	 * @param name
+	 */
+	@RequestMapping(value="xrayfuzzy",method=RequestMethod.GET)
+	public String xrayFuzzy(HttpServletRequest request,String name) {
+		xraydeviceservice.rayFuzzy(request, name);
+		return "parameterpage/raydevicefuzzy";
+	}
 }

@@ -36,6 +36,12 @@ public interface XraydeviceDao {
 	 */
 	public void updateRayd(Xraydevice rayd);
 	/**
+	 * 射线装置模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Xraydevice> fuzzyRayd(String name);
+	/**
 	 * 添加 (加速器)id
 	 * @param acce
 	 */

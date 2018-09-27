@@ -362,4 +362,9 @@
     WHERE r.raid=#{raid}  AND r.rastate='1' ORDER BY  a.actime DESC
 	</select>
 	
+	<!-- 射线装置模糊查询 -->
+	<select id="fuzzyRayd" resultMap="XraydeviceMap">
+	 SELECT * FROM  xraydevice 
+     WHERE  CONCAT(raname) LIKE CONCAT(CONCAT("%",#{name}),"%") AND rastate='1' ORDER BY  ratime DESC
+	</select>
 </mapper>  
