@@ -24,7 +24,7 @@ public class OneselfContorller {
 	@Autowired
 	private OneselfService onservice;
     /**
-     * 向单位显示界面发送数据
+     * 向单位自行监测数据界面发送数据
      * @param request
      * @param notag
      * @return
@@ -296,5 +296,16 @@ public class OneselfContorller {
 	public String onenFuzzy(HttpServletRequest request,String name) {
 		onservice.onenFuzzy(request, name);
 		return "registrpage/onentrustfuzzy";
+	}
+	/**
+	 * 单位自行监测数据模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="onunfuzzy",method=RequestMethod.GET)
+	public String onunFuzzy(HttpServletRequest request,String name) {
+		onservice.fuzzyOnun(request, name);
+		return "registrpage/onunitpreviewfuzzy";
 	}
 }

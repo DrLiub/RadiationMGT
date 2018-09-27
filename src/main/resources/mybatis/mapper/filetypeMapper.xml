@@ -27,6 +27,12 @@
 	SELECT * FROM filetype WHERE flstate='1' ORDER BY fltime DESC
 	</select>
 	
+	<!-- 辐射规章制度模糊查询 -->
+	<select id="fuzzyFile" resultMap="FiletypeMap">
+	 SELECT * FROM  filetype 
+     WHERE  CONCAT(flname) LIKE CONCAT(CONCAT("%",#{name}),"%") AND flstate='1' ORDER BY fltime DESC
+	</select>
+	
 	<!-- 查询全部未创建的文件类别名称 -->
 	<select id="flnameALL" resultMap="FiletypeMap">
 	SELECT flname FROM filetype WHERE fithere='0'

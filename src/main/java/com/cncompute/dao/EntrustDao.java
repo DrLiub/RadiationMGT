@@ -21,6 +21,12 @@ public interface EntrustDao {
 	 */
 	public List<Entrust> enQuery();
 	/**
+	 * 单位自行监测数据模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Entrust> fuzzyEntrust(String name);
+	/**
 	 * 根据ID查询单位全部信息返回单位对象
 	 * @param enid
 	 * @return

@@ -27,6 +27,12 @@ public interface ManagementDao {
 	 */
 	public List<Management> queryMang();
 	/**
+	 * 辐射管理机构构成模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Management> fuzzyMang(String name);
+	/**
 	 * 通过ID查询辐射安全管理人员表,管理人员信息表信息
 	 * @param man
 	 * @return

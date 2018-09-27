@@ -19,6 +19,12 @@ public interface ProtectionfileDao {
 	 */
 	public List<Protectionfile> prall();
 	/**
+	 * 环保手续文件模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Protectionfile> fuzzyProt(String name);
+	/**
 	 * 添加环保手续文件
 	 * @param pro
 	 */

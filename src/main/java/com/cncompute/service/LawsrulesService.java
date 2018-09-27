@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import com.cncompute.dao.LawsrulesDao;
 import com.cncompute.pojo.Lawsrules;
-import com.cncompute.pojo.Management;
 import com.cncompute.repeat.Methods;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -79,5 +78,33 @@ public class LawsrulesService {
 		laws.setLauserid(methods.getUser(request));
 		lawsDao.addLaws(laws);
 		pw.print("1");
+	}
+	/**
+	 * 法律法规模糊查询
+	 * @param request
+	 * @param name
+	 */
+	public void fuzzyLa(HttpServletRequest request,String name) {
+		int each =3; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Lawsrules> lawsall = lawsDao.fuzzyLaws(name);
+			index=(lawsall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		List<Lawsrules> lawsall = lawsDao.fuzzyLaws(name);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
+		request.setAttribute("laws", lawsall);
+		request.setAttribute("name", name);
 	}
 }

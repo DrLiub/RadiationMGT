@@ -51,4 +51,15 @@ public class LawsrulesController {
 	public void lawsaddPost(HttpServletRequest request,HttpServletResponse response,Lawsrules laws,@RequestParam("file1") MultipartFile file) {
 		lawsservice.lawsAdd(request, response, laws, file);
 	}
+	/**
+	 * 相关法律法规模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="lawsfuzzy",method=RequestMethod.GET)
+	public String lawsfuzzy(HttpServletRequest request,String name) {
+		lawsservice.fuzzyLa(request, name);
+		return"law/lawsrulesfuzzy";
+	}
 }

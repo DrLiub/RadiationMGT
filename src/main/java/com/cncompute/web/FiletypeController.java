@@ -123,4 +123,15 @@ public class FiletypeController {
 	public void unupDatepost(HttpServletRequest request,HttpServletResponse response,Unitsystem unit,@RequestParam("file1") MultipartFile file) {
 		fileservice.updateUntipost(request, response, unit,file);
 	}
+	/**
+	 * 单位辐射安全规章制度模糊查询
+	 * @param requets
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="fileunfuzzy",method=RequestMethod.GET)
+	public String unFuzzy(HttpServletRequest request,String name) {
+		fileservice.unitFuzzy(request, name);
+		return"environmental/filetypefuzzy";
+	}
 }

@@ -54,6 +54,12 @@
 	SELECT *FROM protectionfile WHERE prstate='1' ORDER BY  prtime DESC
 	</select>
 	
+	<!-- 模糊查询 -->
+	<select id="fuzzyProt" resultMap="ProtectionfileMap">
+	 SELECT * FROM  protectionfile 
+     WHERE  CONCAT(prname) LIKE CONCAT(CONCAT("%",#{name}),"%") AND prstate='1' ORDER BY  prtime DESC
+	</select>
+	
 	<!-- 添加环保手续文件 -->
 	<insert id="pradd" parameterType="Protectionfile">
 	INSERT INTO protectionfile 

@@ -28,5 +28,10 @@
 	(#{laid},#{laname},#{lanumber},#{laorgan},#{lastarttime},
 	 #{laelectronicid},#{lauserid},now(),1)
 	</insert>
-	
+
+	<!-- 相关法律法规模糊查询 -->
+	<select id="fuzzyLaws" resultMap="LawsrulesMap">
+	 SELECT * FROM  lawsrules 
+     WHERE  CONCAT(laname,lanumber,laorgan) LIKE CONCAT(CONCAT("%",#{name}),"%") AND lastate='1' ORDER BY latime DESC
+	</select>
 </mapper>  

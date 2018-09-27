@@ -16,6 +16,12 @@ public interface LawsrulesDao {
 	 */
 	public List<Lawsrules> queryLaws();
 	/**
+	 * 法律法规模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Lawsrules> fuzzyLaws(String name);
+	/**
 	 * 添加法律法规
 	 * @param laws
 	 */

@@ -42,4 +42,10 @@
     <if test="enstate!=null">enstate=#{enstate}</if>
     </set> WHERE enid=#{enid}
 	</update>
+	
+	<!-- 单位自行监测数据模糊查询 -->
+	<select id="fuzzyEntrust" resultMap="EntrustMap">
+	 SELECT * FROM  entrust 
+     WHERE  CONCAT(entypeen,enproject) LIKE CONCAT(CONCAT("%",#{name}),"%") AND enstate='1' ORDER BY entime DESC 
+	</select>
 </mapper>  

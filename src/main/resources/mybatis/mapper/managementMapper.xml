@@ -60,6 +60,12 @@
 	SELECT * FROM management  WHERE mastate='1' ORDER BY matime DESC
 	</select>
 	
+	<!-- 模糊查询 -->
+	<select id="fuzzyMang" resultMap="ManagementMap">
+	 SELECT * FROM  management 
+     WHERE  CONCAT(maname,mahead) LIKE CONCAT(CONCAT("%",#{name}),"%") AND mastate='1' ORDER BY matime DESC 
+	</select>
+	
 	<!-- 通过ID查询辐射管理机构 -->
 	<select id="quMaid" resultMap="ManagementMap">
 	SELECT * FROM management WHERE maid=#{maid} AND mastate='1' ORDER BY matime DESC

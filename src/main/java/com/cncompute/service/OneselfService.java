@@ -16,7 +16,6 @@ import com.cncompute.dao.EntrustDao;
 import com.cncompute.dao.OneselfDao;
 import com.cncompute.pojo.Entrust;
 import com.cncompute.pojo.Oneself;
-import com.cncompute.pojo.Xraydevice;
 import com.cncompute.repeat.Methods;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -484,6 +483,34 @@ public class OneselfService {
 		List<Oneself>ones=oneselfdao.fuzzyOnes(name,2);
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("onall", ones);
+		request.setAttribute("name", name);
+	}
+	/**
+	 * 单位自行监测数据模糊查询
+	 * @param request
+	 * @param name
+	 */
+	public void fuzzyOnun(HttpServletRequest request,String name) {
+		int each =3; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Entrust> enall = entrdao.fuzzyEntrust(name);
+			index=(enall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		List<Entrust> enall = entrdao.fuzzyEntrust(name);
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
+		request.setAttribute("enall", enall);
 		request.setAttribute("name", name);
 	}
 }

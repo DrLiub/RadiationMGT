@@ -158,4 +158,15 @@ public class ProtectionfileController {
 	public void prUppost(HttpServletRequest request,HttpServletResponse response,Protectionfile prot) {
 		proservice.prUpdatepost(request, response, prot);
 	}
+	/**
+	 * 环保手续文件模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="protfuzzy",method=RequestMethod.GET)
+	public String protFuzzy(HttpServletRequest request,String name) {
+		proservice.fuzzyProte(request, name);
+		return"environmental/protectionfuzzy";
+	}
 }

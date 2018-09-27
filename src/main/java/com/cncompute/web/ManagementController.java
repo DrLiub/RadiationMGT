@@ -162,4 +162,15 @@ public class ManagementController {
 	public void mamodifyPost(HttpServletRequest request,HttpServletResponse response) {
 		mangservice.mamodify(request,response);
 	}
+	/**
+	 * 辐射管理机构构成模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="mainstfuzzy",method=RequestMethod.GET)
+	public String instFuzzy(HttpServletRequest request,String name) {
+		mangservice.instiuFuzzy(request, name);
+		return"institutionspage/institutionfuzzy";
+	}
 }

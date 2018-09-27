@@ -18,6 +18,12 @@ public interface FiletypeDao {
 	 */
 	public List <Filetype> fileAll();
 	/**
+	 * 单位辐射规章制度模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<Filetype> fuzzyFile(String name);
+	/**
 	 * 查询全部未创建的flname
 	 * @return
 	 */

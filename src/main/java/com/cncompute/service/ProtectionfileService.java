@@ -14,7 +14,6 @@ import com.cncompute.dao.ProtectionfileDao;
 import com.cncompute.pojo.Completionreply;
 import com.cncompute.pojo.Environmental;
 import com.cncompute.pojo.License;
-import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Protectionfile;
 import com.cncompute.repeat.Methods;
 import com.github.pagehelper.Page;
@@ -234,5 +233,33 @@ public class ProtectionfileService {
 		}
 		proDao.updateProt(prot);
 		pw.print("1");
+	}
+	/**
+	 * 环保手续文件模糊查询
+	 * @param request
+	 * @param name
+	 */
+	public void fuzzyProte(HttpServletRequest request,String name) {
+		int each =3; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Protectionfile> proall= proDao.fuzzyProt(name);
+			index=(proall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		List<Protectionfile> proall= proDao.fuzzyProt(name);
+		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
+		request.setAttribute("proall", proall);
+		request.setAttribute("name", name);
 	}
 }
