@@ -19,9 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cncompute.dao.ManagementDao;
 import com.cncompute.dao.StaffinformationDao;
-import com.cncompute.pojo.Management;
 import com.cncompute.pojo.Staffinformation;
 import com.cncompute.repeat.Methods;
 import com.github.pagehelper.Page;
@@ -39,8 +37,8 @@ public class StaffinformationService {
 	private StaffinformationDao staffDao;
 	@Autowired
 	Methods methods;
-	@Autowired
-	private ManagementDao mandao;
+//	@Autowired
+//	private ManagementDao mandao;
 
 	/**
 	 * 向辐射工作人员显示页面发送数据

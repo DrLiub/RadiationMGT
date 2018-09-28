@@ -173,8 +173,8 @@ public class IsotopesController {
 	 * @param isid
 	 */
 	@RequestMapping(value="isotpost",method=RequestMethod.POST)
-	public void isotpost(HttpServletRequest request,HttpServletResponse response,String isid) {
-		isotservice.addSa(request, response, isid);
+	public void isotpost(HttpServletRequest request,HttpServletResponse response,String isid,Isotopes isot) {
+		isotservice.addSa(request, response, isid,isot);
 	}
 	/**
 	 * 查看放射源详情

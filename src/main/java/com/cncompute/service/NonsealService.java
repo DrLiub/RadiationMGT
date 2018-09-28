@@ -228,6 +228,21 @@ public class NonsealService {
 		}
 		request.setAttribute("safetAll1", safetAll1);
 		sendId(request,type);
+		//查询是否已有“辐射安全许可证”、“环境影响评价批复”、“环保竣工验收批复”。
+		Nonseal nons= nonsealdao.queryNonsid(type);
+		if(nons.getNolicense()!=null&&nons.getNolicense()==1) {
+			//辐射安全许可证已选取
+			nons.setNolicensebox("checked");
+		} 
+		if(nons.getNoimpact()!=null&&nons.getNoimpact()==1) {
+			//环境影响评价批复已选取
+			nons.setNoimpactbox("checked");
+		}
+		if(nons.getNoreply()!=null&&nons.getNoreply()==1) {
+			//环保竣工验收批复已选取
+			nons.setNoreplybox("checked");
+		}
+		request.setAttribute("nons", nons);
 	}
 	/**
 	 * 添加安全措施表(bug)
@@ -235,7 +250,7 @@ public class NonsealService {
 	 * @param response
 	 * @param raid
 	 */
-	public void addSa(HttpServletRequest request,HttpServletResponse response,String type) {
+	public void addSa(HttpServletRequest request,HttpServletResponse response,String type,Nonseal nons) {
 		PrintWriter pw=null;
 		try {
 			pw=response.getWriter();
@@ -299,6 +314,21 @@ public class NonsealService {
 			}
 		}
 		pw.print("1");
+		
+		//添加是否已有“辐射安全许可证”、“环境影响评价批复”、“环保竣工验收批复”。
+		if(nons.getNolicense()==null) {
+			//辐射安全许可证未选取
+			nons.setNolicense(0);
+		} 
+		if(nons.getNoimpact()==null) {
+			//环境影响评价批复未选取
+			nons.setNoimpact(0);
+		}
+		if(nons.getNoreply()==null) {
+			//环保竣工验收批复未选取
+			nons.setNoreply(0);
+		}
+		nonsealdao.updateNonseal(nons);
 	}
 	/**
 	 * 修改辐射安全措施
@@ -333,12 +363,27 @@ public class NonsealService {
 	 */
 	public void isDetail(HttpServletRequest request,String type) {
 		Nonseal nons= nonsealdao.queryNonsid(type);
+		//查询是否已有“辐射安全许可证”、“环境影响评价批复”、“环保竣工验收批复”。
+		if(nons.getNolicense()!=null&&nons.getNolicense()==1) {
+			//辐射安全许可证已选取
+			nons.setNolicensebox("checked");
+		} 
+		if(nons.getNoimpact()!=null&&nons.getNoimpact()==1) {
+			//环境影响评价批复已选取
+			nons.setNoimpactbox("checked");
+		}
+		if(nons.getNoreply()!=null&&nons.getNoreply()==1) {
+			//环保竣工验收批复已选取
+			nons.setNoreplybox("checked");
+		}
 		List<Nonseal> nonsall=nonsealdao.queryRoom(type);
 		List<Nonseal> issafet= nonsealdao.queryNons(type);
 		request.setAttribute("nonsall", nonsall);
 		request.setAttribute("issafet", issafet);
 		request.setAttribute("nons", nons);
 		sendId(request, type);
+
+		
 	}
 	/**
 	 * 非密封放射性物质模糊查询
@@ -367,5 +412,42 @@ public class NonsealService {
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("nonsall", nonsall);
 		request.setAttribute("name", name);
+	}
+	/**
+	 * 删除房间中核素
+	 * @param request
+	 * @param ronumber
+	 */
+	public void roomDel(HttpServletRequest request,String ronumber) {
+		Roomnuclide room=new Roomnuclide();
+		room.setRonumber(ronumber);
+		room.setRostate(0);
+		nonsealdao.updateRoom(room);
+	}
+	/**
+	 * 向修改房间中核素界面发送信息
+	 * @param request
+	 * @param ronumber
+	 * @param roid
+	 */
+	public void  updateRoom(HttpServletRequest request,String ronumber,String roid) {
+		Nonseal nons= nonsealdao.roomNumber(ronumber);
+        request.setAttribute("nons", nons);		
+	}
+	/**
+	 * 修改房间中核素信息
+	 * @param request
+	 * @param response
+	 * @param room
+	 */
+	public void upRoompost(HttpServletRequest request,HttpServletResponse response,Roomnuclide room) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		nonsealdao.updateRoom(room);
+		pw.print("1");
 	}
 }

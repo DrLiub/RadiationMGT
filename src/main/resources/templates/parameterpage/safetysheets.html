@@ -47,7 +47,16 @@
                                          </thead>
                                         </tbody>
                                     </table>
-
+                                    <table class="table table-striped table-bordered table-hover" id = "test">
+                                        <thead>	
+                                            <tr>
+                                                <td><input type="checkbox" value="1" name="nolicense" th:checked="${nons.nolicense}">辐射安全许可证</td>
+                                                <td><input type="checkbox" value="1" name="noimpact" th:checked="${nons.noimpact}">环境影响评价批复</td>
+                                                <td><input type="checkbox" value="1" name="noreply" th:checked="${nons.noreply}">环保竣工验收批复</td>
+                                            </tr>										
+                                         </thead>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

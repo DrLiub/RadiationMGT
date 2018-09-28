@@ -17,6 +17,13 @@ public class Xraydevice implements Serializable {
 	private Date ratime;// 当前时间
 	private Integer rastate;// 表状态0删除1正常
 	
+	private Integer rapermit;//辐射安全许可证1选择0取消
+	private String rapermitbox;//辐射安全许可证是否选取
+	private Integer raassessmen;//环境影响评价批复
+	private String raassessmenbox;//环境影响评价批复否选取
+	private Integer racompletion;//环保竣工验收批复
+	private String racompletionbox;//环保竣工验收批复否选取
+	
 	private Xaccelerator xaccelerator;//射线装置-加速器表
 	Set<Xaccelerator> xaccelerators=new HashSet<Xaccelerator>();
 	private Xneutron xneutron;//射线装置-中子发生器
@@ -27,15 +34,22 @@ public class Xraydevice implements Serializable {
 	Set<Xauxiliary> xauxiliarys=new HashSet<Xauxiliary>();
     public Xraydevice() {
 	}
-	public Xraydevice(String raid, String raname, String rauserid, Date ratime, Integer rastate,
-			Xaccelerator xaccelerator, Set<Xaccelerator> xaccelerators, Xneutron xneutron, Set<Xneutron> xneutrons,
-			Xraymachine xraymachine, Set<Xraymachine> xraymachines, Xauxiliary xauxiliary,
+	public Xraydevice(String raid, String raname, String rauserid, Date ratime, Integer rastate, Integer rapermit,
+			String rapermitbox, Integer raassessmen, String raassessmenbox, Integer racompletion,
+			String racompletionbox, Xaccelerator xaccelerator, Set<Xaccelerator> xaccelerators, Xneutron xneutron,
+			Set<Xneutron> xneutrons, Xraymachine xraymachine, Set<Xraymachine> xraymachines, Xauxiliary xauxiliary,
 			Set<Xauxiliary> xauxiliarys) {
 		this.raid = raid;
 		this.raname = raname;
 		this.rauserid = rauserid;
 		this.ratime = ratime;
 		this.rastate = rastate;
+		this.rapermit = rapermit;
+		this.rapermitbox = rapermitbox;
+		this.raassessmen = raassessmen;
+		this.raassessmenbox = raassessmenbox;
+		this.racompletion = racompletion;
+		this.racompletionbox = racompletionbox;
 		this.xaccelerator = xaccelerator;
 		this.xaccelerators = xaccelerators;
 		this.xneutron = xneutron;
@@ -74,6 +88,42 @@ public class Xraydevice implements Serializable {
 	}
 	public void setRastate(Integer rastate) {
 		this.rastate = rastate;
+	}
+	public Integer getRapermit() {
+		return rapermit;
+	}
+	public void setRapermit(Integer rapermit) {
+		this.rapermit = rapermit;
+	}
+	public String getRapermitbox() {
+		return rapermitbox;
+	}
+	public void setRapermitbox(String rapermitbox) {
+		this.rapermitbox = rapermitbox;
+	}
+	public Integer getRaassessmen() {
+		return raassessmen;
+	}
+	public void setRaassessmen(Integer raassessmen) {
+		this.raassessmen = raassessmen;
+	}
+	public String getRaassessmenbox() {
+		return raassessmenbox;
+	}
+	public void setRaassessmenbox(String raassessmenbox) {
+		this.raassessmenbox = raassessmenbox;
+	}
+	public Integer getRacompletion() {
+		return racompletion;
+	}
+	public void setRacompletion(Integer racompletion) {
+		this.racompletion = racompletion;
+	}
+	public String getRacompletionbox() {
+		return racompletionbox;
+	}
+	public void setRacompletionbox(String racompletionbox) {
+		this.racompletionbox = racompletionbox;
 	}
 	public Xaccelerator getXaccelerator() {
 		return xaccelerator;

@@ -11,8 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cncompute.dao.SafetysheetDao;
 import com.cncompute.dao.XraydeviceDao;
-import com.cncompute.pojo.Safetysheet;
-import com.cncompute.pojo.Staffinformation;
+import com.cncompute.pojo.*;
 import com.cncompute.pojo.Xaccelerator;
 import com.cncompute.pojo.Xauxiliary;
 import com.cncompute.pojo.Xneutron;
@@ -192,6 +191,19 @@ public class XraydeviceService {
 	 */
 	public void deviceAll(HttpServletRequest request,String type) {
 		Xraydevice rayd=raydevicedao.queryAll(type);
+		//通过ID查询射线装置表(xraydevice)
+		if(rayd.getRapermit()!=null&&rayd.getRapermit()==1) {
+			//辐射安全许可证已选取
+			rayd.setRapermitbox("checked");
+		} 
+		if(rayd.getRaassessmen()!=null&&rayd.getRaassessmen()==1) {
+			//环境影响评价批复已选取
+			rayd.setRaassessmenbox("checked");
+		}
+		if(rayd.getRacompletion()!=null&&rayd.getRacompletion()==1) {
+			//环保竣工验收批复已选取
+			rayd.setRacompletionbox("checked");
+		}
 		List<Xraydevice> raidall= raydevicedao.queryRaidauxi(type);
 		request.setAttribute("auxiall", raidall);
 		request.setAttribute("rayd", rayd);
@@ -226,6 +238,21 @@ public class XraydeviceService {
 		request.setAttribute("safetAll1", safetAll1);
 		request.setAttribute("safetAll2", safetAll2);
 		sendID(request,type);
+		//通过ID查询射线装置表(xraydevice)
+		Xraydevice rayd= raydevicedao.raydID(type);
+		if(rayd.getRapermit()!=null&&rayd.getRapermit()==1) {
+			//辐射安全许可证已选取
+			rayd.setRapermitbox("checked");
+		} 
+		if(rayd.getRaassessmen()!=null&&rayd.getRaassessmen()==1) {
+			//环境影响评价批复已选取
+			rayd.setRaassessmenbox("checked");
+		}
+		if(rayd.getRacompletion()!=null&&rayd.getRacompletion()==1) {
+			//环保竣工验收批复已选取
+			rayd.setRacompletionbox("checked");
+		}
+		request.setAttribute("rayd", rayd);
 	}
 	/**
 	 * 添加安全措施表(bug)
@@ -233,7 +260,7 @@ public class XraydeviceService {
 	 * @param response
 	 * @param raid
 	 */
-	public void addSafet(HttpServletRequest request,HttpServletResponse response,String raid) {
+	public void addSafet(HttpServletRequest request,HttpServletResponse response,String raid,Xraydevice rayd) {
 		PrintWriter pw=null;
 		try {
 			pw=response.getWriter();
@@ -297,6 +324,21 @@ public class XraydeviceService {
 			}
 		}
 		pw.print("1");
+		
+		//添加是否已有“辐射安全许可证”、“环境影响评价批复”、“环保竣工验收批复”。
+		if(rayd.getRapermit()==null) {
+			//辐射安全许可证未选取
+			rayd.setRapermit(0);
+		} 
+		if(rayd.getRaassessmen()==null) {
+			//环境影响评价批复未选取
+			rayd.setRaassessmen(0);
+		}
+		if(rayd.getRacompletion()==null) {
+			//环保竣工验收批复未选取
+			rayd.setRacompletion(0);
+		}
+		raydevicedao.updateRayd(rayd);
 	}
 	/**
 	 * 修改辐射安全措施

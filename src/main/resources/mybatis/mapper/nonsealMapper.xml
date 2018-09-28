@@ -121,6 +121,35 @@
     WHERE r.roid=#{roid} AND r.rostate='1' AND n.nostate='1'  ORDER BY  r.rotime DESC
 	</select>
 	
+    <!-- 通过ronumber房间中的核素 -->
+	<select id="roomNumber"  resultMap="NonsealMap">
+	SELECT r.roid, r.ronumber, r.roname, r.rochemical, r.roway, r.roquantity, 
+     r.royear, r.rooperation, r.rocorrection, r.rotoxicity, r.rouse, 
+     r.rostorageway, r.rostorage, r.robiggest, r.rouserid
+	FROM nonseal n LEFT JOIN roomnuclide r
+	ON n.noid=r.roid
+    WHERE r.ronumber=#{ronumber} AND r.rostate='1' AND n.nostate='1'  ORDER BY  r.rotime DESC
+	</select>
+	
+    <!-- 修改房间中核素 -->
+	<update id="updateRoom"  parameterType="com.cncompute.pojo.Nonseal">
+    update roomnuclide <set> 
+    <if test="roname!=null">roname=#{roname},</if>
+    <if test="rochemical!=null">rochemical=#{rochemical},</if>
+    <if test="roway!=null">roway=#{roway},</if>
+    <if test="roquantity!=null">roquantity=#{roquantity},</if>
+    <if test="royear!=null">royear=#{royear},</if>
+    <if test="rooperation!=null">rooperation=#{rooperation},</if>
+    <if test="rocorrection!=null">rocorrection=#{rocorrection},</if>
+    <if test="rotoxicity!=null">rotoxicity=#{rotoxicity},</if>
+    <if test="rouse!=null">rouse=#{rouse},</if>
+    <if test="rostorageway!=null">rostorageway=#{rostorageway},</if>
+    <if test="rostorage!=null">rostorage=#{rostorage},</if>
+    <if test="robiggest!=null">robiggest=#{robiggest},</if>
+    <if test="rostate!=null">rostate=#{rostate}</if>
+    </set>  WHERE ronumber=#{ronumber}
+	</update>
+	
     <!-- 模糊查询 -->
 	<select id="fuzzyNons" resultMap="NonsealMap"> 
 	 SELECT * FROM  nonseal 

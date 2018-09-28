@@ -141,8 +141,8 @@ public class XraydeviceController {
 	 * @param raid
 	 */
 	@RequestMapping(value="xraaddsafet",method=RequestMethod.POST)
-	public void addSafetpost(HttpServletRequest request,HttpServletResponse response,String raid) {
-		xraydeviceservice.addSafet(request, response, raid);
+	public void addSafetpost(HttpServletRequest request,HttpServletResponse response,String raid,Xraydevice rayd) {
+		xraydeviceservice.addSafet(request, response, raid,rayd);
 	}
 	/**
 	 * 修改安全措施表

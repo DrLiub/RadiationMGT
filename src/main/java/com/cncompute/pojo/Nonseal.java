@@ -16,6 +16,9 @@ public class Nonseal implements Serializable {
 	private Integer nolicense;//辐射安全许可证
 	private Integer noimpact;//环境影响评价批复
 	private Integer noreply;// 环保竣工验收批复
+	private String nolicensebox;//
+	private String noimpactbox;//
+	private String noreplybox;//
 	private String nouserid;//当前登录用户ID
 	private Date notime;//当前时间
 	private Integer nostate;// 表状态0删除1正常
@@ -177,5 +180,23 @@ public class Nonseal implements Serializable {
 	}
 	public void setXauxiliarys(Set<Xauxiliary> xauxiliarys) {
 		this.xauxiliarys = xauxiliarys;
+	}
+	public String getNolicensebox() {
+		return nolicensebox;
+	}
+	public void setNolicensebox(String nolicensebox) {
+		this.nolicensebox = nolicensebox;
+	}
+	public String getNoimpactbox() {
+		return noimpactbox;
+	}
+	public void setNoimpactbox(String noimpactbox) {
+		this.noimpactbox = noimpactbox;
+	}
+	public String getNoreplybox() {
+		return noreplybox;
+	}
+	public void setNoreplybox(String noreplybox) {
+		this.noreplybox = noreplybox;
 	}
 }

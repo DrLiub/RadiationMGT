@@ -16,6 +16,9 @@ public class Isotopes implements Serializable {
 	private Integer islicense;// 辐射安全许可证(0没有选择1选择)
 	private Integer isenviro;//环境影响评价批复(0没有选择1选择)
 	private Integer isprotection;// 环保竣工验收批复(0没有选择1选择)
+	private String islicensebox;//辐射安全许可证是否选取
+	private String isenvirobox;//环境影响评价批复是否选取
+	private String isprotectionbox;//环保竣工验收批复是否选取
 	private String isuserid;// 当前登录用户ID
 	private Date istime;// 当前时间
 	private Integer isstate;// 表状态0正常1删除
@@ -28,15 +31,17 @@ public class Isotopes implements Serializable {
 	public Isotopes() {
 	}
 	public Isotopes(String isid, String isentry, Integer islicense, Integer isenviro, Integer isprotection,
-			String isuserid, Date istime, Integer isstate, Radioactiveentry radioactiveentry,
-			Set<Radioactiveentry> radioactiveentrys, Sealentry sealentry, Set<Sealentry> sealentrys,
-			Xauxiliary xauxiliary, Set<Xauxiliary> xauxiliarys) {
-		super();
+			String islicensebox, String isenvirobox, String isprotectionbox, String isuserid, Date istime,
+			Integer isstate, Radioactiveentry radioactiveentry, Set<Radioactiveentry> radioactiveentrys,
+			Sealentry sealentry, Set<Sealentry> sealentrys, Xauxiliary xauxiliary, Set<Xauxiliary> xauxiliarys) {
 		this.isid = isid;
 		this.isentry = isentry;
 		this.islicense = islicense;
 		this.isenviro = isenviro;
 		this.isprotection = isprotection;
+		this.islicensebox = islicensebox;
+		this.isenvirobox = isenvirobox;
+		this.isprotectionbox = isprotectionbox;
 		this.isuserid = isuserid;
 		this.istime = istime;
 		this.isstate = isstate;
@@ -76,6 +81,24 @@ public class Isotopes implements Serializable {
 	}
 	public void setIsprotection(Integer isprotection) {
 		this.isprotection = isprotection;
+	}
+	public String getIslicensebox() {
+		return islicensebox;
+	}
+	public void setIslicensebox(String islicensebox) {
+		this.islicensebox = islicensebox;
+	}
+	public String getIsenvirobox() {
+		return isenvirobox;
+	}
+	public void setIsenvirobox(String isenvirobox) {
+		this.isenvirobox = isenvirobox;
+	}
+	public String getIsprotectionbox() {
+		return isprotectionbox;
+	}
+	public void setIsprotectionbox(String isprotectionbox) {
+		this.isprotectionbox = isprotectionbox;
 	}
 	public String getIsuserid() {
 		return isuserid;

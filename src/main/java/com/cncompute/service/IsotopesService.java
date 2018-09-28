@@ -290,6 +290,21 @@ public class IsotopesService {
 		request.setAttribute("safetAll1", safetAll1);
 		request.setAttribute("safetAll2", safetAll2);
 		sendID(request,type);
+		//查询是否已有“辐射安全许可证”、“环境影响评价批复”、“环保竣工验收批复”。
+		Isotopes isot= isotdao.queryIsid(type);
+		if(isot.getIslicense()!=null&&isot.getIslicense()==1) {
+			//辐射安全许可证已选取
+			isot.setIslicensebox("checked");
+		} 
+		if(isot.getIsenviro()!=null&&isot.getIsenviro()==1) {
+			//环境影响评价批复已选取
+			isot.setIsenvirobox("checked");
+		}
+		if(isot.getIsprotection()!=null&&isot.getIsprotection()==1) {
+			//环保竣工验收批复已选取
+			isot.setIsprotectionbox("checked");
+		}
+		request.setAttribute("isot", isot);
 	}
 	/**
 	 * 添加安全措施表(bug)
@@ -297,7 +312,7 @@ public class IsotopesService {
 	 * @param response
 	 * @param raid
 	 */
-	public void addSa(HttpServletRequest request,HttpServletResponse response,String isid) {
+	public void addSa(HttpServletRequest request,HttpServletResponse response,String isid,Isotopes isot) {
 		PrintWriter pw=null;
 		try {
 			pw=response.getWriter();
@@ -361,6 +376,20 @@ public class IsotopesService {
 			}
 		}
 		pw.print("1");
+		//添加是否已有“辐射安全许可证”、“环境影响评价批复”、“环保竣工验收批复”。
+		if(isot.getIslicense()==null) {
+			//辐射安全许可证未选取
+			isot.setIslicense(0);
+		} 
+		if(isot.getIsenviro()==null) {
+			//环境影响评价批复未选取
+			isot.setIsenviro(0);
+		}
+		if(isot.getIsprotection()==null) {
+			//环保竣工验收批复未选取
+			isot.setIsprotection(0);
+		}
+		isotdao.upIsotopes(isot);
 	}
 	/**
 	 * 修改辐射安全措施
@@ -401,6 +430,21 @@ public class IsotopesService {
 		request.setAttribute("isotalls", isotalls);
 		request.setAttribute("issafet", issafetysheet);
 		sendID(request,type);
+		//查询是否已有“辐射安全许可证”、“环境影响评价批复”、“环保竣工验收批复”。
+		Isotopes isot= isotdao.queryIsid(type);
+		if(isot.getIslicense()!=null&&isot.getIslicense()==1) {
+			//辐射安全许可证已选取
+			isot.setIslicensebox("checked");
+		} 
+		if(isot.getIsenviro()!=null&&isot.getIsenviro()==1) {
+			//环境影响评价批复已选取
+			isot.setIsenvirobox("checked");
+		}
+		if(isot.getIsprotection()!=null&&isot.getIsprotection()==1) {
+			//环保竣工验收批复已选取
+			isot.setIsprotectionbox("checked");
+		}
+		request.setAttribute("isot", isot);
 	}
 	/**
 	 * 删除放射源

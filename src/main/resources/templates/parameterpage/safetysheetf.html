@@ -50,10 +50,20 @@
 									<table class="table table-striped table-bordered table-hover" id = "test">
                                         <thead>	
 					     	            	 <div class="panel-heading">
-                                                                     非医用放射性同位素使用
+                                                                                         非医用放射性同位素使用
                                              </div>										
         									 <tr th:each="safet:${safetAll2}">
                                                 <td><input type="checkbox"   th:value="${safet.saname}" th:text="${safet.sanameof}" name="num1" th:checked="${safet.sastate}"></td>
+                                            </tr>										
+                                         </thead>
+                                        </tbody>
+                                    </table>
+                                    <table class="table table-striped table-bordered table-hover" id = "test">
+                                        <thead>	
+                                            <tr>
+                                                <td><input type="checkbox" value="1" name="islicense" th:checked="${isot.islicensebox}">辐射安全许可证</td>
+                                                <td><input type="checkbox" value="1" name="isenviro" th:checked="${isot.isenvirobox}">环境影响评价批复</td>
+                                                <td><input type="checkbox" value="1" name="isprotection" th:checked="${isot.isprotectionbox}">环保竣工验收批复</td>
                                             </tr>										
                                          </thead>
                                         </tbody>

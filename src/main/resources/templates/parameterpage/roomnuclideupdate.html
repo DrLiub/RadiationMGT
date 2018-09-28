@@ -12,6 +12,7 @@
     <!-- Morris Chart Styles-->
     <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
+
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
@@ -20,12 +21,13 @@
 <body style="padding:10px">
     <div id="wrapper">
 
+
         <!-- /. NAV SIDE  -->
       
 		<div id="page-wrapper">
 		  <div class="header"> 
                         <h1 class="page-header">
-                             <small>辐射安全防护措施表</small>
+                             <small>修改开放性同位素</small>
                         </h1>								
 		          </div>				
                     <form   method="post" enctype="multipart/form-data" id="formid">
@@ -33,46 +35,50 @@
 
                             <div class="panel-body">
                                 <div class="table-responsive">		
-								<input type="hidden" th:value="${raydid.raid}" name="raid" id="raid"/>
+								<input type="hidden" th:value="${nons.roomnuclide.roid}" name="roid" id="roid"/>
+								<input type="hidden" th:value="${nons.roomnuclide.ronumber}" name="ronumber" id="ronumber"/>
 								<input type="button" class="btn btn-default"  value="提交" onclick="submitFunction()">
 								<div id="index" style="text-align:center;color:red"></div>
                                     <table class="table table-striped table-bordered table-hover" id = "test">
-                                        <thead>	
-					    	            	 <div class="panel-heading">
-                                                                                     医用射线装置使用
-                                             </div>										
-        									 <tr  th:each="safet:${safetAll1}"> 
-                                                <td><input type="checkbox"   th:value="${safet.saname}" th:text="${safet.sanameof}" name="num1" th:checked="${safet.sastate}"></td>
-                                            </tr>									
-                                         </thead>
-                                        </tbody>
-                                    </table>
-									<table class="table table-striped table-bordered table-hover" id = "test">
-                                        <thead>	
-					     	            	 <div class="panel-heading">
-                                                                                          非医用射线装置使用
-                                             </div>										
-        									 <tr th:each="safet:${safetAll2}">
-                                                <td><input type="checkbox"   th:value="${safet.saname}" th:text="${safet.sanameof}" name="num1" th:checked="${safet.sastate}"></td>
-                                            </tr>
-                                         </thead>
-                                        </tbody>
-                                    </table>
-                                    
-                                    <table class="table table-striped table-bordered table-hover" id = "test">
-                                        <thead>	
+                                        <thead>
+										 <thead>									
                                             <tr>
-                                                <td><input type="checkbox" value="1" name="rapermit" th:checked="${rayd.rapermitbox}">辐射安全许可证</td>
-                                                <td><input type="checkbox" value="1" name="raassessmen" th:checked="${rayd.raassessmenbox}">环境影响评价批复</td>
-                                                <td><input type="checkbox" value="1" name="racompletion" th:checked="${rayd.racompletionbox}">环保竣工验收批复</td>
-                                            </tr>										
-                                         </thead>
+                                                <th>核素名称</th>
+                                                <th>理化性质</th>
+                                                <th>来源方式</th>
+												<th>日最大操作量</th>
+												<th>年最大操作量</th>
+												<th>操作方式</th>
+												<th>操作修正因子</th>
+												<th>毒性修正因子</th>
+												<th>用途</th>
+												<th>贮存方式</th>
+												<th>贮存地点</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.roname}"  name="roname" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.rochemical}" name="rochemical" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.roway}" placeholder="外购/自制" name="roway" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.roquantity}" name="roquantity" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.royear}" name="royear" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.rooperation}" name="rooperation" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.rocorrection}"  name="rocorrection" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.rotoxicity}" name="rotoxicity" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.rouse}"  name="rouse" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.rostorageway}" name="rostorageway" ></td>
+                                                <td><input type="text" class="form-control"  th:value="${nons.roomnuclide.rostorage}"  name="rostorage" ></td>
+                                            </tr>
                                         </tbody>
                                     </table>
+									
+
                                 </div>
                             </div>
                         </div>
-                         </form>		
+                         </form>
+											
 					 <div class="panel panel-default">
                         </div>
 
@@ -109,14 +115,13 @@
     <script src="js/custom-scripts.js"></script>
       <script>
       
-      
       function submitFunction() {
   	    //这里唯一需要注意的就是这个form-add的id
-  	    var prid = $("#prid");
+  	    var roid = $("#roid").val();
   	    var formData = new FormData($("#formid")[0]);
   	    $.ajax({
   	        //接口地址
-  	        url: '/xraaddsafet',
+  	        url: '/nouproompost',
   	        type: 'POST',
   	        data: formData,
   	        async: false,
@@ -126,12 +131,12 @@
   	        success: function (data) {
   	            //成功的回调
   	            if(data== 1){
-                      alert("添加成功");
-                      window.location.href='/xraydall';//
+                      alert("修改成功");
+                      window.location.href='/nodetails?type='+roid;//
   	            }else if(data== 2){
-  	            	$("#index").html("请检测数量格式是否正确");
+  	            	$("#index").html("");
   	            }else if(data== 3){
-  	            	$("#index").html("请填写日期");
+  	            	$("#index").html("");
   	            }
   	        },
   	        error: function (returndata) {

@@ -93,9 +93,9 @@
                                 </div>
                             </div>
                         </div>
-                 <input type="button" class="btn btn-default"  value="提交安全措施表" onclick="submitFunction()">	
+                       <input type="button" class="btn btn-default"  value="提交安全措施表" onclick="submitFunction()">	
 			 				<div class="panel-heading">
-                             辐射安全防护措施表
+                                                     辐射安全防护措施表
                              </div>
 							 <table class="table table-striped table-bordered table-hover" id = "test">
                                         <thead>
@@ -106,6 +106,16 @@
                               </thead>
 
                               </table>
+                              <table class="table table-striped table-bordered table-hover" id = "test">
+                                        <thead>	
+                                            <tr>
+                                                <td><input type="checkbox" value="1" name="islicense" th:checked="${isot.islicensebox}">辐射安全许可证</td>
+                                                <td><input type="checkbox" value="1" name="isenviro" th:checked="${isot.isenvirobox}">环境影响评价批复</td>
+                                                <td><input type="checkbox" value="1" name="isprotection" th:checked="${isot.isprotectionbox}">环保竣工验收批复</td>
+                                            </tr>										
+                                         </thead>
+                                        </tbody>
+                               </table>
                               </div>
 						
                          </form>

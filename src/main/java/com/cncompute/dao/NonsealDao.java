@@ -55,4 +55,15 @@ public interface NonsealDao {
 	 * @return
 	 */
 	public List<Nonseal> queryRoom(String roid);
+	/**
+	 * 通过编号查询房间核素
+	 * @param ronumber
+	 * @return
+	 */
+	public Nonseal roomNumber(String ronumber);
+	/**
+	 * 修改房间中核素信息
+	 * @param room
+	 */
+	public void updateRoom(Roomnuclide room);
 }

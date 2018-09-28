@@ -24,8 +24,8 @@ import com.github.pagehelper.*;
 public class InsertdataService {
 	@Autowired
 	private InsertdataDao inserdao;
-	@Autowired
-	private ManagementDao mandao;
+//	@Autowired
+//	private ManagementDao mandao;
 	@Autowired
 	private StaffinformationDao staffDao;
 	@Autowired

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.cncompute.pojo.Nonseal;
+import com.cncompute.pojo.Roomnuclide;
 import com.cncompute.service.NonsealService;
 @Controller
 public class NonsealController {
@@ -120,8 +121,8 @@ public class NonsealController {
 	 * @param isid
 	 */
 	@RequestMapping(value="nosnpost",method=RequestMethod.POST)
-	public void notpost(HttpServletRequest request,HttpServletResponse response,String noid) {
-		nonservice.addSa(request, response, noid);
+	public void notpost(HttpServletRequest request,HttpServletResponse response,String noid,Nonseal nons) {
+		nonservice.addSa(request, response, noid,nons);
 	}
 	/**
 	 * 查看非密封性放射性物质详情
@@ -154,5 +155,38 @@ public class NonsealController {
 	public String nonsFuzzy(HttpServletRequest request,String name) {
 		nonservice.fuzzyNonseal(request, name);
 		return"parameterpage/nonsealfuzzy";
+	}
+	/**
+	 * 非密封放射性物质-删除
+	 * @param request
+	 * @param ronumber
+	 * @return
+	 */
+	@RequestMapping(value="nonsdel",method=RequestMethod.GET)
+	public String nonsDel(HttpServletRequest request,String ronumber,String roid) {
+		nonservice.roomDel(request, ronumber);
+		nonservice.isDetail(request, roid);
+		return"parameterpage/roomnuclideall";
+	}
+	/**
+	 * 修改房间中核素界面
+	 * @param request
+	 * @param ronumber
+	 * @param roid
+	 */
+	@RequestMapping(value="noroomupdate",method=RequestMethod.GET)
+	public String updateRoom(HttpServletRequest request,String ronumber,String roid) {
+		nonservice.updateRoom(request, ronumber, roid);
+		return"parameterpage/roomnuclideupdate";
+	}
+	/**
+	 * 修改房间中核素信息
+	 * @param request
+	 * @param response
+	 * @param room
+	 */
+	@RequestMapping(value="nouproompost",method=RequestMethod.POST)
+	public void updateRoompost(HttpServletRequest request,HttpServletResponse response,Roomnuclide room) {
+		nonservice.upRoompost(request, response, room);
 	}
 }

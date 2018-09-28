@@ -7,6 +7,9 @@
         	<result column="rauserid" property="rauserid" jdbcType="VARCHAR" />  
         	<result column="ratime" property="ratime" jdbcType="DATE"/>  
         	<result column="rastate" property="rastate" jdbcType="INTEGER"/> 
+        	<result column="rapermit" property="rapermit" jdbcType="INTEGER"/> 
+        	<result column="raassessmen" property="raassessmen" jdbcType="INTEGER"/> 
+        	<result column="racompletion" property="racompletion" jdbcType="INTEGER"/> 
         	
         	<!-- 射线装置-加速器表 -->
 		<association property="xaccelerator" javaType="com.cncompute.pojo.Xaccelerator" column="raid" >
@@ -131,16 +134,19 @@
 	<!-- 添加射线装置(xraydevice) -->
 	<insert id="addRaydevice" parameterType="com.cncompute.pojo.Xraydevice">
 	insert into xraydevice
-	(raid,raname,rauserid,ratime,rastate)
+	(raid,raname,rauserid,ratime,rastate,rapermit,raassessmen,racompletion)
 	VALUES
-	(#{raid},#{raname},#{rauserid},now(),1)
+	(#{raid},#{raname},#{rauserid},now(),1,#{rapermit},#{raassessmen},#{racompletion})
 	</insert>
 	
 	<!-- 修改(射线装置) -->
 	<update id="updateRayd" parameterType="com.cncompute.pojo.Xraydevice">
     update xraydevice <set> 
     <if test="raname!=null">raname=#{raname},</if>
-    <if test="rastate!=null">rastate=#{rastate}</if>
+    <if test="rastate!=null">rastate=#{rastate},</if>
+    <if test="rapermit!=null">rapermit=#{rapermit},</if>
+    <if test="raassessmen!=null">raassessmen=#{raassessmen},</if>
+    <if test="racompletion!=null">racompletion=#{racompletion}</if>
     </set>  WHERE raid=#{raid}
 	</update>
 	
@@ -349,6 +355,8 @@
 	n.nelwalive, n.nelwarad, n.nelwawhere, n.netsolive, n.netsoway,
 	n.netsonote, n.nersonum, n.neswanum, n.neswalive, n.neswarad,
 	n.neswawhere, n.neswainput, n.nebuikding, n.neroom,
+	
+	r.rapermit,r.raassessmen,r.racompletion,
 	
 	e.raid, e.ranumber, e.raname, e.ramodel, e.ravoltage, 
 	e.racurrent, e.rause, e.raplace, e.racategory, e.ranote,
