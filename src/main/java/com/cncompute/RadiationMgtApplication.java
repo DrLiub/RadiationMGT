@@ -7,12 +7,14 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 
 import com.github.pagehelper.PageHelper;
 
 @SpringBootApplication
 @MapperScan("com.cncompute.dao")
+@ServletComponentScan
 public class RadiationMgtApplication {
 	@Bean
     PageHelper pageHelper(){

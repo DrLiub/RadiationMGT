@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.cncompute.pojo.Management;
-import com.cncompute.repeat.Methods;
 import com.cncompute.service.ManagementService;
 /**
  * 管理机构管理人员控制层
@@ -19,8 +18,8 @@ import com.cncompute.service.ManagementService;
 public class ManagementController {
 	@Autowired
 	private ManagementService mangservice;
-	@Autowired
-	private Methods methods;
+//	@Autowired
+//	private Methods methods;
 	/**
 	 * 管理机构页面
 	 * @param request
@@ -28,10 +27,10 @@ public class ManagementController {
 	 */
 	@RequestMapping(value="manag",method=RequestMethod.GET)
 	public String registered(HttpServletRequest request, HttpServletResponse response)  {
-		String userid=methods.getUser(request);
-		if("".equals(userid)||userid==null) {
-			return "login";
-		}
+//		String userid=methods.getUser(request);
+//		if("".equals(userid)||userid==null) {
+//			return "login";
+//		}
 	    return "institutionspage/management";
 	}
 	/**
@@ -53,10 +52,10 @@ public class ManagementController {
 	 */
 	@RequestMapping(value="quman",method=RequestMethod.GET)
 	public String queryManag(HttpServletRequest request, HttpServletResponse response)  {
-		String userid=methods.getUser(request);
-		if("".equals(userid)||userid==null) {
-			return "redirect:/index";
-		}
+//		String userid=methods.getUser(request);
+//		if("".equals(userid)||userid==null) {
+//			return "redirect:/index";
+//		}
 		mangservice.sendMang(request);
 	    return "institutionspage/institution";
 	}
