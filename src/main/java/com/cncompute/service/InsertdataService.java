@@ -120,8 +120,10 @@ public class InsertdataService {
      */
     public void sendStnumber(HttpServletRequest request) {
     	String stnumber=request.getParameter("type");
+    	String pageindex=request.getParameter("pageindex");
     	Staffinformation staff=new Staffinformation();
     	staff.setStnumber(stnumber);
+    	request.setAttribute("pageindex", pageindex);
     	request.setAttribute("staff", staff);
     }
     /**
@@ -302,6 +304,7 @@ public class InsertdataService {
             	insertdata.setInyearscolor("color:black");
             }
 		}
+    	request.setAttribute("pageindex", index);
     	methods.sendPage(page, pag, starting, end, index, request, jnum);
     	request.setAttribute("inname", inname);
     	request.setAttribute("lnser", inlist);

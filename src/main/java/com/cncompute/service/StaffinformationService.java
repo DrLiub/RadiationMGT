@@ -75,7 +75,7 @@ public class StaffinformationService {
 			index = Integer.parseInt(pag);
 			page = PageHelper.startPage(index, each);
 		}
-
+        request.setAttribute("pageindex", index);//当前页面
 		List<Staffinformation> staffAll = staffDao.queryStaff(staff);
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("staff", staffAll);

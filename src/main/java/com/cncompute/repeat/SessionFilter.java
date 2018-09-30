@@ -23,7 +23,7 @@ public class SessionFilter implements Filter{
         HttpSession session = request.getSession(false);
 
         String uri =request.getRequestURI();//返回除去host（域名或者ip）部分的路径
-        System.out.println("filter url:"+uri);
+//        System.out.println("filter url:"+uri);
         if(uri.contains(".css") || uri.contains(".js")|| uri.contains(".jpg")|| uri.contains(".ico")){
         	//如果发现是css或者js文件，直接放行
             filterChain.doFilter(request, response);

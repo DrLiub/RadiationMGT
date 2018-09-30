@@ -40,6 +40,7 @@
 	                             <a style="width:100px" class="btn btn-default"  th:href="@{/stexport}">导出Excel</a>
 	                             <button type="submit" class="btn btn-default" style="float:right;margin-right:10px">查询</button>
                                  <input type="text" class="form-control" name="name" id="name" placeholder="" style="float:right;margin-right:10px;" >
+                                 <input type="hidden" th:value="${pageindex}" name="pageindex" id="pageindex"/>
                                </form>
                                
                                     <table class="table table-striped table-bordered table-hover">
@@ -72,7 +73,7 @@
                                                 <td><span class="reducedfrom" th:text="${staffall.sttrainingtime}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${staffall.stbirth}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${staffall.stcertificate}" ></span></td>
-                                                <td><a th:href="@{/stinsert(type=${staffall.stnumber})}">插入监测数据</a></td>
+                                                <td><a th:href="@{/stinsert(type=${staffall.stnumber},pageindex=${pageindex})}">插入监测数据</a></td>
 											    <!-- <td><span class="reducedfrom" th:text="${staffall.stexcessive}" ></span></td>-->
 											    <td><img th:src="${staffall.stsecurity}"  width="100" height="120" / ></td>
 												<td><span class="reducedfrom" th:text="${staffall.stoverdue}" ></span></td>
