@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -404,4 +405,28 @@ public class Methods {
 	        response.flushBuffer();
 	        workbook.write(response.getOutputStream());
 	    }
+	/**
+	 * 判断字符串是否有为xxx*xxx^x
+	 * @param digital
+	 * @return
+	 */
+	public boolean judgeDigital(String digital) {
+		String regex="^\\d+(\\.{1}\\d+)?\\*\\d+\\^\\d+$";//正则表达式
+//		String regex="^\\d+(\\.{1}\\d+)?\\*10\\^\\d+$";//10次方写死
+		Pattern p=Pattern.compile(regex);
+		Matcher m=p.matcher(digital);
+		return m.matches();
+	}
+	
+	public BigInteger strTurn(String str) {
+		int add1=str.lastIndexOf("^");
+		int add2=str.lastIndexOf("*");//获得*出现的索引
+		String str2=str.substring(0,add2);//截取*前面的数字
+		String str3=str.substring(add2+1,add1);//截取*前面的数字
+		String suffix = str.substring(str.lastIndexOf("^")+1);//^后面数字
+		long d = (long) Math.pow(Integer.parseInt(str3), Integer.parseInt(suffix));
+		long num=(long) (d*Double.parseDouble(str2));
+		BigInteger big =  BigInteger.valueOf (num);
+		return big;
+	}
 	}

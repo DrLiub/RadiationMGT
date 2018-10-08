@@ -7,6 +7,11 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+/**
+ * 登录过滤器
+ * @author Admin
+ *2018年10月8日08:54:16
+ */
 @WebFilter(filterName = "sessionFilter",urlPatterns = {"/*"})
 public class SessionFilter implements Filter{
     //标示符：表示当前用户未登录(可根据自己项目需要改为json样式)
@@ -49,11 +54,11 @@ public class SessionFilter implements Filter{
                 }else{
                     //重定向到登录页(需要在static文件夹下建立此html文件)
 //                	request.getRequestDispatcher("/login.html").forward(request,response);//转发
-                	try {
-                		response.sendRedirect(request.getContextPath()+"/index");
-					} catch (Exception e) {
-						// TODO: handle exception
-					}
+                	//检查看服务端是否已将数据输出到客户端.如果返回值是TRUE则已将数据输出到客户端,是FALSE则还没有。
+                		if(!response.isCommitted()) {
+                			response.sendRedirect(request.getContextPath()+"/index");
+                		}
+//                		
 //                	String contextPath = request.getContextPath();
 //                	response.sendRedirect(contextPath + "/login.html");
                 }

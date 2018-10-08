@@ -53,7 +53,7 @@
 												<th>贮存方式</th>
 												<th>贮存地点</th>
 												<th>日等效最大操作量</th>
-												<th>日操作量是否超出限值</th>
+												
 												<th>删除/修改</th>
                                             </tr>
                                         </thead>
@@ -71,21 +71,23 @@
 												<td><span  class="reducedfrom" th:text="${nons.roomnuclide.rostorageway}" ></span></td>
 												<td><span  class="reducedfrom" th:text="${nons.roomnuclide.rostorage}"   ></span></td>
 												<td><span  class="reducedfrom" th:text="${nons.roomnuclide.robiggest}"  ></span></td>
-												<td><span  class="reducedfrom" text=""  ></span></td>
 												<td><a th:onclick="'javascript:del(\''+${nons.roomnuclide.ronumber}+'\',\''+${nons.roomnuclide.roid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/noroomupdate(ronumber=${nons.roomnuclide.ronumber},roid=${nons.roomnuclide.roid})}">修改</a></td>
                                             </tr>
                                             <tr>
                                                 <th colspan="3">楼宇</th>
                                                 <th colspan="3">楼层</th>
-                                                <th colspan="4">房间信息</th>
-												<th colspan="4">场所等级</th>
+                                                <th colspan="3">房间信息</th>
+												<th colspan="2">场所等级</th>
+												<th colspan="2">日操作量是否超出限值</th>
                                             </tr>
                                             <tr>
                                                 <td colspan="3"><span class="reducedfrom"  th:text="${nons.nobuiding}"></span></td>
 												<td colspan="3"><span class="reducedfrom"  th:text="${nons.nofloor}"></span></td>
-												<td colspan="4"><span class="reducedfrom"  th:text="${nons.noroomid}"></span></td>
-												<td colspan="4"><span class="reducedfrom"  th:text="${nons.nolevel}"></span></td>						
+												<td colspan="3"><span class="reducedfrom"  th:text="${nons.noroomid}"></span></td>
+												<td colspan="2"><span class="reducedfrom"  th:text="${nons.nolevel}"></span></td>		
+												<td colspan="2"><span class="reducedfrom"  th:text="${nons.nolimitcolor}"></span></td>				
                                             </tr>
+
                                         </tbody>
                                     </table>
                                     

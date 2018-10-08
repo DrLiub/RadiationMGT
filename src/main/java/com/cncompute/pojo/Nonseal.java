@@ -27,11 +27,18 @@ public class Nonseal implements Serializable {
 	private String noroomid;//房间ID
 	private String nolevel;//所在场所等级
 	private String nolimit;//是否超出限值
+	private String nolimitcolor;//是否超出限制提示
 	private String a;//甲
 	private String b;//乙
 	private String c;//丙
 	private Roomnuclide roomnuclide;//房间中的核素
 	Set<Roomnuclide> roomnuclides=new HashSet<Roomnuclide>();
+	public String getNolimitcolor() {
+		return nolimitcolor;
+	}
+	public void setNolimitcolor(String nolimitcolor) {
+		this.nolimitcolor = nolimitcolor;
+	}
 	private Xauxiliary xauxiliary;//辅助决策
 	Set<Xauxiliary> xauxiliarys=new HashSet<Xauxiliary>();
 	public Nonseal() {

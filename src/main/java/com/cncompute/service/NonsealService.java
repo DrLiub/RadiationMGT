@@ -1,7 +1,10 @@
 package com.cncompute.service;
 
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -171,8 +174,28 @@ public class NonsealService {
 		String rouse[]=request.getParameterValues("rouse");// 用途
 		String rostorageway[]=request.getParameterValues("rostorageway");// 贮存方式
 		String rostorage[]=request.getParameterValues("rostorage");// 贮存地点
-		long robiggest = 0;//日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
+		try {
+		for (int i=0;i<roquantity.length;i++) {
+			boolean bool= methods.judgeDigital(roquantity[i]);
+			if(!bool) {
+				pw.print("2");//请检查日最大操作量格式是否正确
+				return;
+			}
+			if(!methods.judgeDigital(royear[i])) {
+				pw.print("3");//请检查年最大操作量格式是否正确
+				return;
+			}
+			if(!methods.judgeDigital(rocorrection[i])) {
+				pw.print("4");//请检查操作修正因子格式是否正确
+				return;
+			}
+			if(!methods.judgeDigital(rotoxicity[i])) {
+				pw.print("5");//请检查毒性修正因子格式是否正确
+				return;
+			}
+		}
 		for(int i=0;i<roname.length;i++) {
+			BigInteger robiggest = null;//日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
 			Roomnuclide room=new Roomnuclide();
 			room.setRoid(noid);
 			room.setRonumber(Methods.getUUID());// 信息编号
@@ -188,17 +211,27 @@ public class NonsealService {
 			room.setRouse(rouse[i]);
 			room.setRostorageway(rostorageway[i]);
 			room.setRostorage(rostorage[i]);
-			try {
-				long num1 = Long.parseLong(roquantity[i]);//日最大操作量
-				long num2 = Long.parseLong(rotoxicity[i]);//毒性修正因子
-				long num3 = Long.parseLong(rocorrection[i]);//操作修正因子
-				robiggest=(num1*num2)/num3;
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			//计算日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
+			BigInteger num1= methods.strTurn(roquantity[i]);//日最大操作量
+			BigInteger num2= methods.strTurn(rotoxicity[i]);//毒性修正因子
+			BigInteger num3= methods.strTurn(rocorrection[i]);//操作修正因子
+			robiggest=(num1.multiply(num2)).divide(num3);
 			room.setRobiggest(String.valueOf(robiggest));// 日等效最大操作量
-			nonsealdao.roomAdd(room);
+			System.out.println("robiggest="+robiggest);
+			String str=String.valueOf(robiggest);
+			int num=str.indexOf("0");
+			String str2=str.substring(1,num);//截取第2位数字到后几位数字
+			String str3=str.substring(0,1);//截取第一位
+			System.out.println("str2="+str2);
+			System.out.println("str3="+str3);
+			String index=str3+"."+str2+"*"+"10"+"^"+(str.length()-1);
+			System.out.println("index="+index);
+//			nonsealdao.roomAdd(room);
 		}
+		
+	} catch (Exception e) {
+		// TODO: handle exception
+	}
 		Nonseal nons=new Nonseal();
 		nons.setNoid(noid);
 		nons.setNobuiding(nobuiding);
@@ -207,7 +240,7 @@ public class NonsealService {
 		nons.setNolevel(nolevel);
 //		nons.setNolimit(nolimit);//是否超出限值
 		nonsealdao.updateNonseal(nons);
-		pw.print("1");
+//		pw.print("1");
 	}
 	/**
 	 * 添加安全措施表
