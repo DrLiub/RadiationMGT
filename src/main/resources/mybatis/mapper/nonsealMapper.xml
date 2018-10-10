@@ -115,7 +115,7 @@
 	<select id="queryRoom"  resultMap="NonsealMap">
 	SELECT r.roid, r.ronumber, r.roname, r.rochemical, r.roway, r.roquantity, 
      r.royear, r.rooperation, r.rocorrection, r.rotoxicity, r.rouse, 
-     r.rostorageway, r.rostorage, r.robiggest, r.rouserid
+     r.rostorageway, r.rostorage, r.robiggest, r.rouserid,n.nolevel,n.nolimit
 	FROM nonseal n LEFT JOIN roomnuclide r
 	ON n.noid=r.roid
     WHERE r.roid=#{roid} AND r.rostate='1' AND n.nostate='1'  ORDER BY  r.rotime DESC

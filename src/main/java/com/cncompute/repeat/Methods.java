@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -411,14 +412,18 @@ public class Methods {
 	 * @return
 	 */
 	public boolean judgeDigital(String digital) {
-		String regex="^\\d+(\\.{1}\\d+)?\\*\\d+\\^\\d+$";//正则表达式
-//		String regex="^\\d+(\\.{1}\\d+)?\\*10\\^\\d+$";//10次方写死
+//		String regex="^\\d+(\\.{1}\\d+)?\\*\\d+\\^\\d+$";//正则表达式
+		String regex="^\\d+(\\.{1}\\d+)?\\*10\\^\\d+$";//10次方写死
 		Pattern p=Pattern.compile(regex);
 		Matcher m=p.matcher(digital);
 		return m.matches();
 	}
-	
-	public BigInteger strTurn(String str) {
+	/**
+	 * 把指定字符串转换为数字
+	 * @param str
+	 * @return
+	 */
+	public long strTurn(String str) {
 		int add1=str.lastIndexOf("^");
 		int add2=str.lastIndexOf("*");//获得*出现的索引
 		String str2=str.substring(0,add2);//截取*前面的数字
@@ -426,7 +431,36 @@ public class Methods {
 		String suffix = str.substring(str.lastIndexOf("^")+1);//^后面数字
 		long d = (long) Math.pow(Integer.parseInt(str3), Integer.parseInt(suffix));
 		long num=(long) (d*Double.parseDouble(str2));
-		BigInteger big =  BigInteger.valueOf (num);
-		return big;
+		return num;
 	}
+	/**
+	 * 获得指定字符串格式*前的数字
+	 * @param str
+	 * @return
+	 */
+	public Double getDigital(String str) {
+		int add2=str.lastIndexOf("*");//获得*出现的索引
+		String str2=str.substring(0,add2);//截取*前面的数字
+		return Double.parseDouble(str2);
+	}
+	/**
+	 * 获取^符号后次方的数字
+	 * @param str
+	 * @return
+	 */
+	public int getPower(String str) {
+		String suffix = str.substring(str.lastIndexOf("^")+1);//^后面数字
+		return Integer.parseInt(suffix);
+	}
+	/**
+	 * 获取小数点后两位数字
+	 * @param num
+	 * @return
+	 */
+    public double getTwoDecimal(double num) {    
+    	DecimalFormat dFormat = new DecimalFormat("#.00");        
+    	String yearString = dFormat.format(num);      
+    	Double temp = Double.valueOf(yearString);      
+    	return temp;
+    }
 	}

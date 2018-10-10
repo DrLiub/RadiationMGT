@@ -1,11 +1,7 @@
 package com.cncompute.service;
 
 import java.io.PrintWriter;
-import java.math.BigInteger;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -136,12 +132,16 @@ public class NonsealService {
 	 */
 	public void sendContent(HttpServletRequest request,String type) {
 		Nonseal nons= nonsealdao.queryNonsid(type);
-		if(nons.getNolevel().equals("甲")) {
-			nons.setA("checked");
-		}else if(nons.getNolevel().equals("乙")) {
-			nons.setB("checked");
-		}else if(nons.getNolevel().equals("丙")) {
-			nons.setC("checked");
+		if("".equals(nons.getNolevel())||nons.getNolevel()==null) {
+			
+		}else {
+			if(nons.getNolevel().equals("甲")) {
+				nons.setA("checked");
+			}else if(nons.getNolevel().equals("乙")) {
+				nons.setB("checked");
+			}else if(nons.getNolevel().equals("丙")) {
+				nons.setC("checked");
+			}
 		}
 		request.setAttribute("nons", nons);
 		sendId(request, type);
@@ -195,7 +195,6 @@ public class NonsealService {
 			}
 		}
 		for(int i=0;i<roname.length;i++) {
-			BigInteger robiggest = null;//日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
 			Roomnuclide room=new Roomnuclide();
 			room.setRoid(noid);
 			room.setRonumber(Methods.getUUID());// 信息编号
@@ -212,21 +211,40 @@ public class NonsealService {
 			room.setRostorageway(rostorageway[i]);
 			room.setRostorage(rostorage[i]);
 			//计算日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
-			BigInteger num1= methods.strTurn(roquantity[i]);//日最大操作量
-			BigInteger num2= methods.strTurn(rotoxicity[i]);//毒性修正因子
-			BigInteger num3= methods.strTurn(rocorrection[i]);//操作修正因子
-			robiggest=(num1.multiply(num2)).divide(num3);
-			room.setRobiggest(String.valueOf(robiggest));// 日等效最大操作量
-			System.out.println("robiggest="+robiggest);
-			String str=String.valueOf(robiggest);
-			int num=str.indexOf("0");
-			String str2=str.substring(1,num);//截取第2位数字到后几位数字
-			String str3=str.substring(0,1);//截取第一位
-			System.out.println("str2="+str2);
-			System.out.println("str3="+str3);
-			String index=str3+"."+str2+"*"+"10"+"^"+(str.length()-1);
-			System.out.println("index="+index);
-//			nonsealdao.roomAdd(room);
+//			BigInteger num1= methods.strTurn(roquantity[i]);//日最大操作量
+//			BigInteger num2= methods.strTurn(rotoxicity[i]);//毒性修正因子
+//			BigInteger num3= methods.strTurn(rocorrection[i]);//操作修正因子
+//			robiggest=(num1.multiply(num2)).divide(num3);
+//			room.setRobiggest(String.valueOf(robiggest));// 日等效最大操作量
+//			System.out.println("robiggest="+robiggest);
+//			String str=String.valueOf(robiggest);
+//			int num=str.indexOf("0");
+//			String str2=str.substring(1,num);//截取第2位数字到后几位数字
+//			String str3=str.substring(0,1);//截取第一位
+//   		System.out.println("str2="+str2);
+//			System.out.println("str3="+str3);
+//			String index=str3+"."+str2+"*"+"10"+"^"+(str.length()-1);
+//			System.out.println("index="+index);
+			//计算日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
+			Double roqud= methods.getDigital(roquantity[i]);//日最大操作量
+			int roqui= methods.getPower(roquantity[i]);//日最大操作量
+
+			Double rotod= methods.getDigital(rotoxicity[i]);//毒性修正因子
+			int rotoi= methods.getPower(rotoxicity[i]);//毒性修正因子
+
+			Double rocod= methods.getDigital(rocorrection[i]);//操作修正因子
+			int rocoi= methods.getPower(rocorrection[i]);//操作修正因子
+
+			//计算日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
+			Double numd=(roqud*rotod)/rocod;//小数部分计算
+
+			Double doubleNumber= methods.getTwoDecimal(numd);//截取小数点后两位
+
+			int intNumber=roqui+rotoi-rocoi;//计算10次方部分
+			String robiggest=doubleNumber+"*"+"10^"+intNumber;
+
+			room.setRobiggest(robiggest);// 日等效最大操作量
+			nonsealdao.roomAdd(room);
 		}
 		
 	} catch (Exception e) {
@@ -238,9 +256,52 @@ public class NonsealService {
 		nons.setNofloor(nofloor);
 		nons.setNoroomid(noroomid);
 		nons.setNolevel(nolevel);
-//		nons.setNolimit(nolimit);//是否超出限值
 		nonsealdao.updateNonseal(nons);
-//		pw.print("1");
+		nons.setNolimit(judgeExcessive(noid));//是否超出限值
+		nonsealdao.updateNonseal(nons);
+		pw.print("1");
+	}
+	/**
+	 * 叠加同一个工作场所内所有核素的日等效最大操作量判断是否超标
+	 * @return
+	 */
+	public String judgeExcessive(String type) {
+		long num=0;
+		String nolevelj=null;//场所等级
+		String yesorno=null;//是或否
+		List<Nonseal>nonsall= nonsealdao.queryRoom(type);
+		for (Nonseal nonseal : nonsall) {
+			String str=nonseal.getRoomnuclide().getRobiggest();//日等效最大操作量
+			 num+=methods.strTurn(str);
+			 nolevelj=nonseal.getNolevel();
+		}
+        if("".equals(nolevelj)||nolevelj==null) {
+        	
+        }else {
+    		if(nolevelj.equals("甲")) {
+    			//
+    			System.out.println("甲场所需求中没有提到默认为否");
+    			yesorno="否";
+    		}else if(nolevelj.equals("乙")) {
+    			//乙级场所不超过4*10^9 Bq
+    			long b=methods.strTurn("4*10^9");
+    			if(num>b) {
+    				yesorno="是";
+    			}else {
+    				yesorno="否";
+    			}
+    		}else if(nolevelj.equals("丙")) {
+    			//丙级场所不超过2*10^7 Bq
+    			long c=methods.strTurn("2*10^7");
+    			if(num>c) {
+    				yesorno="是";
+    			}else {
+    				yesorno="否";
+    			}
+    		}
+        }
+
+		return yesorno;
 	}
 	/**
 	 * 添加安全措施表
@@ -409,6 +470,13 @@ public class NonsealService {
 			//环保竣工验收批复已选取
 			nons.setNoreplybox("checked");
 		}
+		if("".equals(nons.getNolimit())||nons.getNolimit()==null) {
+			
+		}else {
+    		if(nons.getNolimit().equals("是")) {
+    			nons.setNolimitcolor("color:red");
+    		}
+		}
 		List<Nonseal> nonsall=nonsealdao.queryRoom(type);
 		List<Nonseal> issafet= nonsealdao.queryNons(type);
 		request.setAttribute("nonsall", nonsall);
@@ -479,6 +547,23 @@ public class NonsealService {
 			pw=response.getWriter();
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+		boolean bool= methods.judgeDigital(room.getRoquantity());
+		if(!bool) {
+			pw.print("2");//请检查日最大操作量格式是否正确
+			return;
+		}
+		if(!methods.judgeDigital(room.getRoyear())) {
+			pw.print("3");//请检查年最大操作量格式是否正确
+			return;
+		}
+		if(!methods.judgeDigital(room.getRocorrection())) {
+			pw.print("4");//请检查操作修正因子格式是否正确
+			return;
+		}
+		if(!methods.judgeDigital(room.getRotoxicity())) {
+			pw.print("5");//请检查毒性修正因子格式是否正确
+			return;
 		}
 		nonsealdao.updateRoom(room);
 		pw.print("1");
