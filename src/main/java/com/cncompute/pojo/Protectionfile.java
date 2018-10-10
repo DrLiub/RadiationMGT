@@ -21,14 +21,17 @@ public class Protectionfile implements Serializable {
 	private License license;//许可证表实现类
 	private Environmental environmental;//环境影响评价文件批复
 	private Completionreply completionreply;//环保竣工验收监测文件批复
+	private Typelicense typelicense;//许可种类与范围实现类
+	Set<Typelicense> typelicenses=new HashSet<Typelicense>();//
 	Set<Environmental> environmentals=new HashSet<Environmental>();//1对多，
 	Set<License> Licenses=new HashSet<License>();//1对多，1个环保手续文件对应多个许可证
 	Set<Completionreply> completionreplys=new HashSet<Completionreply>();//1对多，
 	public Protectionfile() {
 	}
 	public Protectionfile(String prid, String prname, String pruserid, Date prtime, Integer prstate, License license,
-			Environmental environmental, Completionreply completionreply, Set<Environmental> environmentals,
-			Set<License> licenses, Set<Completionreply> completionreplys) {
+			Environmental environmental, Completionreply completionreply, Typelicense typelicense,
+			Set<Typelicense> typelicenses, Set<Environmental> environmentals, Set<License> licenses,
+			Set<Completionreply> completionreplys) {
 		this.prid = prid;
 		this.prname = prname;
 		this.pruserid = pruserid;
@@ -37,6 +40,8 @@ public class Protectionfile implements Serializable {
 		this.license = license;
 		this.environmental = environmental;
 		this.completionreply = completionreply;
+		this.typelicense = typelicense;
+		this.typelicenses = typelicenses;
 		this.environmentals = environmentals;
 		Licenses = licenses;
 		this.completionreplys = completionreplys;
@@ -88,6 +93,18 @@ public class Protectionfile implements Serializable {
 	}
 	public void setCompletionreply(Completionreply completionreply) {
 		this.completionreply = completionreply;
+	}
+	public Typelicense getTypelicense() {
+		return typelicense;
+	}
+	public void setTypelicense(Typelicense typelicense) {
+		this.typelicense = typelicense;
+	}
+	public Set<Typelicense> getTypelicenses() {
+		return typelicenses;
+	}
+	public void setTypelicenses(Set<Typelicense> typelicenses) {
+		this.typelicenses = typelicenses;
 	}
 	public Set<Environmental> getEnvironmentals() {
 		return environmentals;

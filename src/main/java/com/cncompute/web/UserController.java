@@ -106,4 +106,16 @@ public class UserController {
 		}
 		return "main";
 	}
+	/**
+	 * 退出登录
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequestMapping(value="logout",method=RequestMethod.GET)
+	public void logOut(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		request.getSession().removeAttribute("user");
+		request.getSession().invalidate();
+		String url = "/login";
+        response.sendRedirect(url);
+	}
 }
