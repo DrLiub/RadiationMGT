@@ -47,6 +47,42 @@
         	<result column="cousrid" property="cousrid" jdbcType="VARCHAR"/> 
         	<result column="costate" property="costate" jdbcType="INTEGER"/> 
 		    </association>
+		    
+		    <!-- 许可种类与范围  -->
+        	<association property="typelicense" javaType="com.cncompute.pojo.Typelicense" column="prid" >
+        	<id column="tyid" property="tyid" jdbcType="VARCHAR" />  
+			<result column="tynumber" property="tynumber" jdbcType="VARCHAR" />  
+        	<result column="tychoose1" property="tychoose1" jdbcType="INTEGER" />  
+        	<result column="tychoose2" property="tychoose2" jdbcType="INTEGER"/>  
+        	<result column="tychoose3" property="tychoose3" jdbcType="INTEGER"/> 
+        	<result column="tychoose4" property="tychoose4" jdbcType="INTEGER"/> 
+        	<result column="tychoose5" property="tychoose5" jdbcType="INTEGER"/> 
+        	<result column="tychoose6" property="tychoose6" jdbcType="INTEGER"/> 
+        	<result column="tychoose7" property="tychoose7" jdbcType="INTEGER"/> 
+        	<result column="tychoose8" property="tychoose8" jdbcType="INTEGER"/> 
+        	<result column="tychoose9" property="tychoose9" jdbcType="INTEGER"/> 
+        	<result column="tychoose10" property="tychoose10" jdbcType="INTEGER"/> 
+        	<result column="tychoose11" property="tychoose11" jdbcType="INTEGER"/> 
+        	<result column="tychoose12" property="tychoose12" jdbcType="INTEGER"/> 
+        	<result column="tychoose13" property="tychoose13" jdbcType="INTEGER"/> 
+        	<result column="tychoose14" property="tychoose14" jdbcType="INTEGER"/> 
+        	<result column="tychoose15" property="tychoose15" jdbcType="INTEGER"/> 
+        	<result column="tychoose16" property="tychoose16" jdbcType="INTEGER"/> 
+        	<result column="tychoose17" property="tychoose17" jdbcType="INTEGER"/> 
+        	<result column="tychoose18" property="tychoose18" jdbcType="INTEGER"/> 
+        	<result column="tychoose19" property="tychoose19" jdbcType="INTEGER"/> 
+        	<result column="tychoose20" property="tychoose20" jdbcType="INTEGER"/> 
+        	<result column="tychoose21" property="tychoose21" jdbcType="INTEGER"/> 
+        	<result column="tychoose22" property="tychoose22" jdbcType="INTEGER"/> 
+        	<result column="tychoose23" property="tychoose23" jdbcType="INTEGER"/> 
+        	<result column="tychoose24" property="tychoose24" jdbcType="INTEGER"/> 
+        	<result column="tychoose25" property="tychoose25" jdbcType="INTEGER"/> 
+        	<result column="tychoose26" property="tychoose26" jdbcType="INTEGER"/> 
+        	<result column="tychoose27" property="tychoose27" jdbcType="INTEGER"/> 
+        	<result column="tyuserid" property="tyuserid" jdbcType="VARCHAR"/> 
+        	<result column="tytime" property="tytime" jdbcType="DATE"/> 
+        	<result column="tystaty" property="tystaty" jdbcType="INTEGER"/> 
+		    </association>
 	</resultMap>
 	
 	<!-- 查询环保手续文件全部信息 -->
@@ -72,13 +108,20 @@
 	<insert id="liceadd" parameterType="License">
 	INSERT INTO license (liid) VALUES (#{liid})
 	</insert>
+	
 	<!-- 添加环境影响评价文件批复 -->
 	<insert id="enviadd" parameterType="Environmental">
 	INSERT INTO environmental (enid) VALUES (#{enid})
 	</insert>
+	
 	<!-- 添加环保竣工验收监测文件批复 -->
 	<insert id="compadd" parameterType="Completionreply">
 	INSERT INTO completionreply (coid) VALUES (#{coid})
+	</insert>
+	
+	<!-- 添加许可种类与范围 -->
+	<insert id="peliadd" parameterType="com.cncompute.pojo.Typelicense">
+	INSERT INTO typelicense (tyid) VALUES (#{tyid})
 	</insert>
 	
 	<!-- 根据liid查询License表信息 -->
@@ -168,5 +211,57 @@
 	<!-- 通过ID查询环保手续文件全部信息 -->
 	<select id="prIdall" resultMap="ProtectionfileMap">
 	SELECT *FROM protectionfile WHERE prid=#{prid} AND prstate='1' ORDER BY  prtime DESC
+	</select>
+	
+	<!-- 修改 许可种类与范围-->
+    <update id="updateTypeli"  parameterType="com.cncompute.pojo.Typelicense">
+    update typelicense <set> 
+    <if test="tynumber!=null">tynumber=#{tynumber},</if>
+    <if test="tychoose1!=null">tychoose1=#{tychoose1},</if><if test="tychoose1==null">tychoose1=0,</if>
+    <if test="tychoose2!=null">tychoose2=#{tychoose2},</if><if test="tychoose2==null">tychoose2=0,</if>
+    <if test="tychoose3!=null">tychoose3=#{tychoose3},</if><if test="tychoose3==null">tychoose3=0,</if>
+    <if test="tychoose4!=null">tychoose4=#{tychoose4},</if><if test="tychoose4==null">tychoose4=0,</if>
+    <if test="tychoose5!=null">tychoose5=#{tychoose5},</if><if test="tychoose5==null">tychoose5=0,</if>
+    <if test="tychoose6!=null">tychoose6=#{tychoose6},</if><if test="tychoose6==null">tychoose6=0,</if>
+    <if test="tychoose7!=null">tychoose7=#{tychoose7},</if><if test="tychoose7==null">tychoose7=0,</if>
+    <if test="tychoose8!=null">tychoose8=#{tychoose8},</if><if test="tychoose8==null">tychoose8=0,</if>
+    <if test="tychoose9!=null">tychoose9=#{tychoose9},</if><if test="tychoose9==null">tychoose9=0,</if>
+    <if test="tychoose10!=null">tychoose10=#{tychoose10},</if><if test="tychoose10==null">tychoose10=0,</if>
+    <if test="tychoose11!=null">tychoose11=#{tychoose11},</if><if test="tychoose11==null">tychoose11=0,</if>
+    <if test="tychoose12!=null">tychoose12=#{tychoose12},</if><if test="tychoose12==null">tychoose12=0,</if>
+    <if test="tychoose13!=null">tychoose13=#{tychoose13},</if><if test="tychoose13==null">tychoose13=0,</if>
+    <if test="tychoose14!=null">tychoose14=#{tychoose14},</if><if test="tychoose14==null">tychoose14=0,</if>
+    <if test="tychoose15!=null">tychoose15=#{tychoose15},</if><if test="tychoose15==null">tychoose15=0,</if>
+    <if test="tychoose16!=null">tychoose16=#{tychoose16},</if><if test="tychoose16==null">tychoose16=0,</if>
+    <if test="tychoose17!=null">tychoose17=#{tychoose17},</if><if test="tychoose17==null">tychoose17=0,</if>
+    <if test="tychoose18!=null">tychoose18=#{tychoose18},</if><if test="tychoose18==null">tychoose18=0,</if>
+    <if test="tychoose19!=null">tychoose19=#{tychoose19},</if><if test="tychoose19==null">tychoose19=0,</if>
+    <if test="tychoose20!=null">tychoose20=#{tychoose20},</if><if test="tychoose20==null">tychoose20=0,</if>
+    <if test="tychoose21!=null">tychoose21=#{tychoose21},</if><if test="tychoose21==null">tychoose21=0,</if>
+    <if test="tychoose22!=null">tychoose22=#{tychoose22},</if><if test="tychoose22==null">tychoose22=0,</if>
+    <if test="tychoose23!=null">tychoose23=#{tychoose23},</if><if test="tychoose23==null">tychoose23=0,</if>
+    <if test="tychoose24!=null">tychoose24=#{tychoose24},</if><if test="tychoose24==null">tychoose24=0,</if>
+    <if test="tychoose25!=null">tychoose25=#{tychoose25},</if><if test="tychoose25==null">tychoose25=0,</if>
+    <if test="tychoose26!=null">tychoose26=#{tychoose26},</if><if test="tychoose26==null">tychoose26=0,</if>
+    <if test="tychoose27!=null">tychoose27=#{tychoose27},</if><if test="tychoose27==null">tychoose27=0,</if>
+    <if test="tyuserid!=null">tyuserid=#{tyuserid},</if>
+    <if test="tytime!=null">tytime=#{tytime},</if>
+    <if test="tystaty!=null">tystaty=#{tystaty}</if>
+    </set> WHERE tyid=#{tyid}
+	</update>
+	
+	<!-- 查询许可种类与范围 -->
+	<select id="queryTypeall" resultMap="ProtectionfileMap">
+	SELECT
+	t.tyid,t.tynumber,
+    t.tychoose1,t.tychoose2,t.tychoose3,t.tychoose4,t.tychoose5,
+    t.tychoose6,t.tychoose7,t.tychoose8,t.tychoose9,t.tychoose10,
+    t.tychoose11,t.tychoose12,t.tychoose13,t.tychoose14,t.tychoose15,
+    t.tychoose16,t.tychoose17,t.tychoose18,t.tychoose19,t.tychoose20,
+    t.tychoose21,t.tychoose22,t.tychoose23,t.tychoose24,t.tychoose25,
+    t.tychoose26,t.tychoose27,t.tyuserid,t.tytime,t.tystaty
+	FROM protectionfile p 
+	LEFT JOIN typelicense t ON p.prid=t.tyid 
+	WHERE t.tyid=#{tyid} AND p.prstate='1' 
 	</select>
 </mapper>  

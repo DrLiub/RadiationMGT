@@ -6,6 +6,7 @@ import com.cncompute.pojo.Completionreply;
 import com.cncompute.pojo.Environmental;
 import com.cncompute.pojo.License;
 import com.cncompute.pojo.Protectionfile;
+import com.cncompute.pojo.Typelicense;
 
 /**
  * 环保手续文件Dao层
@@ -53,15 +54,20 @@ public interface ProtectionfileDao {
 	 */
 	public void liceadd(String liid);
 	/**
-	 * 根据ID添加环境影响评价文件批复
+	 * 根据ID-添加环境影响评价文件批复
 	 * @param enid
 	 */
 	public void enviadd(String enid);
 	/**
-	 * 根据ID添加环保竣工验收监测文件批复
+	 * 根据ID-添加环保竣工验收监测文件批复
 	 * @param coid
 	 */
 	public void compadd(String coid);
+	/**
+	 * 根据ID-添加许可种类与范围
+	 * @param tyid
+	 */
+	public void peliadd(String tyid);
 	/**
 	 * 修改许可证表信息
 	 * @param lice
@@ -93,4 +99,15 @@ public interface ProtectionfileDao {
 	 * @return
 	 */
 	public Protectionfile prIdall(String prid);
+	/**
+	 * 修改许可种类与范围
+	 * @param typeli
+	 */
+	public void updateTypeli(Typelicense typeli);
+	/**
+	 * 查询许可种类与范围
+	 * @param tyid
+	 * @return
+	 */
+	public Protectionfile queryTypeall(String tyid);
 }

@@ -15,6 +15,7 @@ import com.cncompute.pojo.Completionreply;
 import com.cncompute.pojo.Environmental;
 import com.cncompute.pojo.License;
 import com.cncompute.pojo.Protectionfile;
+import com.cncompute.pojo.Typelicense;
 import com.cncompute.repeat.Methods;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -87,6 +88,7 @@ public class ProtectionfileService {
 		proDao.liceadd(id);
 		proDao.compadd(id);
 		proDao.enviadd(id);
+		proDao.peliadd(id);
 		pw.print("1");
 	}
 	/**
@@ -195,6 +197,8 @@ public class ProtectionfileService {
 	public void prall(HttpServletRequest request,String prid) {
 		Protectionfile prall= proDao.queryAll(prid);
 		request.setAttribute("prall", prall);
+		Protectionfile typeli= proDao.queryTypeall(prid);
+		request.setAttribute("typeli", typeli);
 	}
 	/**
 	 *  删除环保手续文件
@@ -261,5 +265,30 @@ public class ProtectionfileService {
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("proall", proall);
 		request.setAttribute("name", name);
+	}
+	/**
+	 * 向许可种类与范围界面发送数据
+	 * @param request
+	 * @param type
+	 */
+	public void sendScope(HttpServletRequest request,String type) {
+		Protectionfile typeli= proDao.queryTypeall(type);
+		request.setAttribute("typeli", typeli);
+	}
+	/**
+	 * 修改许可种类与范围
+	 * @param request
+	 * @param response
+	 * @param typeli
+	 */
+	public void updateTypeli(HttpServletRequest request,HttpServletResponse response,Typelicense typeli) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		proDao.updateTypeli(typeli);
+		pw.print("1");
 	}
 }

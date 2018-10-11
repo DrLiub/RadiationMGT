@@ -14,6 +14,7 @@ import com.cncompute.pojo.Completionreply;
 import com.cncompute.pojo.Environmental;
 import com.cncompute.pojo.License;
 import com.cncompute.pojo.Protectionfile;
+import com.cncompute.pojo.Typelicense;
 import com.cncompute.service.ProtectionfileService;
 /**
  * 环保手续文件控制层
@@ -168,5 +169,26 @@ public class ProtectionfileController {
 	public String protFuzzy(HttpServletRequest request,String name) {
 		proservice.fuzzyProte(request, name);
 		return"environmental/protectionfuzzy";
+	}
+	/**
+	 * 选取许可种类与范围界面
+	 * @param request
+	 * @param type
+	 * @return
+	 */
+	@RequestMapping(value="prscope",method=RequestMethod.GET)
+	public String prScope(HttpServletRequest request,String type) {
+		proservice.sendScope(request, type);
+		return "environmental/license";
+	}
+	/**
+	 * 修改许可证种类与范围
+	 * @param request
+	 * @param response
+	 * @param typeli
+	 */
+	@RequestMapping(value="prtypepost",method=RequestMethod.POST)
+	public void prtypePost(HttpServletRequest request,HttpServletResponse response,Typelicense typeli) {
+		proservice.updateTypeli(request, response, typeli);
 	}
 }

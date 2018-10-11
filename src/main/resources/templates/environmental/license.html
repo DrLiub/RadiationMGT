@@ -21,119 +21,23 @@
 <body style="padding:10px">
     <div id="wrapper">
 
+
         <!-- /. NAV SIDE  -->
       
 		<div id="page-wrapper">
 		  <div class="header"> 
                         <h1 class="page-header">
-                             <small >环保手续文件</small>
+                             <small>许可种类与范围</small>
                         </h1>								
-		</div>				
-				
-			 				   				
+		          </div>				
+                    <form   method="post" enctype="multipart/form-data" id="formid">
+                        <div class="panel panel-default">
 
-	          <div class="panel panel-default">
-                            <div class="panel-heading">
-                                许可证
-                            </div> 
                             <div class="panel-body">
-                                <div class="table-responsive">
-								 <div id="index" style="text-align:center;color:red"></div>
-                                    <table class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <td>发证单位</td>
-                                                <td>许可证编号</td>
-                                                <td>发证日期</td>
-												<td>有限期</td>
-												<td>许可证电子版导入</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><span class="reducedfrom" th:text="${prall.license.liunit}" ></span></td>
-                                                <td><span class="reducedfrom" th:text="${prall.license.linumber}" ></span></td>
-												<td><span class="reducedfrom" th:text="${prall.license.lidate}" ></span></td>
-												<td><span class="reducedfrom" th:text="${prall.license.livalidity}" ></span></td>
-												<td><a th:href="@{/onpage(page=${prall.license.licertificateid})}">下载文件</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-               </div>
-			   
-			   <div class="panel panel-default">
-                            <div class="panel-heading">
-                                环境影响评价文件批复
-                            </div> 
-                            <div class="panel-body">
-                                <div class="table-responsive">
-								 <div id="index" style="text-align:center;color:red"></div>
-                                    <table class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <td>审批单位</td>
-                                                <td>批复文件名称</td>
-                                                <td>批复文件号</td>
-												<td>批复日期</td>
-												<td>批复文件电子版导入</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr  >
-                                                <td><span class="reducedfrom" th:text="${prall.environmental.enunit}" ></span></td>
-                                                <td><span class="reducedfrom" th:text="${prall.environmental.enfile}" ></span></td>
-												<td><span class="reducedfrom" th:text="${prall.environmental.enfileno}" ></span></td>
-												<td><span class="reducedfrom" th:text="${prall.environmental.endate}" ></span></td>
-												<td><a th:href="@{/onpage(page=${prall.environmental.enelectronic})}">下载文件</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    
-                                    
-                                    
-                                    
-                                </div>
-                            </div>
-               </div>
-			   
-			   
-			   <div class="panel panel-default">
-                            <div class="panel-heading">
-                              环保竣工验收监测文件批复
-                            </div> 
-                            <div class="panel-body">
-                                <div class="table-responsive">
-								 <div id="index" style="text-align:center;color:red"></div>
-                                    <table class="table table-striped table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <td>审批单位</td>
-                                                <td>批复文件名称</td>
-                                                <td>批复文件号</td>
-												<td>批复日期</td>
-												<td>批复文件电子版导入</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr >
-                                                <td><span class="reducedfrom" th:text="${prall.completionreply.counit}" ></span></td>
-                                                <td><span class="reducedfrom" th:text="${prall.completionreply.cofile}" ></span></td>
-												<td><span class="reducedfrom" th:text="${prall.completionreply.cofileno}" ></span></td>
-												<td><span class="reducedfrom" th:text="${prall.completionreply.codate}" ></span></td>
-												<td><a th:href="@{/onpage(page=${prall.completionreply.coelectronic})}">下载文件</a></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    
-                                    
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading">
-                                                                         许可种类与范围
-                                       </div> 
-                                       <div class="panel-body">
-                                    <div class="table-responsive">
+                                <div class="table-responsive">		
+								<input type="hidden" th:value="${typeli.typelicense.tyid}" name="tyid" id="tyid"/>
+								<input type="button" class="btn btn-default"  value="保存" onclick="submitFunction()">
+								<div id="index" style="text-align:center;color:red"></div>
                                     <table class="table table-striped table-bordered table-hover" id = "test">
 										<tbody>
                                             <tr>
@@ -201,10 +105,17 @@
                                     </table>
                                 </div>
                             </div>
-               </div>
-			   
+                        </div>
+                         </form>
+											
+					 <div class="panel panel-default">
+                        </div>
+
                 </div>
+				
                 <!-- /. ROW  -->
+			
+
             </div>
             <!-- /. PAGE INNER  -->
         </div>
@@ -215,9 +126,13 @@
     <!-- jQuery Js -->
     <script src="js/jquery-1.10.2.js"></script>
     <!-- Bootstrap Js -->
-    <script src="js/bootstrap.min.js"></script>	 
+    <script src="js/bootstrap.min.js"></script>
+	 
     <!-- Metis Menu Js -->
     <script src="js/jquery.metisMenu.js"></script>
+    <!-- Morris Chart Js -->
+    <script src="js/morris/raphael-2.1.0.min.js"></script>
+    <script src="js/morris/morris.js"></script>
 	
 	
 	<script src="js/easypiechart.js"></script>
@@ -227,34 +142,39 @@
 	
     <!-- Custom Js -->
     <script src="js/custom-scripts.js"></script>
-
       <script>
-      function del(onnum){
-    	  var r = confirm("确定要删除吗？");
-    	  if(r == true){
-    	  window.location.href="/onendelete?onnum="+onnum;
-    	  }else{
-    	  return false;
-    	  }
-    	  }
       
-	   function index1(nodata){
-	　　       var nodata=nodata;
-	       $.get(
-	   	    	"/onpage",
-	   	    	{
-	   	    		nodata:nodata,
-	   	    	},function(data){
-	   	            if(data.index==1){
-	   	            	
-	   	            	$("#index").html("没有上传文件");
-	   	            }else if(data.index==2){
-	   	            	$("#index").html("账号不存在");
-	   	            }else if(data.index==0){
-	   	            window.location.href='/main';//
-	   	            }     
-	   	    	},"json");  
-	        }
+      
+      function submitFunction() {
+  	    //这里唯一需要注意的就是这个form-add的id
+  	    var tyid = $("#tyid").val();
+  	    var formData = new FormData($("#formid")[0]);
+  	    $.ajax({
+  	        //接口地址
+  	        url: '/prtypepost',
+  	        type: 'POST',
+  	        data: formData,
+  	        async: false,
+  	        cache: false,
+  	        contentType: false,
+  	        processData: false,
+  	        success: function (data) {
+  	            //成功的回调
+  	            if(data== 1){
+                      alert("保存成功");
+                      window.location.href='/prlic?type='+tyid;//
+  	            }else if(data== 2){
+  	            	$("#index").html("请检测数量格式是否正确");
+  	            }else if(data== 3){
+  	            	$("#index").html("请填写日期");
+  	            }
+  	        },
+  	        error: function (returndata) {
+  	           //请求异常的回调
+  	           modals.warn("网络访问失败，请稍后重试!");
+  	        }
+  	    });
+  	    }
       </script>
 
 </body>
