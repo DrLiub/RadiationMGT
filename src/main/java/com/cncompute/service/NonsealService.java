@@ -565,7 +565,30 @@ public class NonsealService {
 			pw.print("5");//请检查毒性修正因子格式是否正确
 			return;
 		}
+		
+		
+		//计算日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
+		Double roqud= methods.getDigital(room.getRoquantity());//日最大操作量
+		int roqui= methods.getPower(room.getRoquantity());//日最大操作量
+
+		Double rotod= methods.getDigital(room.getRotoxicity());//毒性修正因子
+		int rotoi= methods.getPower(room.getRotoxicity());//毒性修正因子
+
+		Double rocod= methods.getDigital(room.getRocorrection());//操作修正因子
+		int rocoi= methods.getPower(room.getRocorrection());//操作修正因子
+
+		//计算日等效最大操作量=(日最大操作量×毒性修正因子÷操作修正因子)
+		Double numd=(roqud*rotod)/rocod;//小数部分计算
+		Double doubleNumber= methods.getTwoDecimal(numd);//截取小数点后两位
+		int intNumber=roqui+rotoi-rocoi;//计算10次方部分
+		String robiggest=doubleNumber+"*"+"10^"+intNumber;
+		room.setRobiggest(robiggest);// 日等效最大操作量
 		nonsealdao.updateRoom(room);
+		judgeExcessive(room.getRoid());
+		Nonseal nons=new Nonseal();
+		nons.setNoid(room.getRoid());
+		nons.setNolimit(judgeExcessive(room.getRoid()));//是否超出限值
+		nonsealdao.updateNonseal(nons);
 		pw.print("1");
 	}
 }

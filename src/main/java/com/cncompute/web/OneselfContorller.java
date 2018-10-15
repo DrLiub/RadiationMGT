@@ -2,18 +2,16 @@ package com.cncompute.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
 import com.cncompute.pojo.Entrust;
 import com.cncompute.pojo.Oneself;
 import com.cncompute.service.OneselfService;
-
 /**
  * 表oneself(辐射环境监测数据)表的控制层
  * @author Admin
@@ -103,9 +101,10 @@ public class OneselfContorller {
 	 * @param nodata
 	 */
 	@RequestMapping(value="onpage",method=RequestMethod.GET)
+	@ResponseBody
 	public void onpage(HttpServletRequest request,HttpServletResponse response,String page) {
 		if("".equals(page)||page==null) {
-			return;
+			return ;
 		}
 		onservice.download(request, response, page);
 	}
@@ -307,5 +306,14 @@ public class OneselfContorller {
 	public String onunFuzzy(HttpServletRequest request,String name) {
 		onservice.fuzzyOnun(request, name);
 		return "registrpage/onunitpreviewfuzzy";
+	}
+	/**
+	 * 查看历史变化趋势
+	 * @return
+	 */
+	@RequestMapping(value="onhistorys",method=RequestMethod.GET)
+	public String onHistory(HttpServletRequest request) {
+		System.out.println("功能未实行");
+		return"registrpage/history";
 	}
 }
