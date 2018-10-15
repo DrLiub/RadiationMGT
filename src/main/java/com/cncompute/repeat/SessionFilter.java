@@ -19,7 +19,6 @@ public class SessionFilter implements Filter{
 
     //不需要登录就可以访问的路径(比如:注册登录等)
     String[] includeUrls = new String[]{"/index","/validation","/registered","/change","/change","/regist","/close","register"};
-
     
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -29,16 +28,15 @@ public class SessionFilter implements Filter{
 
         String uri =request.getRequestURI();//返回除去host（域名或者ip）部分的路径
 //        System.out.println("filter url:"+uri);
-        if(uri.contains(".css") || uri.contains(".js")|| uri.contains(".jpg")|| uri.contains(".ico")){
-        	//如果发现是css或者js文件，直接放行
-            filterChain.doFilter(request, response);
-        }
-        
-        
+//        int num=1;
+//        if(uri.contains(".css") || uri.contains(".js")|| uri.contains(".jpg")|| uri.contains(".ico")){
+//        	//如果发现是css或者js文件，直接放行
+//            filterChain.doFilter(request, response);
+//            num=0;
+//        }
         //是否需要过滤
         boolean needFilter = isNeedFilter(uri);
 
-      
         if (!needFilter) { //不需要过滤直接传给下一个过滤器
             filterChain.doFilter(servletRequest, servletResponse);
         } else { //需要过滤器
@@ -58,7 +56,6 @@ public class SessionFilter implements Filter{
                 		if(!response.isCommitted()) {
                 			response.sendRedirect(request.getContextPath()+"/index");
                 		}
-//                		
 //                	String contextPath = request.getContextPath();
 //                	response.sendRedirect(contextPath + "/login.html");
                 }
@@ -77,6 +74,10 @@ public class SessionFilter implements Filter{
         for (String includeUrl : includeUrls) {
             if(includeUrl.equals(uri)) {
                 return false;
+            }
+            if(uri.contains(".css") || uri.contains(".js")|| uri.contains(".jpg")|| uri.contains(".ico")){
+            	//如果发现是css或者js文件，直接放行
+            	return false;
             }
         }
 

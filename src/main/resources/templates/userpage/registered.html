@@ -135,6 +135,8 @@
 	   	    			$("#index1").html("两次密码不一致");
 	   	    		}else if(data.index==5){
 	   	    			$("#index1").html("找回密码问题/答案不能为空")
+	   	    		}else if(data.index==6){
+	   	    			$("#index1").html("ID只能为数字")
 	   	    		}else if(data.index==0){
 	   	    			alert("注册成功");
 	   	    			window.location.href='/index';//

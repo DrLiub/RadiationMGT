@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cncompute.dao.UserDao;
 import com.cncompute.pojo.User;
+import com.cncompute.repeat.Methods;
 
 /**
  * 用户的service层
@@ -28,6 +29,8 @@ import com.cncompute.pojo.User;
 public class UserService {
 	@Autowired
 	private UserDao userdao;
+	@Autowired
+	private Methods methods;
 	/**
 	 * 查询用户是否存在，通过id和密码确认登录
 	 * @param userid
@@ -87,6 +90,13 @@ public class UserService {
         //判断用户ID不能为空
         if("".equals(userid)||userid==null) {
         	String json="{\"index\":2}";//id不能为空
+        	pw.print(json);
+        	num=1;
+        	return;
+        }
+      //判断用户ID是否为纯数字
+        if(!methods.isNumeric(userid)) {
+        	String json="{\"index\":6}";//id不能为空
         	pw.print(json);
         	num=1;
         	return;
