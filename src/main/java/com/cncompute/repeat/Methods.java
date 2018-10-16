@@ -26,6 +26,7 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.junit.Test;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -103,7 +104,6 @@ public class Methods {
 		}
 		return date;
 	}
-
 	/**
 	 * 单上传文件
 	 * @RequestParam("file") MultipartFile file
@@ -123,6 +123,18 @@ public class Methods {
 			// 设置文件存储路径
 			String filePath = "D://aim//";
 			String id=getUUID();
+			/*
+			//判断文件是否存在，存在就替换
+			if("".equals(strPage)||strPage==null) {
+				
+			}else {
+				if(strPage!=null&&strPage.length()>37) {
+					int number1=strPage.lastIndexOf("/");//获得
+					int number2=strPage.lastIndexOf(".");//
+				    id=strPage.substring(number1,number2);//
+				}
+			}
+			*/
 			String path = filePath + id + suffixName;//文件路径
 			File dest = new File(path);
 			// 检测是否存在目录
