@@ -72,6 +72,10 @@ public class XraydeviceService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		if("".equals(rayd.getRaname())||rayd.getRaname()==null) {
+			pw.print("2");//名称不能为空
+			return;
+		}
 	    String id=Methods.getUUID();
 	    rayd.setRaid(id);
 	    rayd.setRauserid(methods.getUser(request));

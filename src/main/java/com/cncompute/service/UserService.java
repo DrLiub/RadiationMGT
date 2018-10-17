@@ -175,18 +175,7 @@ public class UserService {
 		List<User> userall= userdao.AllUser();
 		PrintWriter pw=response.getWriter();
 		int num=0;
-		for (User user : userall) {
-	         if(user.getUserid().equals(userid)) {
-	        	 if(user.getAnswer().equals(answer)) {
-	      			String json="{\"index\":1}";
-	    			pw.print(json);//找回密码答案正确
-	    			user.setPassword(password2);
-	    			userdao.modify(user);
-	        		num=1;
-	        		return;
-	        	 }
-	         }
-		}
+		
         //判断用户ID不能为空
         if("".equals(userid)||userid==null) {
         	String json="{\"index\":2}";//id不能为空
@@ -211,6 +200,18 @@ public class UserService {
         	num=1;
         	return;
         }
+        for (User user : userall) {
+	         if(user.getUserid().equals(userid)) {
+	        	 if(user.getAnswer().equals(answer)) {
+	      			String json="{\"index\":1}";
+	    			pw.print(json);//找回密码答案正确
+	    			user.setPassword(password2);
+	    			userdao.modify(user);
+	        		num=1;
+	        		return;
+	        	 }
+	         }
+		}
 		if(num==0) {
   			String json="{\"index\":0}";//找回密码答案错误
 			pw.print(json);

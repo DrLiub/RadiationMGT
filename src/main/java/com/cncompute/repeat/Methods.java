@@ -26,7 +26,6 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.junit.Test;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -155,7 +154,7 @@ public class Methods {
 	/**
 	 * 多文件上传和下载
 	 * @param request
-	 * fileName 上传文件前端name
+	 * @fileName 上传文件前端name
 	 * format 上传文件格式
 	 * address 上传地址
 	 * @return

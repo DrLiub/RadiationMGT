@@ -230,7 +230,9 @@ public class InsertdataService {
      */
     public void downloadClastall(HttpServletRequest request,HttpServletResponse response) throws IOException {
     	List<Insertdata>lnser= inserdao.queryAll();
+    	//创建一个新的excel
         HSSFWorkbook workbook = new HSSFWorkbook();
+        //创建sheet页
         HSSFSheet sheet = workbook.createSheet("信息表");
         String fileName = "information"  + ".xls";//设置要导出的文件的名字
         //新增数据行，并且设置单元格数据

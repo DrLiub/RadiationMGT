@@ -74,6 +74,10 @@ public class NonsealService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		if("".equals(nons.getNoname())||nons.getNoname()==null) {
+			pw.print("2");
+			return;
+		}
 		nons.setNoid(Methods.getUUID());
 		nons.setNouserid(methods.getUser(request));
 		nonsealdao.nonsAdd(nons);

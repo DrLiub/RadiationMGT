@@ -70,6 +70,10 @@ public class IsotopesService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		if("".equals(isot.getIsentry())||isot.getIsentry()==null) {
+			pw.print("2");//名称不能为空
+			return;
+		}
 		isot.setIsid(Methods.getUUID());
 		isot.setIsuserid(methods.getUser(request));
 		isotdao.isotAdd(isot);
