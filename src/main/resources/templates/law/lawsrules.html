@@ -54,6 +54,7 @@
                                                 <th>发文机关</th>
 												<th>开始实施时间</th>
 												<th>电子版文件</th>
+												<th>删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -63,6 +64,7 @@
                                                 <td><span class="reducedfrom" th:text="${lawsall.laorgan}" ></span></td>
 												<td><span class="reducedfrom" th:text="${lawsall.lastarttime}" ></span></td>
 												<td><a th:href="@{/onpage(page=${lawsall.laelectronicid})}">下载文件</a></td>
+												<td><a th:onclick="'javascript:del(\''+${lawsall.laid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/lawupdate(laid=${lawsall.laid})}">修改</a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -121,10 +123,10 @@
     <script src="js/custom-scripts.js"></script>
 
       <script>
-      function del(reid,retable){
+      function del(laid){
     	  var r = confirm("确定要删除吗？");
     	  if(r == true){
-    	  window.location.href="/regdelete?reid="+reid+ '&retable='+retable;
+    	  window.location.href="/lawdelete?laid="+laid;
     	  }else{
     	  return false;
     	  }

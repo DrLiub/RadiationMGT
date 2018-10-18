@@ -62,4 +62,35 @@ public class LawsrulesController {
 		lawsservice.fuzzyLa(request, name);
 		return"law/lawsrulesfuzzy";
 	}
+	/**
+	 * 删除法律法规
+	 * @param request
+	 * @param laid
+	 * @return
+	 */
+	@RequestMapping(value="lawdelete",method=RequestMethod.GET)
+	public String lawDelete(HttpServletRequest request,Lawsrules laws) {
+		lawsservice.laDelete(request, laws);
+		lawsservice.lawsAll(request);
+		return"law/lawsrules";
+	}
+	/**
+	 * 修改法律法规界面
+	 * @return
+	 */
+	@RequestMapping(value="lawupdate",method=RequestMethod.GET)
+	public String laUpdatePage(HttpServletRequest request,String laid) {
+		lawsservice.laUpdatesend(request, laid);
+	    return"law/lawsrulesupdate";	
+	}
+	/**
+	 * 修改法律法规
+	 * @param request
+	 * @param response
+	 * @param laws
+	 */
+	@RequestMapping(value="laupdatep",method=RequestMethod.POST)
+	public void laUpadte(HttpServletRequest request,HttpServletResponse response,Lawsrules laws,@RequestParam("file1") MultipartFile file) {
+		lawsservice.lawsUpdate(request, response, laws,file);
+	}
 }

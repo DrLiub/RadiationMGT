@@ -16,6 +16,12 @@ public interface LawsrulesDao {
 	 */
 	public List<Lawsrules> queryLaws();
 	/**
+	 * 通过ID查询法律法规信息返回法律法规对象
+	 * @param laid
+	 * @return
+	 */
+	public Lawsrules queryLawsid(String laid);
+	/**
 	 * 法律法规模糊查询
 	 * @param name
 	 * @return
@@ -26,4 +32,9 @@ public interface LawsrulesDao {
 	 * @param laws
 	 */
 	public void addLaws(Lawsrules laws);
+	/**
+	 * 修改法律法规表信息
+	 * @param laws
+	 */
+	public void updateLaws(Lawsrules laws);
 }

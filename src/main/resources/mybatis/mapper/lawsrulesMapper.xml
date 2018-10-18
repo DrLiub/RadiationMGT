@@ -18,6 +18,11 @@
 	SELECT * FROM lawsrules  WHERE lastate='1' ORDER BY latime DESC
 	</select>
 	
+	<!-- 通过ID查询全部法律法规信息 -->
+	<select id="queryLawsid" resultMap="LawsrulesMap">
+	SELECT * FROM lawsrules  WHERE lastate='1' AND laid=#{laid} ORDER BY latime DESC
+	</select>
+	
 	<!-- 添加法律法规 -->
 	<insert id="addLaws" parameterType="Lawsrules">
 	INSERT INTO lawsrules 
@@ -34,4 +39,16 @@
 	 SELECT * FROM  lawsrules 
      WHERE  CONCAT(laname,lanumber,laorgan) LIKE CONCAT(CONCAT("%",#{name}),"%") AND lastate='1' ORDER BY latime DESC
 	</select>
+	
+	<!-- 修改法律法规表信息 -->
+	<update id="updateLaws" parameterType="com.cncompute.pojo.Lawsrules">
+	update lawsrules <set> 
+    <if test="laname!=null">laname=#{laname},</if>
+    <if test="lanumber!=null">lanumber=#{lanumber},</if>
+    <if test="laorgan!=null">laorgan=#{laorgan},</if>
+    <if test="lastarttime!=null">lastarttime=#{lastarttime},</if>
+    <if test="laelectronicid!=null">laelectronicid=#{laelectronicid},</if>
+    <if test="lastate!=null">lastate=#{lastate}</if>
+    </set>  WHERE laid=#{laid}
+	</update>
 </mapper>  

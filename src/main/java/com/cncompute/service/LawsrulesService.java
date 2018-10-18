@@ -1,5 +1,6 @@
 package com.cncompute.service;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -106,5 +107,43 @@ public class LawsrulesService {
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("laws", lawsall);
 		request.setAttribute("name", name);
+	}
+	/**
+	 * 删除法律法规
+	 * @param request
+	 * @param laid
+	 */
+	public void laDelete(HttpServletRequest request,Lawsrules laws) {
+		laws.setLastate(0);
+		lawsDao.updateLaws(laws);
+	}
+	/**
+	 * 修改法律法规界面发送信息
+	 * @param request
+	 * @param laid
+	 */
+	public void laUpdatesend(HttpServletRequest request,String laid) {
+		Lawsrules laws= lawsDao.queryLawsid(laid);
+		request.setAttribute("law", laws);
+	}
+	/**
+	 * 修改法律法规信息
+	 * @param request
+	 * @param response
+	 * @param laws
+	 */
+	public void lawsUpdate(HttpServletRequest request,HttpServletResponse response,Lawsrules laws,MultipartFile file) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String page=methods.fileUpload(request,file);
+		if(!page.equals("文件为空")) {
+			laws.setLaelectronicid(page);
+		}
+		lawsDao.updateLaws(laws);
+		pw.print("1");
 	}
 }
