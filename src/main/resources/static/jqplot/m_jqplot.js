@@ -1,7 +1,6 @@
 /***
- *	作者：DevilJie 
- *	创建时间：2014-11-05
- *	个人网站：http://www.w3210.com
+ *	作者：
+ *	创建时间：
  **/
 var j = {jqplot :{}};
 j.jqplot.diagram = {
