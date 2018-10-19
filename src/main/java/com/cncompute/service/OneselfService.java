@@ -245,7 +245,6 @@ public class OneselfService {
 	 * @param response
 	 */
 	public void onUpdate(HttpServletRequest request,Oneself one,HttpServletResponse response) {
-		System.out.println("getNonumberid()="+one.getNodata());
 		try {
 			List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 			one.setNodata((String)list1.get(0));
