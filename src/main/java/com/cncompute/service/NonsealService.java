@@ -254,6 +254,10 @@ public class NonsealService {
 	} catch (Exception e) {
 		// TODO: handle exception
 	}
+		if("".equals(nolevel)||nolevel==null) {
+			pw.print("6");//场所等级不能为空
+			return;
+		}	
 		Nonseal nons=new Nonseal();
 		nons.setNoid(noid);
 		nons.setNobuiding(nobuiding);
