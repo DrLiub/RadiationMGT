@@ -54,7 +54,7 @@
 												<th>贮存地点</th>
 												<th>日等效最大操作量</th>
 												
-												<th>删除/修改</th>
+												<th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,7 +71,7 @@
 												<td><span  class="reducedfrom" th:text="${nons.roomnuclide.rostorageway}" ></span></td>
 												<td><span  class="reducedfrom" th:text="${nons.roomnuclide.rostorage}"   ></span></td>
 												<td><span  class="reducedfrom" th:text="${nons.roomnuclide.robiggest}"  ></span></td>
-												<td><a th:onclick="'javascript:del(\''+${nons.roomnuclide.ronumber}+'\',\''+${nons.roomnuclide.roid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/noroomupdate(ronumber=${nons.roomnuclide.ronumber},roid=${nons.roomnuclide.roid})}">修改</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${nons.roomnuclide.ronumber}+'\',\''+${nons.roomnuclide.roid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/noroomupdate(ronumber=${nons.roomnuclide.ronumber},roid=${nons.roomnuclide.roid})}">修改</a></td>
                                             </tr>
                                             <tr>
                                                 <th colspan="3">楼宇</th>

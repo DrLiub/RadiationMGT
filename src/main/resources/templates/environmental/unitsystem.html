@@ -29,8 +29,6 @@
                              <small >规章制度简况</small>
                         </h1>								
 		</div>				
-				
-			 				   				
 
 	          <div class="panel panel-default">
                             <div class="panel-heading">
@@ -47,7 +45,7 @@
                                                 <td>文件号</td>
 												<td>开始实施时间</td>
 												<td>电子版规章制度</td>
-												<td>删除/修改</td>
+												<td th:if="${session.user.permissions==1}">删除/修改</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -56,7 +54,7 @@
 												<td><span class="reducedfrom" th:text="${file.unitsystem.unfile}" ></span></td>
 												<td><span class="reducedfrom" th:text="${file.unitsystem.ununittime}" ></span></td>
 												<td><a th:href="@{/onpage(page=${file.unitsystem.unaddress})}">下载文件</a></td>
-												<td><a th:onclick="'javascript:del(\''+${file.unitsystem.udnumber}+'\',\''+${fileid.flid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/unupdate(number=${file.unitsystem.udnumber})}">修改</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${file.unitsystem.udnumber}+'\',\''+${fileid.flid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/unupdate(number=${file.unitsystem.udnumber})}">修改</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

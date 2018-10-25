@@ -48,14 +48,14 @@
                                             <tr>
                                                 <th>文件类别</th>
 											    <th>查看详情</th>
-												<th>删除制度</th>
+												<th th:if="${session.user.permissions==1}">删除制度</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr  th:each="fil:${fileall}">
                                                 <td><span class="reducedfrom" th:text="${fil.flname}" ></span></td>
 												<td><a th:href="@{/filedetails(type=${fil.flid})}">详情</a></td>
-												<td><a th:onclick="'javascript:del(\''+${fil.flid}+'\')'">删除</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${fil.flid}+'\')'">删除</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

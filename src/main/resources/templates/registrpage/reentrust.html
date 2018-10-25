@@ -47,7 +47,7 @@
                                                 <th>监测时间</th>
 												<th>监测执行人</th>
 												<th>电子版委托监测报告</th>
-												<th>删除/修改</th>
+												<th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -57,7 +57,7 @@
                                                 <td><span class="reducedfrom" th:text="${regall.remodel}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${regall.rebuytime}" ></span></td>
 												<td><a th:onclick="'javascript:del(\''+${regall.reid}+'\',\''+${regi.retable}+'\')'">电子版报告</a></td>
-												<td><a th:onclick="'javascript:del(\''+${regall.reid}+'\',\''+${regi.retable}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/reupdate(reid=${regall.reid},retable=${regi.retable})}">修改</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${regall.reid}+'\',\''+${regi.retable}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/reupdate(reid=${regall.reid},retable=${regi.retable})}">修改</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

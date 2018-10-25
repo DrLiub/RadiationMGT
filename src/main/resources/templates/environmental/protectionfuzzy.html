@@ -51,7 +51,7 @@
                                                 <th>环境影响评价文件批复</th>
 												<th>环保竣工验收监测文件批复</th>
 											    <th>查看详情</th>
-												<th>删除/修改</th>
+												<th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,7 +61,7 @@
 												<td><a th:href="@{/prenv(type=${pro.prid})}">录入</a></td>
 												<td><a th:href="@{/prcom(type=${pro.prid})}">录入</a></td>
 												<td><a th:href="@{/prdetails(type=${pro.prid})}">详情</a></td>
-												<td><a th:onclick="'javascript:del(\''+${pro.prid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/protupdate(type=${pro.prid})}">修改</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${pro.prid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/protupdate(type=${pro.prid})}">修改</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -53,7 +53,7 @@
                                                 <th>电话</th>
                                                 <th>管理人员</th>
                                                
-                                                <th>删除/修改</th>
+                                                <th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -63,7 +63,7 @@
                                                 <td><span class="reducedfrom" th:text="${institutions.maphone}" ></span></td>
                                                 <td><a th:href="@{/mpeople(type=${institutions.maid})}">查看</a></td>
                                                 
-                                                <td><a th:onclick="'javascript:del(\''+${institutions.maid}+'\');'">删除</a>
+                                                <td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${institutions.maid}+'\');'">删除</a>
                                                   &nbsp;
                                                 <a th:href="@{/maupdate(type=${institutions.maid})}">修改</a></td>
                                             </tr>

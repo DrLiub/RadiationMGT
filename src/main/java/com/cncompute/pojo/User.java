@@ -14,6 +14,7 @@ public class User implements Serializable{
     private String password;//密码
     private String username;//姓名
     private Integer permissions;//权限2为普通用户1为超级用户
+    private String userperm;//权限
     private Date usertime;//当前时间
     private String question;//找回密码问题
     private String answer;//找回密码答案
@@ -21,12 +22,13 @@ public class User implements Serializable{
     private Integer userstate;//状态
 	public User() {
 	}
-	public User(String userid, String password, String username, Integer permissions, Date usertime, String question,
-			String answer, Date updatetime, Integer userstate) {
+	public User(String userid, String password, String username, Integer permissions, String userperm, Date usertime,
+			String question, String answer, Date updatetime, Integer userstate) {
 		this.userid = userid;
 		this.password = password;
 		this.username = username;
 		this.permissions = permissions;
+		this.userperm = userperm;
 		this.usertime = usertime;
 		this.question = question;
 		this.answer = answer;
@@ -56,6 +58,12 @@ public class User implements Serializable{
 	}
 	public void setPermissions(Integer permissions) {
 		this.permissions = permissions;
+	}
+	public String getUserperm() {
+		return userperm;
+	}
+	public void setUserperm(String userperm) {
+		this.userperm = userperm;
 	}
 	public Date getUsertime() {
 		return usertime;

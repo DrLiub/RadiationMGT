@@ -20,6 +20,11 @@
 	<select id="AllUser" resultMap="userMap">
 		select * FROM user where userstate='1' ORDER BY usertime DESC
 	</select>
+	
+	<!--查询管理员账号有多少 -->
+	<select id="userPermissions" resultMap="userMap">
+		select * FROM user where userstate='1' AND permissions='1' ORDER BY usertime DESC
+	</select>
 	<!-- 创建新用户-->
 	<insert id="addUser" parameterType="User">
 		INSERT INTO user
@@ -30,7 +35,26 @@
 	<!-- 修改 密码-->
     <update id="modify"  parameterType="User">
     update user <set> 
-    <if test="userid!=null">password=#{password}</if>
+    <if test="password!=null">password=#{password}</if>
     </set>  WHERE userid=#{userid}
 	</update>
+	
+	<!-- 修改用户信息-->
+    <update id="updateUsers"  parameterType="com.cncompute.pojo.User">
+    update user <set> 
+    <if test="userid!=null">userid=#{userid},</if>
+    <if test="password!=null">password=#{password},</if>
+    <if test="username!=null">username=#{username},</if>
+    <if test="permissions!=null">permissions=#{permissions},</if>
+    <if test="question!=null">question=#{question},</if>
+    <if test="answer!=null">answer=#{answer},</if>
+    <if test="userstate!=null">userstate=#{userstate}</if>
+    </set>  WHERE userid=#{userid}
+	</update>
+	
+	<!-- 模糊查询 -->
+	<select id="fuzzyUser" resultMap="userMap">
+	 SELECT * FROM  user 
+     WHERE  CONCAT(userid,username) LIKE CONCAT(CONCAT("%",#{name}),"%") AND userstate='1' ORDER BY usertime DESC
+	</select>
 </mapper>  

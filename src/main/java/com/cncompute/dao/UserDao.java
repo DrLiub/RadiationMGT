@@ -31,4 +31,20 @@ public interface UserDao {
 	 * @param user
 	 */
 	public void modify(User user);
+	/**
+	 * 修改用户信息
+	 * @param users
+	 */
+	public void updateUsers(User users);
+	/**
+	 * 查询有多少管理员用户
+	 * @return
+	 */
+	public List<User> userPermissions();
+	/**
+	 * 模糊查询
+	 * @param name
+	 * @return
+	 */
+	public List<User> fuzzyUser(String name);
 }

@@ -51,7 +51,7 @@
                                                 <th>数量</th>
 												<th>位置信息</th>
                                                 <th>管理责任人</th>
-												<th>删除/修改</th>
+												<th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -64,7 +64,7 @@
 												<td><span class="reducedfrom" th:text="${regall.renum}" ></span></td>
 												<td><span class="reducedfrom" th:text="${regall.relocation}" ></span></td>
 												<td><span class="reducedfrom" th:text="${regall.rehead}" ></span></td>
-												<td><a th:onclick="'javascript:del(\''+${regall.reid}+'\',\''+${regi.retable}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/reupdate(reid=${regall.reid},retable=${regi.retable})}">修改</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${regall.reid}+'\',\''+${regi.retable}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/reupdate(reid=${regall.reid},retable=${regi.retable})}">修改</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

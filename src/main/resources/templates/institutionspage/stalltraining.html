@@ -53,7 +53,7 @@
                                                 <th>培训证书编号</th>
 												<th>辐射安全培训证书</th>
 												<th>证书是否到期</th>
-												<th>删除</th>
+												<th th:if="${session.user.permissions==1}">删除</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -68,7 +68,7 @@
 											    <td><span class="reducedfrom" th:text="${staffall.stcertificate}" ></span></td>
 												<td><img th:src="${staffall.stsecurity}"  width="100" height="120" / ></td>
                                                 <td><span class="reducedfrom" th:text="${staffall.stoverdue}" th:style="${staffall.color}"></span></td>
-												<td><a th:onclick="'javascript:del(\''+${staffall.stnumber}+'\');'">删除</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${staffall.stnumber}+'\');'">删除</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

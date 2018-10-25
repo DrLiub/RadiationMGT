@@ -51,7 +51,7 @@
                                                 <th>中子发生器</th>
 												<th>辅助决策</th>
 											    <th>查看详情</th>
-												<th>删除/修改</th>
+												<th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -62,7 +62,7 @@
 												<td><a th:href="@{/xraentry(type=${rayd.raid})}">录入</a></td>
 												<td><a th:href="@{/xraentryneu(type=${rayd.raid})}">添加</a></td>
 												<td><a th:href="@{/xradetails(type=${rayd.raid})}">详情</a></td>
-												<td><a th:onclick="'javascript:del(\''+${rayd.raid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/raydup(type=${rayd.raid})}">修改</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${rayd.raid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/raydup(type=${rayd.raid})}">修改</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

@@ -57,7 +57,7 @@
                                                 <th>季度是否过量</th>
 												<th>年度监测数据</th>
 												<th>年度是否过量</th>
-												<th>删除/修改</th>
+												<th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,7 +71,7 @@
 											    <td><span class="reducedfrom" th:text="${lnserall.inquarterend}" th:style="${lnserall.inquarcolor}"></span></td>
 												<td><span class="reducedfrom" th:text="${lnserall.inyears}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${lnserall.inyearsend}" th:style="${lnserall.inyearscolor}"></span></td>
-												<td><a th:onclick="'javascript:del(\''+${lnserall.innumber}+'\');'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/inupdate(type=${lnserall.innumber})}">修改</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${lnserall.innumber}+'\');'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/inupdate(type=${lnserall.innumber})}">修改</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

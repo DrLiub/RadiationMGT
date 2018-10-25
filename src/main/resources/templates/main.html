@@ -90,7 +90,7 @@
 					</li>	
 						
                     <li>
-                        <a href="#"><i class="fa fa-desktop"></i>系统管理</a>
+                        <a th:href="@{/usermanag}" th:if="${session.user.permissions==1}" target="iframe_name"><i class="fa fa-desktop"></i>用户管理</a>
                     </li>	
                 </ul>
 

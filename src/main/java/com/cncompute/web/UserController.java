@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.cncompute.pojo.User;
 import com.cncompute.repeat.Methods;
 import com.cncompute.service.UserService;
 
@@ -117,5 +118,59 @@ public class UserController {
 		request.getSession().invalidate();
 		String url = "/login";
         response.sendRedirect(url);
+	}
+	/**
+	 * 显示全部用户界面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="usermanag", method=RequestMethod.GET)
+	public String userManagement(HttpServletRequest request) {
+		userservice.userAll(request);
+		return"userpage/userspage";
+	}
+	/**
+	 * 删除用户
+	 * @param request
+	 * @param userid
+	 * @return
+	 */
+	@RequestMapping(value="userdel",method=RequestMethod.GET)
+	public String userDel(HttpServletRequest request,String userid) {
+		userservice.userDelete(request, userid);
+		userservice.userAll(request);
+		return"userpage/userspage";
+	}
+	/**
+	 * 用户修改界面
+	 * @param request
+	 * @param userid
+	 * @return
+	 */
+	@RequestMapping(value="usersupdate",method=RequestMethod.GET)
+	public String userUpdatepage(HttpServletRequest request,String userid) {
+		userservice.updateUser(request, userid);
+		return"userpage/userupdate";
+	}
+	/**
+	 * 修改用户信息
+	 * @param request
+	 * @param response
+	 * @param user
+	 */
+	@RequestMapping(value="userpost",method=RequestMethod.POST)
+	public void updateUser(HttpServletRequest request,HttpServletResponse response,User user) {
+		userservice.updateUsers(request, response, user);
+	}
+	/**
+	 * 模糊查询
+	 * @param request
+	 * @param name
+	 * @return
+	 */
+	@RequestMapping(value="userfuzzy",method=RequestMethod.GET)
+	public String fuzzyUsers(HttpServletRequest request,String name) {
+		userservice.userFuzzy(request, name);
+		return"userpage/userspagefuzzy";
 	}
 }

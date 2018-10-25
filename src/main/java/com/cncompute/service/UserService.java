@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cncompute.dao.UserDao;
 import com.cncompute.pojo.User;
 import com.cncompute.repeat.Methods;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 用户的service层
@@ -233,5 +235,139 @@ public class UserService {
 			e.printStackTrace();
 		}
 		return date;
+	}
+	/**
+	 * 查询全部用户信息，发送给显示用户全部信息界面
+	 * @param request
+	 */
+	public void userAll(HttpServletRequest request) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<User> reg = userdao.AllUser();
+			index=(reg.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		List<User> userall= userdao.AllUser();
+		for (User user : userall) {
+			//权限2为普通用户1为超级用户
+			if(user.getPermissions()==1) {
+				user.setUserperm("管理员");
+			}else if(user.getPermissions()==2) {
+				user.setUserperm("普通用户");
+			}
+		}
+		
+		request.setAttribute("userall", userall);
+		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
+	}
+	/**
+	 * 根据ID删除普通用户
+	 * @param request
+	 * @param userid
+	 */
+	public void userDelete(HttpServletRequest request,String userid) {
+		User users=new User();
+		users.setUserid(userid);
+		users.setUserstate(0);
+		userdao.updateUsers(users);
+	}
+	/**
+	 * 通过ID查询
+	 * @param request
+	 * @param userid
+	 */
+	public void updateUser(HttpServletRequest request,String userid) {
+		User userall=userdao.getUserAll(userid);
+		//权限2为普通用户1为超级用户
+		if(userall.getPermissions()==1) {
+			userall.setUserperm("管理员");
+		}else if(userall.getPermissions()==2) {
+			userall.setUserperm("普通用户");
+		}
+		request.setAttribute("users", userall);
+	}
+	/**
+	 * 修改用户信息
+	 * @param request
+	 * @param response
+	 * @param user
+	 */
+	public void updateUsers(HttpServletRequest request,HttpServletResponse response,User user) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		if(user.getPermissions()==0) {
+			user.setPermissions(null);
+		}
+		List<User>userper= userdao.userPermissions();
+		   //判断密码为存数字
+        if(!methods.isNumeric(user.getPassword())) {
+        	pw.print("3");
+        	return;
+        }
+		//判断密码不能小于6位数
+        if(user.getPassword().length()<6) {
+        	pw.print("4");
+        	return;
+        }
+		//判断账号中是否一个管理员账号都不存在了
+		if(user.getPermissions()!=null&&userper.get(0).getUserid().equals(user.getUserid())&&userper.size()==1) {
+			if(user.getPermissions()==2) {
+				pw.print("2");
+				return;
+			}
+		}
+		userdao.updateUsers(user);
+		pw.print("1");
+	}
+	/**
+	 * 模糊查询
+	 * @param request
+	 * @param name
+	 */
+	public void userFuzzy(HttpServletRequest request,String name) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<User> reg = userdao.fuzzyUser(name);
+			index=(reg.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		List<User> userall=userdao.fuzzyUser(name);
+		for (User user : userall) {
+			//权限2为普通用户1为超级用户
+			if(user.getPermissions()==1) {
+				user.setUserperm("管理员");
+			}else if(user.getPermissions()==2) {
+				user.setUserperm("普通用户");
+			}
+		}
+		request.setAttribute("userall", userall);
+		request.setAttribute("name", name);
+		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 	}
 }
