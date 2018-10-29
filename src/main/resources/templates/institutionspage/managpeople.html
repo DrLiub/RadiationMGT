@@ -77,8 +77,10 @@
                                                 <td><span class="reducedfrom" th:text="${man.personnel.pewhether}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${man.personnel.perecord}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${man.personnel.peprofessional}" ></span></td>
-                                                <td><img th:src="${man.personnel.pecertificateid}"  width="100" height="120" / ></td>
-                                                <td><img th:src="${man.personnel.peradiationid}" width="100" height="120" / ></td>
+                                                <!--  <td><img th:src="${man.personnel.pecertificateid}"  width="100" height="120" / ></td>-->
+                                                <!--  <td><img th:src="${man.personnel.peradiationid}" width="100" height="120" / ></td>-->
+                                                <td><a th:href="@{/onpage(page=${man.personnel.pecertificateid})}">下载图片</a></td>
+                                                <td><a th:href="@{/onpage(page=${man.personnel.peradiationid})}">下载图片</a></td>
 												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${man.personnel.peinformation}+'\');'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/mamodify(type=${man.personnel.peinformation})}">修改</a></td>
                                             </tr>
                    

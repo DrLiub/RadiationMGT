@@ -58,7 +58,7 @@ public class StaffinformationService {
 	public void encapsulation(HttpServletRequest request, String stid) {
 		Staffinformation staff = new Staffinformation();
 		staff.setStid(stid);
-		int each =3; //每页显示条数*
+		int each =13; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数
 		int starting=1;//起始页面
@@ -320,7 +320,7 @@ public class StaffinformationService {
 				}
 				staffDao.stupdate(sta);
 		}
-		int each =3; //每页显示条数*
+		int each =13; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数
 		int starting=1;//起始页面
@@ -465,7 +465,7 @@ public class StaffinformationService {
 	 * @param name
 	 */
 	public void fuzzyQueryst(HttpServletRequest request,String name) {
-		int each =3; //每页显示条数*
+		int each =13; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数
 		int starting=1;//起始页面

@@ -263,8 +263,10 @@ public class UserService {
 			//权限2为普通用户1为超级用户
 			if(user.getPermissions()==1) {
 				user.setUserperm("管理员");
+				user.setPermcolor("color:green");
 			}else if(user.getPermissions()==2) {
 				user.setUserperm("普通用户");
+				user.setPermcolor("color:black");
 			}
 		}
 		
@@ -292,8 +294,10 @@ public class UserService {
 		//权限2为普通用户1为超级用户
 		if(userall.getPermissions()==1) {
 			userall.setUserperm("管理员");
+			userall.setPermcolor("color:green");
 		}else if(userall.getPermissions()==2) {
 			userall.setUserperm("普通用户");
+			userall.setPermcolor("color:black");
 		}
 		request.setAttribute("users", userall);
 	}
@@ -314,7 +318,7 @@ public class UserService {
 			user.setPermissions(null);
 		}
 		List<User>userper= userdao.userPermissions();
-		   //判断密码为存数字
+	    //判断密码为存数字
         if(!methods.isNumeric(user.getPassword())) {
         	pw.print("3");
         	return;
@@ -362,8 +366,10 @@ public class UserService {
 			//权限2为普通用户1为超级用户
 			if(user.getPermissions()==1) {
 				user.setUserperm("管理员");
+				user.setPermcolor("color:green");
 			}else if(user.getPermissions()==2) {
 				user.setUserperm("普通用户");
+				user.setPermcolor("color:black");
 			}
 		}
 		request.setAttribute("userall", userall);

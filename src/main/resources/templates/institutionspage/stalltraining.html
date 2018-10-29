@@ -66,7 +66,8 @@
 												<td><span class="reducedfrom" th:text="${staffall.sttrainingtime}" ></span></td>
 												<td><span class="reducedfrom" th:text="${staffall.stgraduation}" ></span></td>
 											    <td><span class="reducedfrom" th:text="${staffall.stcertificate}" ></span></td>
-												<td><img th:src="${staffall.stsecurity}"  width="100" height="120" / ></td>
+												<!--<td><img th:src="${staffall.stsecurity}"  width="100" height="120" / ></td>-->
+												<td><a th:href="@{/onpage(page=${staffall.stsecurity})}">下载图片</a></td>
                                                 <td><span class="reducedfrom" th:text="${staffall.stoverdue}" th:style="${staffall.color}"></span></td>
 												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${staffall.stnumber}+'\');'">删除</a></td>
                                             </tr>
