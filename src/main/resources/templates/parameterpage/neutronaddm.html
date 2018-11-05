@@ -33,7 +33,6 @@
 
                             <div class="panel-body">
                                 <div class="table-responsive">		
-								<input type="hidden" th:value="${rayd.xneutron.neid}" name="neid" id="neid"/>
 								<input type="button" class="btn btn-default"  value="保存" onclick="submitFunction()">
 								<div id="index" style="text-align:center;color:red"></div>
                                     <table class="table table-striped table-bordered table-hover" id = "test">
@@ -51,13 +50,13 @@
                                         
                                        
                                             <tr>
-                                                <td><input type="text" class="form-control" th:value="${rayd.xneutron.nemodel}" placeholder="" name="nemodel" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nemanufacturer}" placeholder="" name="nemanufacturer" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nevoltage}" placeholder="" name="nevoltage" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nebeflow}" placeholder="" name="nebeflow" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neneutron}" placeholder="" name="neneutron" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neuse}" placeholder="" name="neuse" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nenote}" placeholder="" name="nenote" ></td>
+                                                <td><input type="text" class="form-control"  placeholder="" name="nemodel" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nemanufacturer" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nevoltage" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nebeflow" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="neneutron" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="neuse" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nenote" ></td>
                                             </tr>
                                         
 									    								
@@ -77,33 +76,33 @@
                                         </thead>
 										<tbody>
                                             <tr>
-                                                <td><input type="text" class="form-control" th:value="${rayd.xneutron.negasactivity}" placeholder="" name="negasactivity" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.negasway}" placeholder="" name="negasway" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.negasnote}" placeholder="" name="negasnote" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.negasnum}" placeholder="气m3" name="negasnum" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.newasteactivity}" placeholder="" name="newasteactivity" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.newastered}" placeholder="" name="newastered" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.newastewhere}" placeholder="" name="newastewhere" ></td>
+                                                <td><input type="text" class="form-control"  placeholder="" name="negasactivity" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="negasway" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="negasnote" ></td>
+												<td><input type="text" class="form-control"  placeholder="气m3" name="negasnum" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="newasteactivity" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="newastered" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="newastewhere" ></td>
                                             </tr>
                                        
 										
                                             <tr>
-                                                <td><input type="text" class="form-control" th:value="${rayd.xneutron.neliquidlive}" placeholder="" name="neliquidlive" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neliquidway}" placeholder="" name="neliquidway" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neliquidnote}" placeholder="" name="neliquidnote" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neliquidnum}" placeholder="液m3" name="neliquidnum" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nelwalive}" placeholder="" name="nelwalive" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nelwarad}" placeholder="" name="nelwarad" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nelwawhere}" placeholder="" name="nelwawhere" ></td>
+                                                <td><input type="text" class="form-control"  placeholder="" name="neliquidlive" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="neliquidway" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="neliquidnote" ></td>
+												<td><input type="text" class="form-control"  placeholder="液m3" name="neliquidnum" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nelwalive" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nelwarad" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="nelwawhere" ></td>
                                             </tr>
 											<tr>
-                                                <td><input type="text" class="form-control" th:value="${rayd.xneutron.netsolive}" placeholder="" name="netsolive" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.netsoway}" placeholder="" name="netsoway" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.netsonote}" placeholder="" name="netsonote" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.nersonum}" placeholder="固kg" name="nersonum" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neswalive}" placeholder="" name="neswalive" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neswarad}" placeholder="" name="neswarad" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xneutron.neswawhere}" placeholder="" name="neswawhere" ></td>
+                                                <td><input type="text" class="form-control"  placeholder="" name="netsolive" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="netsoway" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="netsonote" ></td>
+												<td><input type="text" class="form-control"  placeholder="固kg" name="nersonum" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="neswalive" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="neswarad" ></td>
+												<td><input type="text" class="form-control"  placeholder="" name="neswawhere" ></td>
                                             </tr>
 										     <tr>
                                                 <th colspan="2">投入使用时间</th>
@@ -111,9 +110,9 @@
                                                 <th colspan="3">房间信息</th>
                                             </tr>
 										    <tr>
-												<td colspan="2"><input type="date" class="form-control" th:value="${rayd.xneutron.neswainput}" placeholder="" name="neswainput" ></td>
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xneutron.nebuikding}" placeholder="" name="nebuikding" ></td>
-												<td colspan="3"><input type="text" class="form-control" th:value="${rayd.xneutron.neroom}" placeholder="" name="neroom" ></td>
+												<td colspan="2"><input type="date" class="form-control" placeholder="" name="neswainput" ></td>
+												<td colspan="2"><input type="text" class="form-control" placeholder="" name="nebuikding" ></td>
+												<td colspan="3"><input type="text" class="form-control" placeholder="" name="neroom" ></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -165,7 +164,7 @@
   	    var formData = new FormData($("#formid")[0]);
   	    $.ajax({
   	        //接口地址
-  	        url: '/xraupneut',
+  	        url: '/neutpost',
   	        type: 'POST',
   	        data: formData,
   	        async: false,

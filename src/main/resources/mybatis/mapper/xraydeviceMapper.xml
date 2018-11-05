@@ -11,6 +11,14 @@
         	<result column="raassessmen" property="raassessmen" jdbcType="INTEGER"/> 
         	<result column="racompletion" property="racompletion" jdbcType="INTEGER"/> 
         	
+        	<result column="radevice" property="radevice" jdbcType="VARCHAR" />
+        	<result column="ramanufacturer" property="ramanufacturer" jdbcType="VARCHAR" />
+        	<result column="rainput" property="rainput" jdbcType="VARCHAR" />
+        	<result column="rabuilding" property="rabuilding" jdbcType="VARCHAR" />
+        	<result column="raroom" property="raroom" jdbcType="VARCHAR" />
+        	<result column="rause" property="rause" jdbcType="VARCHAR" />
+        	<result column="ranote" property="ranote" jdbcType="VARCHAR" />
+        	
         	<!-- 射线装置-加速器表 -->
 		<association property="xaccelerator" javaType="com.cncompute.pojo.Xaccelerator" column="raid" >
         	<id column="acid" property="acid" jdbcType="VARCHAR" />  
@@ -45,7 +53,7 @@
         	<result column="actime" property="actime" jdbcType="DATE"/> 
         	<result column="acstate" property="acstate" jdbcType="INTEGER" /> 
 		</association>
-		
+		    
         	<!-- 射线装置-中子发生器 -->
 		<association property="xneutron" javaType="com.cncompute.pojo.Xneutron" column="raid" >
         	<id column="neid" property="neid" jdbcType="VARCHAR" />  
@@ -134,25 +142,60 @@
 	<!-- 添加射线装置(xraydevice) -->
 	<insert id="addRaydevice" parameterType="com.cncompute.pojo.Xraydevice">
 	insert into xraydevice
-	(raid,raname,rauserid,ratime,rastate,rapermit,raassessmen,racompletion)
+   (
+    raid, raname, rapermit, raassessmen, racompletion, 
+    rauserid, ratime, rastate, radevice, ramanufacturer, 
+    rainput, rabuilding, raroom, rause, ranote
+   )
 	VALUES
-	(#{raid},#{raname},#{rauserid},now(),1,#{rapermit},#{raassessmen},#{racompletion})
+   (
+   #{raid},#{raname},#{rapermit},#{raassessmen},#{racompletion},
+   #{rauserid},now(),1,#{radevice},#{ramanufacturer},
+   #{rainput},#{rabuilding},#{raroom},#{rause},#{ranote}
+   )
 	</insert>
 	
 	<!-- 修改(射线装置) -->
 	<update id="updateRayd" parameterType="com.cncompute.pojo.Xraydevice">
     update xraydevice <set> 
+    <if test="raid!=null">raid=#{raid},</if>
     <if test="raname!=null">raname=#{raname},</if>
-    <if test="rastate!=null">rastate=#{rastate},</if>
     <if test="rapermit!=null">rapermit=#{rapermit},</if>
     <if test="raassessmen!=null">raassessmen=#{raassessmen},</if>
-    <if test="racompletion!=null">racompletion=#{racompletion}</if>
+    <if test="racompletion!=null">racompletion=#{racompletion},</if>
+    <if test="rauserid!=null">rauserid=#{rauserid},</if>
+    <if test="ratime!=null">ratime=#{ratime},</if>
+    <if test="rastate!=null">rastate=#{rastate},</if>
+    <if test="radevice!=null">radevice=#{radevice},</if>
+    <if test="ramanufacturer!=null">ramanufacturer=#{ramanufacturer},</if>
+    <if test="rainput!=null">rainput=#{rainput},</if>
+    <if test="rabuilding!=null">rabuilding=#{rabuilding},</if>
+    <if test="raroom!=null">raroom=#{raroom},</if>
+    <if test="rause!=null">rause=#{rause},</if>
+    <if test="ranote!=null">ranote=#{ranote}</if>
     </set>  WHERE raid=#{raid}
 	</update>
 	
 	<!-- 添加(加速器)(xaccelerator) -->
 	<insert id="addAccelerator" parameterType="com.cncompute.pojo.Xaccelerator">
-	insert into xaccelerator (acid,acstate) VALUES (#{acid},1)
+	insert into xaccelerator 
+	(
+	acid,acmodel,acmanufacturer,acion,acenergy,
+    acstrong,acuse,acnote,acwaste,acwastenum,
+    acwasteactivity,acradioactive,acwastewhere,acgasnum,acgasactivity,
+    acgasradioactive,acgaswhere,acliquidnum,acliquidactivity,acliquidradioactive,
+    acliquidwhere,acliquidnactivityumber,acsolidactivity,acsolidradioactive,acsolidwhere,
+    acusetime,acbuilding,acroom,acuserid,actime,
+    acstate
+	) VALUES 
+	(
+	#{acid},#{acmodel},#{acmanufacturer},#{acion},#{acenergy},
+	#{acstrong},#{acuse},#{acnote},#{acwaste},#{acwastenum},
+	#{acwasteactivity},#{acradioactive},#{acwastewhere},#{acgasnum},#{acgasactivity},
+	#{acgasradioactive},#{acgaswhere},#{acliquidnum},#{acliquidactivity},#{acliquidradioactive},
+	#{acliquidwhere},#{acliquidnactivityumber},#{acsolidactivity},#{acsolidradioactive},#{acsolidwhere},
+	#{acusetime},#{acbuilding},#{acroom},#{acuserid},now(),1
+	)
 	</insert>
 	
 	<!-- 查询(加速器) ID xaccelerator全部信息 -->
@@ -207,7 +250,26 @@
 	
 	<!-- 添加(中子发生器)(xneutron) -->
 	<insert id="addNeutron" parameterType="com.cncompute.pojo.Xneutron">
-	insert into xneutron (neid,nestate) VALUES (#{neid},1)
+	insert into xneutron 
+	(
+	 neid, nemodel, nemanufacturer, nevoltage, nebeflow,
+     neneutron, neuse, nenote, negasactivity, negasway, 
+     negasnote, negasnum, newasteactivity, newastered, newastewhere,
+     neliquidlive, neliquidway, neliquidnote, neliquidnum, nelwanum, 
+     nelwalive, nelwarad, nelwawhere, netsolive, netsoway, 
+     netsonote, nersonum, neswanum, neswalive, neswarad,
+     neswawhere, neswainput, nebuikding, neroom, neswauserid,
+     netime, nestate
+	) VALUES (
+	 #{neid}, #{nemodel}, #{nemanufacturer}, #{nevoltage}, #{nebeflow},
+     #{neneutron}, #{neuse}, #{nenote}, #{negasactivity}, #{negasway}, 
+     #{negasnote}, #{negasnum}, #{newasteactivity}, #{newastered}, #{newastewhere},
+     #{neliquidlive}, #{neliquidway}, #{neliquidnote}, #{neliquidnum}, #{nelwanum}, 
+     #{nelwalive}, #{nelwarad}, #{nelwawhere}, #{netsolive}, #{netsoway}, 
+     #{netsonote}, #{nersonum}, #{neswanum}, #{neswalive}, #{neswarad},
+     #{neswawhere}, #{neswainput}, #{nebuikding}, #{neroom}, #{neswauserid},
+	 now(),1
+	)
 	</insert>
 	
 	<!-- 查询(中子发生器)全部信息 -->
@@ -270,7 +332,18 @@
 	
 	<!-- 添加-(X射线机)(xraymachine) -->
 	<insert id="addRaymachine" parameterType="com.cncompute.pojo.Xraymachine">
-	insert into xraymachine (raid,rastate) VALUES (#{raid},1)
+	insert into xraymachine 
+	(
+	raid,ranumber,raname,ramodel,ravoltage,
+    racurrent,rause,raplace,racategory,ranote,
+    rainputtime,rabuilding,raroom,ratime,rauserid,
+    rastate 
+	) VALUES 
+	(
+	#{raid},#{ranumber},#{raname},#{ramodel},#{ravoltage},
+	#{racurrent},#{rause},#{raplace},#{racategory},#{ranote},
+	#{rainputtime},#{rabuilding},#{raroom},now(),#{rauserid},1
+	)
 	</insert>
 	
 	<!-- 查询-(X射线机) ID 全部信息 -->
@@ -373,6 +446,6 @@
 	<!-- 射线装置模糊查询 -->
 	<select id="fuzzyRayd" resultMap="XraydeviceMap">
 	 SELECT * FROM  xraydevice 
-     WHERE  CONCAT(raname) LIKE CONCAT(CONCAT("%",#{name}),"%") AND rastate='1' ORDER BY  ratime DESC
+     WHERE  CONCAT(raname,ramanufacturer,rabuilding,raroom) LIKE CONCAT(CONCAT("%",#{name}),"%") AND rastate='1' ORDER BY  ratime DESC
 	</select>
 </mapper>  

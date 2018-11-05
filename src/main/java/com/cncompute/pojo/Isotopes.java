@@ -12,7 +12,13 @@ import java.util.Set;
 public class Isotopes implements Serializable {
 	private static final long serialVersionUID = 2652765644859005854L;
 	private String isid;//表ID
-	private String isentry;//录入名称
+	private String isentry;//核素名称
+	private String isnumber;//编号
+	private String iscategory;//类别
+	private String ismethod;//贮存方式与地点
+	private String isproduction;//生产日期
+	private String isuse;//用途
+	
 	private Integer islicense;// 辐射安全许可证(0没有选择1选择)
 	private Integer isenviro;//环境影响评价批复(0没有选择1选择)
 	private Integer isprotection;// 环保竣工验收批复(0没有选择1选择)
@@ -30,12 +36,19 @@ public class Isotopes implements Serializable {
 	Set<Xauxiliary> xauxiliarys=new HashSet<Xauxiliary>();
 	public Isotopes() {
 	}
-	public Isotopes(String isid, String isentry, Integer islicense, Integer isenviro, Integer isprotection,
+	public Isotopes(String isid, String isentry, String isnumber, String iscategory, String ismethod,
+			String isproduction, String isuse, Integer islicense, Integer isenviro, Integer isprotection,
 			String islicensebox, String isenvirobox, String isprotectionbox, String isuserid, Date istime,
 			Integer isstate, Radioactiveentry radioactiveentry, Set<Radioactiveentry> radioactiveentrys,
 			Sealentry sealentry, Set<Sealentry> sealentrys, Xauxiliary xauxiliary, Set<Xauxiliary> xauxiliarys) {
+		super();
 		this.isid = isid;
 		this.isentry = isentry;
+		this.isnumber = isnumber;
+		this.iscategory = iscategory;
+		this.ismethod = ismethod;
+		this.isproduction = isproduction;
+		this.isuse = isuse;
 		this.islicense = islicense;
 		this.isenviro = isenviro;
 		this.isprotection = isprotection;
@@ -63,6 +76,36 @@ public class Isotopes implements Serializable {
 	}
 	public void setIsentry(String isentry) {
 		this.isentry = isentry;
+	}
+	public String getIsnumber() {
+		return isnumber;
+	}
+	public void setIsnumber(String isnumber) {
+		this.isnumber = isnumber;
+	}
+	public String getIscategory() {
+		return iscategory;
+	}
+	public void setIscategory(String iscategory) {
+		this.iscategory = iscategory;
+	}
+	public String getIsmethod() {
+		return ismethod;
+	}
+	public void setIsmethod(String ismethod) {
+		this.ismethod = ismethod;
+	}
+	public String getIsproduction() {
+		return isproduction;
+	}
+	public void setIsproduction(String isproduction) {
+		this.isproduction = isproduction;
+	}
+	public String getIsuse() {
+		return isuse;
+	}
+	public void setIsuse(String isuse) {
+		this.isuse = isuse;
 	}
 	public Integer getIslicense() {
 		return islicense;

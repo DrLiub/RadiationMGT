@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -12,7 +12,6 @@
     <!-- Morris Chart Styles-->
     <link href="js/morris/morris-0.4.3.min.css" rel="stylesheet" />
     <!-- Custom Styles-->
-
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="js/Lightweight-Chart/cssCharts.css"> 
@@ -21,13 +20,12 @@
 <body style="padding:10px">
     <div id="wrapper">
 
-
         <!-- /. NAV SIDE  -->
       
 		<div id="page-wrapper">
 		  <div class="header"> 
                         <h1 class="page-header">
-                             <small>加速器</small>
+                             <small>射线装置</small>
                         </h1>								
 		          </div>				
                     <form   method="post" enctype="multipart/form-data" id="formid">
@@ -35,9 +33,12 @@
 
                             <div class="panel-body">
                                 <div class="table-responsive">		
-								<input type="hidden" th:value="${rayd.xaccelerator.acid}" name="acid" id="acid"/>
-								<input type="button" class="btn btn-default"  value="保存" onclick="submitFunction()">
+                                <input type="hidden" th:value="${raydid.raid}" name="raid" id="raid"/>
+                                <input type="hidden" value="加速器" name="radevice" id="radevice"/>
 								<div id="index" style="text-align:center;color:red"></div>
+                            <div class="panel-heading">
+                                                                    加速器
+                            </div> 
                                     <table class="table table-striped table-bordered table-hover" id = "test">
                                         <thead>
 										 <thead>									
@@ -53,13 +54,13 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acmodel}" placeholder="" name="acmodel" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acmanufacturer}" placeholder="" name="acmanufacturer" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acion}" placeholder="" name="acion" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acenergy}" placeholder="" name="acenergy" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acstrong}" placeholder="" name="acstrong" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acuse}" placeholder="" name="acuse" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acnote}" placeholder="" name="acnote" ></td>
+                                                <td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acmodel}"   ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acmanufacturer}"   ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acion}"  ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acenergy}"  ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acstrong}"  ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acuse}"  ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acnote}"  ></span></td>
                                             </tr>
                                         </tbody>
 									    <thead>									
@@ -73,38 +74,36 @@
                                         </thead>
 										<tbody>
                                             <tr>
-                                                <td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acwaste}" placeholder="" name="acwaste" ></td>
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acwastenum}" placeholder="" name="acwastenum" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acwasteactivity}" placeholder="" name="acwasteactivity" ></td>
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acradioactive}" placeholder="" name="acradioactive" ></td>
-												<td ><input type="text" class="form-control" th:value="${rayd.xaccelerator.acwastewhere}" placeholder="" name="acwastewhere" ></td>
+                                                <td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acwaste}"></span></td>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acwastenum}" ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acwasteactivity}"  ></span></td>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acradioactive}"  ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acwastewhere}"  ></span></td>
                                             </tr>
                                        
 										
-                                            <tr >
-                                                <th rowspan="3">放射性废物年产生量</th>
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acgasnum}" placeholder="气态(m3)" name="acgasnum" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acgasactivity}" placeholder="" name="acgasactivity" ></td>
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acgasradioactive}" placeholder="" name="acgasradioactive" ></td>
-												<td ><input type="text" class="form-control" th:value="${rayd.xaccelerator.acgaswhere}" placeholder="" name="acgaswhere" ></td>
-                                            </tr>
-                                        
-										
                                             <tr>
-                                                
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acliquidnum}" placeholder="液态(m3)" name="acliquidnum" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acliquidactivity}" placeholder="" name="acliquidactivity" ></td>
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acliquidradioactive}" placeholder="" name="acliquidradioactive" ></td>
-												<td ><input type="text" class="form-control" th:value="${rayd.xaccelerator.acliquidwhere}" placeholder="" name="acliquidwhere" ></td>
+                                                <th rowspan="3">放射性废物年产生量</th>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acgasnum}" ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acgasactivity}"  ></span></td>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acgasradioactive}"  ></span></td>
+												<td ><span  class="reducedfrom" th:text="${rayd.xaccelerator.acgaswhere}"   ></span></td>
+                                            </tr>
+
+                                            <tr>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acliquidnum}" ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acliquidactivity}"  ></span></td>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acliquidradioactive}"  ></span></td>
+												<td ><span  class="reducedfrom" th:text="${rayd.xaccelerator.acliquidwhere}"  ></span></td>
                                             </tr>
                                         
 										
                                             <tr>
                                                
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acliquidnactivityumber}" placeholder="固态(kg)" name="acliquidnactivityumber" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xaccelerator.acsolidactivity}" placeholder="" name="acsolidactivity" ></td>
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acsolidradioactive}" placeholder="" name="acsolidradioactive" ></td>
-												<td ><input type="text" class="form-control" th:value="${rayd.xaccelerator.acsolidwhere}" placeholder="" name="acsolidwhere" ></td>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acliquidnactivityumber}" ></span></td>
+												<td><span  class="reducedfrom" th:text="${rayd.xaccelerator.acsolidactivity}"  ></span></td>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acsolidradioactive}"  ></span></td>
+												<td ><span  class="reducedfrom" th:text="${rayd.xaccelerator.acsolidwhere}"  ></span></td>
                                             </tr>
 										     <tr>
                                                 <th colspan="2">投入使用时间</th>
@@ -112,28 +111,54 @@
                                                 <th colspan="3">房间信息</th>
                                             </tr>
 										    <tr>
-												<td colspan="2"><input type="date" class="form-control" th:value="${rayd.xaccelerator.acusetime}" placeholder="" name="acusetime" ></td>
-												<td colspan="2"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acbuilding}" placeholder="" name="acbuilding" ></td>
-												<td colspan="3"><input type="text" class="form-control" th:value="${rayd.xaccelerator.acroom}" placeholder="" name="acroom" ></td>
+												<td colspan="2"><span class="reducedfrom"  th:text="${rayd.xaccelerator.acusetime}"  ></span></td>
+												<td colspan="2"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acbuilding}"   ></span></td>
+												<td colspan="3"><span  class="reducedfrom" th:text="${rayd.xaccelerator.acroom}"   ></span></td>
                                             </tr>
                                         </tbody>
+										
+										
                                     </table>
+									
+									
+									
+									
+							
+								
+								
+								<input type="button" class="btn btn-default"  value="提交安全措施表" onclick="submitFunction()">	
+			 				<div class="panel-heading">
+                                                                   辐射安全防护措施表
+                             </div>
+							 <table class="table table-striped table-bordered table-hover" id = "test">
+                                        <thead>
+										 <thead>									
+                                            <tr th:each="auxi:${auxiall}">
+                                                <td><span class="reducedfrom" th:text="${auxi.xauxiliary.auname}"></span><a th:href="@{/onpage(page=${auxi.xauxiliary.ausecurity})}">下载文件</a><input type="file" class="form-control" th:name="${auxi.xauxiliary.auserial}"/></td>
+                                            </tr>
+                                        </thead>
+
+                            </table>
+                            <table class="table table-striped table-bordered table-hover" id = "test">
+                                        <thead>	
+                                            <tr>
+                                                <td><input type="checkbox" value="1" name="rapermit" th:checked="${rayd.rapermitbox}">辐射安全许可证</td>
+                                                <td><input type="checkbox" value="1" name="raassessmen" th:checked="${rayd.raassessmenbox}">环境影响评价批复</td>
+                                                <td><input type="checkbox" value="1" name="racompletion" th:checked="${rayd.racompletionbox}">环保竣工验收批复</td>
+                                            </tr>										
+                                         </thead>
+                                        </tbody>
+                            </table>
                                 </div>
                             </div>
                         </div>
                          </form>
-											
 					 <div class="panel panel-default">
                         </div>
-
                 </div>
-				
                 <!-- /. ROW  -->
-			
-
             </div>
             <!-- /. PAGE INNER  -->
-        </div>
         <!-- /. PAGE WRAPPER  -->
     </div>
     <!-- /. WRAPPER  -->
@@ -162,11 +187,12 @@
       
       function submitFunction() {
   	    //这里唯一需要注意的就是这个form-add的id
-  	    var prid = $("#prid");
+  	    var raid = $("#raid");
+  	    var radevice=$("#radevice").val();
   	    var formData = new FormData($("#formid")[0]);
   	    $.ajax({
   	        //接口地址
-  	        url: '/xraupacce',
+  	        url: '/xrauxipost',
   	        type: 'POST',
   	        data: formData,
   	        async: false,
@@ -176,8 +202,8 @@
   	        success: function (data) {
   	            //成功的回调
   	            if(data== 1){
-                      alert("保存成功");
-                      window.location.href='/xraydall';//
+                      alert("提交成功");
+                      window.location.href='/xradetails?type='+raid.val()+ '&radevice='+radevice;//
   	            }else if(data== 2){
   	            	$("#index").html("请检测数量格式是否正确");
   	            }else if(data== 3){

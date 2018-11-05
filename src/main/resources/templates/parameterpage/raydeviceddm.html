@@ -25,57 +25,35 @@
 		<div id="page-wrapper">
 		  <div class="header"> 
                         <h1 class="page-header">
-                             <small>X射线机</small>
+                             <small>添加射线装置</small>
                         </h1>								
 		          </div>				
                     <form   method="post" enctype="multipart/form-data" id="formid">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="table-responsive">		
-								<input type="hidden" th:value="${rayd.xraymachine.raid}" name="raid" id="raid"/>
-								<input type="button" class="btn btn-default"  value="保存" onclick="submitFunction()">
+								
 								<div id="index" style="text-align:center;color:red"></div>
                                     <table class="table table-striped table-bordered table-hover" id = "test">
-                                        <thead>
 										 <thead>									
                                             <tr>
-                                                <th>名称</th>
-                                                <th>厂家及型号</th>
-                                                <th>最大管电压（kV）</th>
-												<th>最大输出电流（mA）</th>
-												<th>用途</th>
-												<th>工作场所</th>
-												<th>类别</th>
-												<th>备注</th>
+                                               <th>加速器</th>
+                                               <th>X射线机</th>
+                                               <th>中子发生器</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><input type="text" class="form-control" th:value="${rayd.xraymachine.raname}" placeholder="" name="raname" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xraymachine.ramodel}" placeholder="" name="ramodel" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xraymachine.ravoltage}" placeholder="" name="ravoltage" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xraymachine.racurrent}" placeholder="" name="racurrent" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xraymachine.rause}" placeholder="" name="rause" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xraymachine.raplace}" placeholder="" name="raplace" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xraymachine.racategory}" placeholder="" name="racategory" ></td>
-												<td><input type="text" class="form-control" th:value="${rayd.xraymachine.ranote}" placeholder="" name="ranote" ></td>
-                                            </tr>
-										    <tr>
-                                                <th colspan="2">投入使用时间</th>
-                                                <th colspan="3">楼宇</th>
-                                                <th colspan="3">房间信息</th>
-                                            </tr>
-										    <tr>
-												<td colspan="2"><input type="date" class="form-control" th:value="${rayd.xraymachine.rainputtime}" placeholder="" name="rainputtime" ></td>
-												<td colspan="3"><input type="text" class="form-control" th:value="${rayd.xraymachine.rabuilding}" placeholder="" name="rabuilding" ></td>
-												<td colspan="3"><input type="text" class="form-control" th:value="${rayd.xraymachine.raroom}" placeholder="" name="raroom" ></td>
+                                               <td><a th:href="@{/xraentryac}">添加</a></td>
+											   <td><a th:href="@{/xraentryraym}">添加</a></td>
+											   <td><a th:href="@{/xraentry}">添加</a></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                         </form>
+                    </form>
 											
 					 <div class="panel panel-default">
                         </div>
@@ -116,11 +94,10 @@
       
       function submitFunction() {
   	    //这里唯一需要注意的就是这个form-add的id
-  	    var prid = $("#prid");
   	    var formData = new FormData($("#formid")[0]);
   	    $.ajax({
   	        //接口地址
-  	        url: '/xraupraym',
+  	        url: '/raydname',
   	        type: 'POST',
   	        data: formData,
   	        async: false,
@@ -130,10 +107,10 @@
   	        success: function (data) {
   	            //成功的回调
   	            if(data== 1){
-                      alert("保存成功");
+                      alert("添加成功");
                       window.location.href='/xraydall';//
   	            }else if(data== 2){
-  	            	$("#index").html("请检测数量格式是否正确");
+  	            	$("#index").html("名称不能为空");
   	            }else if(data== 3){
   	            	$("#index").html("请填写日期");
   	            }

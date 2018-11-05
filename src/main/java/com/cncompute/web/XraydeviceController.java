@@ -1,5 +1,7 @@
 package com.cncompute.web;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +30,7 @@ public class XraydeviceController {
 	@RequestMapping(value="xraydall",method=RequestMethod.GET)
 	public String xraydeviceAll(HttpServletRequest request) {
 		xraydeviceservice.reydsAll(request);
-		return "parameterpage/raydevice";
+		return "parameterpage/raydevicem";
 	}
 	/**
 	 * 添加射线装置界面
@@ -38,7 +40,7 @@ public class XraydeviceController {
 	@RequestMapping(value="raydadd",method=RequestMethod.GET)
 	public String xraydeviceAdd(HttpServletRequest request) {
 		xraydeviceservice.reydsAll(request);
-		return "parameterpage/raydevicedd";
+		return "parameterpage/raydeviceddm";
 	}	
 	/**
 	 * 添加射线装置
@@ -57,8 +59,8 @@ public class XraydeviceController {
 	 */
 	@RequestMapping(value="xraentryac",method=RequestMethod.GET)
 	public String accelerator(HttpServletRequest request,String type) {
-		xraydeviceservice.insertXaccelerator(request, type);
-		return "parameterpage/acceleratoradd";
+//		xraydeviceservice.insertXaccelerator(request, type);
+		return "parameterpage/acceleratoraddm";
 	}
 	/**
 	 * 录入加速器
@@ -68,19 +70,19 @@ public class XraydeviceController {
 	 * @param acce
 	 */
 	@RequestMapping(value="accepost",method=RequestMethod.POST)
-	public void acceleratorAdd(HttpServletRequest request,HttpServletResponse response,String raid,Xaccelerator acce) {
-		xraydeviceservice.acceleratorAdd(request, response, raid, acce);
+	public void acceleratorAdd(HttpServletRequest request,HttpServletResponse response,Xaccelerator acce) {
+		xraydeviceservice.acceleratorAdd(request, response, acce);
 	}
 	/**
 	 * 录入 (X射线机)界面xraymachine
-	 * @param requets
+	 * @param request
 	 * @param type
 	 * @return
 	 */
 	@RequestMapping(value="xraentryraym",method=RequestMethod.GET)
 	public String raymachine(HttpServletRequest request,String type) {
-		xraydeviceservice.queryRaym(request, type);
-		return "parameterpage/raymachineadd";
+//		xraydeviceservice.queryRaym(request, type);
+		return "parameterpage/raymachineaddm";
 	}
 	/**
 	 * 录入 (X射线机)
@@ -100,8 +102,8 @@ public class XraydeviceController {
 	 */
 	@RequestMapping(value="xraentry",method=RequestMethod.GET)
 	public String neutron(HttpServletRequest request,String type) {
-		xraydeviceservice.queryNeut(request, type);
-		return "parameterpage/neutronadd";
+//		xraydeviceservice.queryNeut(request, type);
+		return "parameterpage/neutronaddm";
 	}
 	/**
 	 * 录入 (中子发生器)
@@ -110,18 +112,26 @@ public class XraydeviceController {
 	 * @param raym
 	 */
 	@RequestMapping(value="neutpost",method=RequestMethod.POST)
-	public void neutPost(HttpServletRequest request,HttpServletResponse response,Xneutron neut,String raid) {
-		xraydeviceservice.neutAdd(request, response, neut, raid);
+	public void neutPost(HttpServletRequest request,HttpServletResponse response,Xneutron neut) {
+		xraydeviceservice.neutAdd(request, response, neut);
 	}
 	/**
 	 * 查看射线装置的详情
 	 * @param request
 	 * @param type
+	 * @throws IOException 
 	 */
 	@RequestMapping(value="xradetails",method=RequestMethod.GET)
-	public String queryAll(HttpServletRequest request,String type) {
+	public String queryAll(HttpServletRequest request,String type,String radevice)  {
 		xraydeviceservice.deviceAll(request, type);
-		return "parameterpage/deviceall";
+		if(radevice.equals("加速器")) {
+			return"parameterpage/acceleratorj";
+		}else if(radevice.equals("X射线机")) {
+			return"parameterpage/acceleratorx";
+		}else if(radevice.equals("中子发生器")) {
+			return"parameterpage/acceleratorz";
+		}
+		return"";
 	}
 	/**
 	 * 添加辐射安全管理措施界面
@@ -162,7 +172,7 @@ public class XraydeviceController {
 	public String xrayDel(HttpServletRequest request,String type) {
 		xraydeviceservice.xrayDel(request, type);
 		xraydeviceservice.reydsAll(request);
-		return "parameterpage/raydevice";
+		return "parameterpage/raydevicem";
 	}
 	/**
 	 * 修改射线装置界面
@@ -171,8 +181,15 @@ public class XraydeviceController {
 	 * @return
 	 */
 	@RequestMapping(value="raydup",method=RequestMethod.GET)
-	public String raydUpdate(HttpServletRequest request,String type) {
-		xraydeviceservice.raydUp(request, type);
+	public String raydUpdate(HttpServletRequest request,String type,String radevice) {
+		xraydeviceservice.raydUp(request, type, radevice);
+		if(radevice.equals("加速器")) {
+			return"parameterpage/acceleratoradd";
+		}else if(radevice.equals("X射线机")) {
+			return"parameterpage/raymachineadd";
+		}else if(radevice.equals("中子发生器")) {
+			return"parameterpage/neutronadd";
+		}
 		return "parameterpage/raydeviceupdate";
 	}
 	/**
@@ -193,6 +210,36 @@ public class XraydeviceController {
 	@RequestMapping(value="xrayfuzzy",method=RequestMethod.GET)
 	public String xrayFuzzy(HttpServletRequest request,String name) {
 		xraydeviceservice.rayFuzzy(request, name);
-		return "parameterpage/raydevicefuzzy";
+		return "parameterpage/raydevicemfuzzy";
+	}
+	/**
+	 * 修改加速器信息
+	 * @param request
+	 * @param response
+	 * @param acce
+	 */
+	@RequestMapping(value="xraupacce",method=RequestMethod.POST)
+	public void updateDevice(HttpServletRequest request,HttpServletResponse response,Xaccelerator acce){
+		xraydeviceservice.uodateacce(request, response, acce);
+	}
+	/**
+	 * 修改(X射线机)信息
+	 * @param request
+	 * @param response
+	 * @param raym
+	 */
+	@RequestMapping(value="xraupraym",method=RequestMethod.POST)
+	public void updateentryRaym(HttpServletRequest request,HttpServletResponse response,Xraymachine raym) {
+		xraydeviceservice.updateRaym(request, response, raym);
+	}
+	/**
+	 * 修改(中子发生器)信息
+	 * @param request
+	 * @param response
+	 * @param raym
+	 */
+	@RequestMapping(value="xraupneut",method=RequestMethod.POST)
+	public void neutXneut(HttpServletRequest request,HttpServletResponse response,Xneutron neut) {
+		xraydeviceservice.uodateXneut(request, response, neut);
 	}
 }

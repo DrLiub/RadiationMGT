@@ -56,7 +56,17 @@ public class XraydeviceService {
 			index = Integer.parseInt(pag);
 			page = PageHelper.startPage(index, each);
 		}
-		List<Xraydevice>rayall=raydevicedao.raydAll();
+		List<Xraydevice> rayall=raydevicedao.raydAll();
+		//(1加速器)(2X射线机)(3中子发生器)
+		for (Xraydevice xray : rayall) {
+			if(xray.getRadevice().equals("1")) {
+				xray.setRadevice("加速器");
+			}else if(xray.getRadevice().equals("2")){
+				xray.setRadevice("X射线机");
+			}else if(xray.getRadevice().equals("3")){
+				xray.setRadevice("中子发生器");
+			}
+		}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("raydall",rayall);
 	}
@@ -79,10 +89,10 @@ public class XraydeviceService {
 	    String id=Methods.getUUID();
 	    rayd.setRaid(id);
 	    rayd.setRauserid(methods.getUser(request));
-	    raydevicedao.addRaydevice(rayd);//添加射线装置
-	    raydevicedao.addAccelerator(id);//射线装置-加速器
-	    raydevicedao.addNeutron(id);//射线装置-中子发生器
-	    raydevicedao.addRaymachine(id);//(射线装置-X射线机)
+//	    raydevicedao.addRaydevice(rayd);//添加射线装置
+//	    raydevicedao.addAccelerator(id);//射线装置-加速器
+//	    raydevicedao.addNeutron(id);//射线装置-中子发生器
+//	    raydevicedao.addRaymachine(id);//(射线装置-X射线机)
 	    pw.print("1");
 	}
 	/**
@@ -112,18 +122,31 @@ public class XraydeviceService {
 	 * @param raid
 	 * @param acce
 	 */
-	public void acceleratorAdd(HttpServletRequest request,HttpServletResponse response,String raid,Xaccelerator acce) {
+	public void acceleratorAdd(HttpServletRequest request,HttpServletResponse response,Xaccelerator acce) {
 		PrintWriter pw=null;
 		try {
 			pw=response.getWriter();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		acce.setAcid(raid);
+		String id=Methods.getUUID();
+		acce.setAcid(id);
 		acce.setAcuserid(methods.getUser(request));
 		acce.setActime(methods.getTime());
 		acce.setAcstate(1);
-		raydevicedao.insertAccel(acce);
+		raydevicedao.addAccelerator(acce);
+		//向射线装置表添加数据
+		Xraydevice rayd=new Xraydevice();
+		rayd.setRaid(id);// 表ID
+		rayd.setRaname(acce.getAcmodel());// 名称型号
+		rayd.setRadevice("1");//射线装置(1加速器)(2X射线机)(3中子发生器)
+		rayd.setRamanufacturer(acce.getAcmanufacturer());//生产厂家
+		rayd.setRainput(acce.getAcusetime());//投入使用时间
+		rayd.setRabuilding(acce.getAcbuilding());//楼宇
+		rayd.setRaroom(acce.getAcroom());//房间信息
+		rayd.setRause(acce.getAcuse());//用途
+		rayd.setRanote(acce.getAcnote());//备注
+		raydevicedao.addRaydevice(rayd);
 		pw.print("1");
 	}
 	/**
@@ -150,11 +173,25 @@ public class XraydeviceService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		String id=Methods.getUUID();
+		raym.setRaid(id);
 		raym.setRanumber(Methods.getUUID());
 		raym.setRatime(methods.getTime());
 		raym.setRauserid(methods.getUser(request));
 		raym.setRastate(1);
-		raydevicedao.insertRayma(raym);
+		raydevicedao.addRaymachine(raym);
+		//向射线装置表添加数据
+		Xraydevice rayd=new Xraydevice();
+		rayd.setRaid(id);// 表ID
+		rayd.setRaname(raym.getRaname());// 名称型号
+		rayd.setRadevice("2");//射线装置(1加速器)(2X射线机)(3中子发生器)
+		rayd.setRamanufacturer(raym.getRamodel());//生产厂家
+		rayd.setRainput(raym.getRainputtime());//投入使用时间
+		rayd.setRabuilding(raym.getRabuilding());//楼宇
+		rayd.setRaroom(raym.getRaroom());//房间信息
+		rayd.setRause(raym.getRause());//用途
+		rayd.setRanote(raym.getRanote());//备注
+		raydevicedao.addRaydevice(rayd);
 		pw.print("1");
 	}
 	/**
@@ -174,18 +211,31 @@ public class XraydeviceService {
 	 * @param raid
 	 * @param raym
 	 */
-	public void neutAdd(HttpServletRequest request,HttpServletResponse response,Xneutron neut,String raid) {
+	public void neutAdd(HttpServletRequest request,HttpServletResponse response,Xneutron neut) {
 		PrintWriter pw=null;
 		try {
 			pw=response.getWriter();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		neut.setNeid(raid);
+		String id=Methods.getUUID();
+		neut.setNeid(id);
 		neut.setNeswauserid(methods.getUser(request));
 		neut.setNetime(methods.getTime());
 		neut.setNestate(1);
-		raydevicedao.insertNeut(neut);
+		raydevicedao.addNeutron(neut);
+		//向射线装置表添加数据
+		Xraydevice rayd=new Xraydevice();
+		rayd.setRaid(id);// 表ID
+		rayd.setRaname(neut.getNemodel());// 名称型号
+		rayd.setRadevice("3");//射线装置(1加速器)(2X射线机)(3中子发生器)
+		rayd.setRamanufacturer(neut.getNemanufacturer());//生产厂家
+		rayd.setRainput(neut.getNeswainput());//投入使用时间
+		rayd.setRabuilding(neut.getNebuikding());//楼宇
+		rayd.setRaroom(neut.getNeroom());//房间信息
+		rayd.setRause(neut.getNeuse());//用途
+		rayd.setRanote(neut.getNenote());//备注
+		raydevicedao.addRaydevice(rayd);
 		pw.print("1");
 	}
 	/**
@@ -386,9 +436,17 @@ public class XraydeviceService {
 	 * @param request
 	 * @param type
 	 */
-	public void raydUp(HttpServletRequest request,String type) {
-		Xraydevice rade=raydevicedao.raydID(type);
-		request.setAttribute("rayd", rade);
+	public void raydUp(HttpServletRequest request,String type,String radevice) {
+		if(radevice.equals("加速器")) {
+			Xraydevice rade=raydevicedao.acceleratorId(type);
+			request.setAttribute("rayd", rade);
+		}else if(radevice.equals("X射线机")) {
+			Xraydevice rade=raydevicedao.queryRayma(type);
+			request.setAttribute("rayd", rade);
+		}else if(radevice.equals("中子发生器")) {
+			Xraydevice rade=raydevicedao.queryNeut(type);
+			request.setAttribute("rayd", rade);
+		}
 	}
 	/**
 	 * 修改射线装置
@@ -412,7 +470,7 @@ public class XraydeviceService {
 	 * @param name
 	 */
 	public void rayFuzzy(HttpServletRequest request,String name) {
-		int each =3; //每页显示条数*
+		int each =13; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数
 		int starting=1;//起始页面
@@ -430,8 +488,102 @@ public class XraydeviceService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Xraydevice>rayall= raydevicedao.fuzzyRayd(name);
+		//(1加速器)(2X射线机)(3中子发生器)
+		for (Xraydevice xray : rayall) {
+			if(xray.getRadevice().equals("1")) {
+				xray.setRadevice("加速器");
+			}else if(xray.getRadevice().equals("2")){
+				xray.setRadevice("X射线机");
+			}else if(xray.getRadevice().equals("3")){
+				xray.setRadevice("中子发生器");
+			}
+		}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("raydall",rayall);
 		request.setAttribute("name", name);
+	}
+	/**
+	 * 修改加速器信息
+	 * @param request
+	 * @param response
+	 * @param acce
+	 */
+	public void uodateacce(HttpServletRequest request,HttpServletResponse response,Xaccelerator acce) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		raydevicedao.insertAccel(acce);
+		//向射线装置表添加数据
+		Xraydevice rayd=new Xraydevice();
+		rayd.setRaid(acce.getAcid());// 表ID
+		rayd.setRaname(acce.getAcmodel());// 名称型号
+		rayd.setRadevice("1");//射线装置(1加速器)(2X射线机)(3中子发生器)
+		rayd.setRamanufacturer(acce.getAcmanufacturer());//生产厂家
+		rayd.setRainput(acce.getAcusetime());//投入使用时间
+		rayd.setRabuilding(acce.getAcbuilding());//楼宇
+		rayd.setRaroom(acce.getAcroom());//房间信息
+		rayd.setRause(acce.getAcuse());//用途
+		rayd.setRanote(acce.getAcnote());//备注
+		raydevicedao.updateRayd(rayd);
+		pw.print("1");
+	}
+	/**
+	 * 修改(X射线机)信息
+	 * @param request
+	 * @param response
+	 * @param raym
+	 */
+	public void updateRaym(HttpServletRequest request,HttpServletResponse response,Xraymachine raym) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		raydevicedao.insertRayma(raym);
+		//向射线装置表添加数据
+		Xraydevice rayd=new Xraydevice();
+		rayd.setRaid(raym.getRaid());// 表ID
+		rayd.setRaname(raym.getRaname());// 名称型号
+		rayd.setRadevice("2");//射线装置(1加速器)(2X射线机)(3中子发生器)
+		rayd.setRamanufacturer(raym.getRamodel());//生产厂家
+		rayd.setRainput(raym.getRainputtime());//投入使用时间
+		rayd.setRabuilding(raym.getRabuilding());//楼宇
+		rayd.setRaroom(raym.getRaroom());//房间信息
+		rayd.setRause(raym.getRause());//用途
+		rayd.setRanote(raym.getRanote());//备注
+		raydevicedao.updateRayd(rayd);
+		pw.print("1");
+	}
+	/**
+	 * 修改(中子发生器)信息
+	 * @param request
+	 * @param response
+	 * @param raym
+	 */
+	public void uodateXneut(HttpServletRequest request,HttpServletResponse response,Xneutron neut) {
+		PrintWriter pw=null;
+		try {
+			pw=response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		raydevicedao.insertNeut(neut);
+		//向射线装置表添加数据
+		Xraydevice rayd=new Xraydevice();
+		rayd.setRaid(neut.getNeid());// 表ID
+		rayd.setRaname(neut.getNemodel());// 名称型号
+		rayd.setRadevice("3");//射线装置(1加速器)(2X射线机)(3中子发生器)
+		rayd.setRamanufacturer(neut.getNemanufacturer());//生产厂家
+		rayd.setRainput(neut.getNeswainput());//投入使用时间
+		rayd.setRabuilding(neut.getNebuikding());//楼宇
+		rayd.setRaroom(neut.getNeroom());//房间信息
+		rayd.setRause(neut.getNeuse());//用途
+		rayd.setRanote(neut.getNenote());//备注
+		raydevicedao.updateRayd(rayd);
+		pw.print("1");
 	}
 }

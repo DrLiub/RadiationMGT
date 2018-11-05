@@ -12,7 +12,15 @@ import java.util.Set;
 public class Xraydevice implements Serializable {
 	private static final long serialVersionUID = -3723508046404400546L;
 	private String raid;// 表ID
-	private String raname;// 射线装置名称
+	private String raname;// 名称型号
+	private String radevice;//射线装置
+	private String ramanufacturer;//生产厂家
+	private String rainput;//投入使用时间
+	private String rabuilding;//楼宇
+	private String raroom;//房间信息
+	private String rause;//用途
+	private String ranote;//备注
+	
 	private String rauserid;// 当前登录id
 	private Date ratime;// 当前时间
 	private Integer rastate;// 表状态0删除1正常
@@ -34,13 +42,21 @@ public class Xraydevice implements Serializable {
 	Set<Xauxiliary> xauxiliarys=new HashSet<Xauxiliary>();
     public Xraydevice() {
 	}
-	public Xraydevice(String raid, String raname, String rauserid, Date ratime, Integer rastate, Integer rapermit,
-			String rapermitbox, Integer raassessmen, String raassessmenbox, Integer racompletion,
-			String racompletionbox, Xaccelerator xaccelerator, Set<Xaccelerator> xaccelerators, Xneutron xneutron,
-			Set<Xneutron> xneutrons, Xraymachine xraymachine, Set<Xraymachine> xraymachines, Xauxiliary xauxiliary,
-			Set<Xauxiliary> xauxiliarys) {
+	public Xraydevice(String raid, String raname, String radevice, String ramanufacturer, String rainput,
+			String rabuilding, String raroom, String rause, String ranote, String rauserid, Date ratime,
+			Integer rastate, Integer rapermit, String rapermitbox, Integer raassessmen, String raassessmenbox,
+			Integer racompletion, String racompletionbox, Xaccelerator xaccelerator, Set<Xaccelerator> xaccelerators,
+			Xneutron xneutron, Set<Xneutron> xneutrons, Xraymachine xraymachine, Set<Xraymachine> xraymachines,
+			Xauxiliary xauxiliary, Set<Xauxiliary> xauxiliarys) {
 		this.raid = raid;
 		this.raname = raname;
+		this.radevice = radevice;
+		this.ramanufacturer = ramanufacturer;
+		this.rainput = rainput;
+		this.rabuilding = rabuilding;
+		this.raroom = raroom;
+		this.rause = rause;
+		this.ranote = ranote;
 		this.rauserid = rauserid;
 		this.ratime = ratime;
 		this.rastate = rastate;
@@ -70,6 +86,48 @@ public class Xraydevice implements Serializable {
 	}
 	public void setRaname(String raname) {
 		this.raname = raname;
+	}
+	public String getRadevice() {
+		return radevice;
+	}
+	public void setRadevice(String radevice) {
+		this.radevice = radevice;
+	}
+	public String getRamanufacturer() {
+		return ramanufacturer;
+	}
+	public void setRamanufacturer(String ramanufacturer) {
+		this.ramanufacturer = ramanufacturer;
+	}
+	public String getRainput() {
+		return rainput;
+	}
+	public void setRainput(String rainput) {
+		this.rainput = rainput;
+	}
+	public String getRabuilding() {
+		return rabuilding;
+	}
+	public void setRabuilding(String rabuilding) {
+		this.rabuilding = rabuilding;
+	}
+	public String getRaroom() {
+		return raroom;
+	}
+	public void setRaroom(String raroom) {
+		this.raroom = raroom;
+	}
+	public String getRause() {
+		return rause;
+	}
+	public void setRause(String rause) {
+		this.rause = rause;
+	}
+	public String getRanote() {
+		return ranote;
+	}
+	public void setRanote(String ranote) {
+		this.ranote = ranote;
 	}
 	public String getRauserid() {
 		return rauserid;

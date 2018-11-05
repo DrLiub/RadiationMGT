@@ -288,7 +288,7 @@ public class NonsealService {
         }else {
     		if(nolevelj.equals("甲")) {
     			//
-    			System.out.println("甲场所需求中没有提到默认为否");
+//    			System.out.println("甲场所需求中没有提到默认为否");
     			yesorno="否";
     		}else if(nolevelj.equals("乙")) {
     			//乙级场所不超过4*10^9 Bq

@@ -45,7 +45,7 @@ public interface XraydeviceDao {
 	 * 添加 (加速器)id
 	 * @param acce
 	 */
-	public void addAccelerator(String acid);
+	public void addAccelerator(Xaccelerator acce);
 	/**
 	 * 查询 根据ID(加速器)返回射线装置对象
 	 * @param acid
@@ -61,7 +61,7 @@ public interface XraydeviceDao {
 	 * 添加 (中子发生器)id
 	 * @param neut
 	 */
-	public void addNeutron(String neid);
+	public void addNeutron(Xneutron neut);
 	/**
 	 * 查询(中子发生器)
 	 * @param neid
@@ -77,7 +77,7 @@ public interface XraydeviceDao {
 	 * 添加(X射线机)id
 	 * @param raid
 	 */
-	public void addRaymachine(String raid);
+	public void addRaymachine(Xraymachine raym);
 	/**
 	 * 查询(X射线机)
 	 * @return
