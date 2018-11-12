@@ -21,8 +21,16 @@ public class Xraydevice implements Serializable {
 	private String rause;//用途
 	private String ranote;//备注
 	
+	private int pageNumber;//页码
+	
 	private String rauserid;// 当前登录id
 	private Date ratime;// 当前时间
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
 	private Integer rastate;// 表状态0删除1正常
 	
 	private Integer rapermit;//辐射安全许可证1选择0取消

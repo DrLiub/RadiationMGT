@@ -192,7 +192,7 @@ public class OneselfContorller {
 	/**
 	 * 删除单位自行监测数据
 	 * @param request
-	 * @param meid
+	 * @param enid
 	 * @return
 	 */
 	@RequestMapping(value="onenup",method=RequestMethod.GET)

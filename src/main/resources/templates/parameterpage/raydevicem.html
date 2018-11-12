@@ -45,6 +45,7 @@
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th>序号</th>
 											    <th>射线装置</th>
 											    <th>名称型号</th>
                                                 <th>生产厂家</th>
@@ -60,6 +61,7 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="rayd:${raydall}">
+                                                <td><span class="reducedfrom" th:text="${rayd.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${rayd.radevice}" ></span></td>
 												<td><span class="reducedfrom" th:text="${rayd.raname}" ></span></td>
 												<td><span class="reducedfrom" th:text="${rayd.ramanufacturer}" ></span></td>

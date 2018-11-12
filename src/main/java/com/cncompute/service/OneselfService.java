@@ -308,6 +308,10 @@ public class OneselfService {
 //		String []nodata=request.getParameterValues("nodata");// 监测数据地址1
 		List<Object> list1 = methods.handleFileUpload(request, "file1", "D://aim//");
 		for(int i=0;i<noproject.length;i++) {
+			if("".equals(noproject[i])||noproject[i]==null) {
+				pw.print("2");
+				return;
+			}
 			Oneself ones=new Oneself();
 			ones.setNoid("wt"+Methods.getUUID());
 			ones.setNonumberid("wt"+Methods.getUUID());

@@ -57,6 +57,10 @@ public class XraydeviceService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Xraydevice> rayall=raydevicedao.raydAll();
+		
+		for(int i=0;i<rayall.size();i++){
+				rayall.get(i).setPageNumber((i+1)+((index-1)*13));
+		}
 		//(1加速器)(2X射线机)(3中子发生器)
 		for (Xraydevice xray : rayall) {
 			if(xray.getRadevice().equals("1")) {
@@ -488,6 +492,9 @@ public class XraydeviceService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Xraydevice>rayall= raydevicedao.fuzzyRayd(name);
+		for(int i=0;i<rayall.size();i++){
+			rayall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		//(1加速器)(2X射线机)(3中子发生器)
 		for (Xraydevice xray : rayall) {
 			if(xray.getRadevice().equals("1")) {

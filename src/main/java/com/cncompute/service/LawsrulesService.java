@@ -71,6 +71,10 @@ public class LawsrulesService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+        if("".equals(laws.getLaname())||laws.getLaname()==null) {
+        	pw.print("2");
+        	return;
+        }
 		String page = methods.fileUpload(request, file);
 		if (!page.equals("文件为空")) {
 			laws.setLaelectronicid(page);

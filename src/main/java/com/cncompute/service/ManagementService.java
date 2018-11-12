@@ -107,6 +107,10 @@ public class ManagementService {
 		Date petime = methods.getTime();// 当前时间
 		try {
 		for (int i = 0; i < pemanagement.length; i++) {
+			if("".equals(peusername[i])||peusername[i]==null) {
+				pw.print("2");
+				return;
+			}
 			Personnel per = new Personnel();
 			per.setPeid(peid);
 			// per.setPename(pename);

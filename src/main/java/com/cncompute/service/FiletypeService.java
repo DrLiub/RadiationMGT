@@ -167,6 +167,10 @@ public class FiletypeService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		if("".equals(unit.getUnname())||unit.getUnname()==null) {
+			pw.print("2");
+			return;
+		}
 		 unit.setUnid(flid);
 		 unit.setUdnumber(Methods.getUUID());
 		 unit.setUnuserid(methods.getUser(request));
