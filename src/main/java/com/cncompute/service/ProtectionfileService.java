@@ -54,6 +54,9 @@ public class ProtectionfileService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Protectionfile> proall= proDao.prall();
+		for(int i=0;i<proall.size();i++){
+			proall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("proall", proall);
 	}
@@ -262,6 +265,9 @@ public class ProtectionfileService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Protectionfile> proall= proDao.fuzzyProt(name);
+		for(int i=0;i<proall.size();i++){
+			proall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("proall", proall);
 		request.setAttribute("name", name);

@@ -48,6 +48,7 @@
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th  width = 55>序号</th>
                                                 <th>机构名称</th>
                                                 <th>负责人</th>
                                                 <th>电话</th>
@@ -58,6 +59,7 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="institutions : ${install}">
+                                                <td><span class="reducedfrom" th:text="${institutions.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${institutions.maname}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${institutions.mahead}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${institutions.maphone}" ></span></td>

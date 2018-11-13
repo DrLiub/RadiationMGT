@@ -59,6 +59,9 @@ public class OneselfService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Entrust> enall = entrdao.enQuery();
+		for(int i=0;i<enall.size();i++){
+			enall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("enall", enall);
 	}
@@ -116,6 +119,9 @@ public class OneselfService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Oneself> onall = oneselfdao.onQuery(type, 1);
+		for(int i=0;i<onall.size();i++){
+			onall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("onall", onall);
 		sendNoid(request, type);
@@ -283,6 +289,9 @@ public class OneselfService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Oneself>ones=oneselfdao.queryEntrust(2);
+		for(int i=0;i<ones.size();i++){
+			ones.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("onall", ones);
 	}
@@ -467,7 +476,7 @@ public class OneselfService {
 	 * @param name
 	 */
 	public void onenFuzzy(HttpServletRequest request,String name) {
-		int each =3; //每页显示条数*
+		int each =13; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数
 		int starting=1;//起始页面
@@ -485,6 +494,9 @@ public class OneselfService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Oneself>ones=oneselfdao.fuzzyOnes(name,2);
+		for(int i=0;i<ones.size();i++){
+			ones.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("onall", ones);
 		request.setAttribute("name", name);
@@ -513,6 +525,9 @@ public class OneselfService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Entrust> enall = entrdao.fuzzyEntrust(name);
+		for(int i=0;i<enall.size();i++){
+			enall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("enall", enall);
 		request.setAttribute("name", name);

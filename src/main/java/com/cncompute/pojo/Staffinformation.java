@@ -35,6 +35,9 @@ public class Staffinformation implements Serializable{
 	private String stdepartment;//所属部门
 	private Integer stoverdueyn;//0没过期1到期
 	private String color;
+	
+	private int pageNumber;//序号
+	
 	public Staffinformation() {
 	}
 	public Staffinformation(String stid, String stnumber, String stinstitutions, String stname, String stgender,
@@ -67,6 +70,12 @@ public class Staffinformation implements Serializable{
 		this.stdepartment = stdepartment;
 		this.stoverdueyn = stoverdueyn;
 		this.color = color;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getStid() {
 		return stid;

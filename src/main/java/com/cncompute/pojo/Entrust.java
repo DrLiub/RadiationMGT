@@ -16,6 +16,9 @@ public class Entrust implements Serializable {
 	private String enuserid;// 当前登录用户
 	private String entime;// 当前时间
 	private Integer enstate;// 表状态0删除1正常
+	
+	private int pageNumber;//序号
+	
 	public Entrust() {
 	}
 	public Entrust(String enid, String entypeen, String enproject, String enunit, String enuserid, String entime,
@@ -69,5 +72,11 @@ public class Entrust implements Serializable {
 	}
 	public void setEnstate(Integer enstate) {
 		this.enstate = enstate;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 }

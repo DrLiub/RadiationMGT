@@ -58,6 +58,9 @@ public class NonsealService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Nonseal> nonsall= nonsealdao.nonsAll();
+		for(int i=0;i<nonsall.size();i++){
+			nonsall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("nonsall", nonsall);
 	}
@@ -518,6 +521,9 @@ public class NonsealService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Nonseal> nonsall= nonsealdao.fuzzyNons(name);
+		for(int i=0;i<nonsall.size();i++){
+			nonsall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("nonsall", nonsall);
 		request.setAttribute("name", name);

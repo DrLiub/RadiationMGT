@@ -31,6 +31,9 @@ public class Personnel implements Serializable{
 	private Date petime;//当前时间
 	private Integer pestate;// 表状态
 	private Management management;//辐射安全管理人员表
+	
+	private int pageNumber;//序号
+	
 	Set<Management> managements=new HashSet<Management>();//多对一，多个人员对应一个管理人员表
 	public Personnel() {
 	}
@@ -59,6 +62,12 @@ public class Personnel implements Serializable{
 		this.pestate = pestate;
 		this.management = management;
 		this.managements = managements;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getPeid() {
 		return peid;

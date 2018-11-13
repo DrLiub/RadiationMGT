@@ -19,6 +19,8 @@ public class Isotopes implements Serializable {
 	private String isproduction;//生产日期
 	private String isuse;//用途
 	
+	private int pageNumber;//序号
+	
 	private Integer islicense;// 辐射安全许可证(0没有选择1选择)
 	private Integer isenviro;//环境影响评价批复(0没有选择1选择)
 	private Integer isprotection;// 环保竣工验收批复(0没有选择1选择)
@@ -64,6 +66,12 @@ public class Isotopes implements Serializable {
 		this.sealentrys = sealentrys;
 		this.xauxiliary = xauxiliary;
 		this.xauxiliarys = xauxiliarys;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getIsid() {
 		return isid;

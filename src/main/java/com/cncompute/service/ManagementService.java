@@ -167,6 +167,9 @@ public class ManagementService {
 		}
 		
 		List<Management> manAll = mangdao.queryMang();
+		for(int i=0;i<manAll.size();i++){
+			manAll.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("install", manAll);
 	}
@@ -220,6 +223,9 @@ public class ManagementService {
 		Management man = new Management();
 		man.setMaid(maid);
 		List<Management> list = mangdao.queryId(man);
+		for(int i=0;i<list.size();i++){
+			list.get(i).getPersonnel().setPageNumber((i+1)+((index-1)*13));
+     	}
 		for (int i = 0; i < list.size(); i++) {
 			man.setMainformation(list.get(0).getMainformation());
 			man.setManumber(list.get(0).getManumber());
@@ -375,6 +381,9 @@ public class ManagementService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Management> manAll = mangdao.fuzzyMang(name);
+		for(int i=0;i<manAll.size();i++){
+			manAll.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("install", manAll);
 		request.setAttribute("name", name);

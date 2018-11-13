@@ -52,6 +52,9 @@ public class LawsrulesService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Lawsrules> lawsall = lawsDao.queryLaws();
+		for(int i=0;i<lawsall.size();i++){
+			lawsall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("laws", lawsall);
 	}
@@ -108,6 +111,9 @@ public class LawsrulesService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Lawsrules> lawsall = lawsDao.fuzzyLaws(name);
+		for(int i=0;i<lawsall.size();i++){
+			lawsall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("laws", lawsall);
 		request.setAttribute("name", name);

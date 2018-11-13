@@ -149,6 +149,9 @@ public class InsertdataService {
 			page = PageHelper.startPage(index, each);
 		}
     	List<Insertdata>lnser= inserdao.queryAll();
+		for(int i=0;i<lnser.size();i++){
+			lnser.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
     	for (Insertdata insertdata : lnser) {
             if(insertdata.getInresults()>5) {
             	insertdata.setInquarcolor("color:red");
@@ -306,6 +309,9 @@ public class InsertdataService {
             	insertdata.setInyearscolor("color:black");
             }
 		}
+		for(int i=0;i<inlist.size();i++){
+			inlist.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
     	request.setAttribute("pageindex", index);
     	methods.sendPage(page, pag, starting, end, index, request, jnum);
     	request.setAttribute("inname", inname);

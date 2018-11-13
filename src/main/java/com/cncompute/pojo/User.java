@@ -21,6 +21,9 @@ public class User implements Serializable{
     private String answer;//找回密码答案
     private Date updatetime;//最后一次更新时间
     private Integer userstate;//状态
+    
+    private int pageNumber;//序号
+    
 	public User() {
 	}
 	public User(String userid, String password, String username, Integer permissions, String userperm, String permcolor,
@@ -36,6 +39,12 @@ public class User implements Serializable{
 		this.answer = answer;
 		this.updatetime = updatetime;
 		this.userstate = userstate;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getUserid() {
 		return userid;

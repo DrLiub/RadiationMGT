@@ -21,6 +21,9 @@ public class Registrationsup implements Serializable {
 	private String reuserid;// 当前登录ID
 	private String retime;// 当前时间
 	private Integer restate;// 状态：0删除1正常
+	
+	private int pageNumber;//序号
+	
 	public Registrationsup() {
 	}
 	public Registrationsup(String reid, Integer retable, String renameof, String remodel, String rebuytime,
@@ -39,6 +42,12 @@ public class Registrationsup implements Serializable {
 		this.reuserid = reuserid;
 		this.retime = retime;
 		this.restate = restate;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getReid() {
 		return reid;

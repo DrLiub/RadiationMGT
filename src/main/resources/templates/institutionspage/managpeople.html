@@ -46,12 +46,13 @@
                                                 <th colspan="2">负责人</th>
                                                 <th colspan="2"><span class="reducedfrom" th:text="${mang.mahead}" ></span></th>
                                                 <th colspan="2">电话</th>
-												<th colspan="2"><span class="reducedfrom" th:text="${mang.maphone}" ></span></th>
+												<th colspan="3"><span class="reducedfrom" th:text="${mang.maphone}" ></span></th>
 												<th th:if="${session.user.permissions==1}">操作</th>
                                             </tr>
                                         </thead>
                                         <thead>
                                             <tr>
+                                                <td width = 55>序号</td>
                                                 <td>管理岗位</td>
                                                 <td>姓  名</td>
                                                 <td>性 别</td>
@@ -68,6 +69,7 @@
                                         </thead>
                                         <tbody>
                                             <tr  th:each="man:${mangp}">
+                                                <td><span class="reducedfrom" th:text="${man.personnel.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${man.personnel.pemanagement}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${man.personnel.peusername}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${man.personnel.pegender}" ></span></td>

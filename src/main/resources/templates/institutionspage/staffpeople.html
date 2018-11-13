@@ -47,6 +47,7 @@
    
                                         <thead>
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <th>姓名</th>
                                                 <th>性别</th>
                                                 <th>年龄</th>
@@ -65,6 +66,7 @@
                                         </thead>
                                         <tbody>
                                             <tr  th:each="staffall:${staff}">
+                                                <td><span class="reducedfrom" th:text="${staffall.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${staffall.stname}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${staffall.stgender}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${staffall.stage}" ></span></td>

@@ -40,6 +40,7 @@
    
                                         <thead>
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <th>用户登录ID</th>
                                                 <th>密码</th>
                                                 <th>姓名</th>
@@ -51,6 +52,7 @@
                                         </thead>
                                         <tbody>
                                             <tr  th:each="users:${userall}">
+                                                <td><span class="reducedfrom" th:text="${users.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${users.userid}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${users.password}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${users.username}" ></span></td>

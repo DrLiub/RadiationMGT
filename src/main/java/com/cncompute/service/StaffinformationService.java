@@ -77,6 +77,9 @@ public class StaffinformationService {
 		}
         request.setAttribute("pageindex", index);//当前页面
 		List<Staffinformation> staffAll = staffDao.queryStaff(staff);
+		for(int i=0;i<staffAll.size();i++){
+			staffAll.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("staff", staffAll);
 		request.setAttribute("staffid", staff);
@@ -338,6 +341,9 @@ public class StaffinformationService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Staffinformation> staff=staffDao.stallAll();
+		for(int i=0;i<staff.size();i++){
+			staff.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		for (Staffinformation staffin : staff) {
 			if(staffin.getStoverdue().equals("是")) {
 				staffin.setColor("color:red");
@@ -490,6 +496,9 @@ public class StaffinformationService {
 				staffin.setColor("color:black");
 			}
 		}
+		for(int i=0;i<staff.size();i++){
+			staff.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		request.setAttribute("staff", staff);
 		request.setAttribute("name", name);
 		methods.sendPage(page, pag, starting, end, index, request, jnum);

@@ -55,6 +55,9 @@ public class RegistrationsupService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Registrationsup> reg = regDao.reQuery(retable);
+		for(int i=0;i<reg.size();i++){
+			reg.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		sendRetable(request, retable);
 		request.setAttribute("reg", reg);
@@ -191,6 +194,9 @@ public class RegistrationsupService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Registrationsup> reg= regDao.fuzzyQueryre(name,retable);
+		for(int i=0;i<reg.size();i++){
+			reg.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("reg", reg);
 		request.setAttribute("name", name);

@@ -22,6 +22,9 @@ public class Protectionfile implements Serializable {
 	private Environmental environmental;//环境影响评价文件批复
 	private Completionreply completionreply;//环保竣工验收监测文件批复
 	private Typelicense typelicense;//许可种类与范围实现类
+	
+	private int pageNumber;//序号
+	
 	Set<Typelicense> typelicenses=new HashSet<Typelicense>();//
 	Set<Environmental> environmentals=new HashSet<Environmental>();//1对多，
 	Set<License> Licenses=new HashSet<License>();//1对多，1个环保手续文件对应多个许可证
@@ -45,6 +48,12 @@ public class Protectionfile implements Serializable {
 		this.environmentals = environmentals;
 		Licenses = licenses;
 		this.completionreplys = completionreplys;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getPrid() {
 		return prid;

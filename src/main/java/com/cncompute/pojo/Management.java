@@ -22,6 +22,15 @@ public class Management implements Serializable{
 	private String mauserid;//当前登录ID
 	private Integer mastate;//表状态0删除1正常
 	private Personnel personnel;//管理人员信息表
+	
+	private int pageNumber;//序号
+	
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
 	Set<Personnel> personnels=new HashSet<Personnel>();//1对多，一个管理人员表对应多个管理人员
 	public Management() {
 	}

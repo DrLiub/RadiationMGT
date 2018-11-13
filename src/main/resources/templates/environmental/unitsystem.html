@@ -41,6 +41,7 @@
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <td>规章制度名称</td>
                                                 <td>文件号</td>
 												<td>开始实施时间</td>
@@ -50,6 +51,7 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="file:${fileall}">
+                                                <td><span class="reducedfrom" th:text="${file.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${file.unitsystem.unname}" ></span></td>
 												<td><span class="reducedfrom" th:text="${file.unitsystem.unfile}" ></span></td>
 												<td><span class="reducedfrom" th:text="${file.unitsystem.ununittime}" ></span></td>

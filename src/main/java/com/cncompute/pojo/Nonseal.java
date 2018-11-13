@@ -31,6 +31,15 @@ public class Nonseal implements Serializable {
 	private String a;//甲
 	private String b;//乙
 	private String c;//丙
+	
+	private int pageNumber;//序号
+	
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
+	}
 	private Roomnuclide roomnuclide;//房间中的核素
 	Set<Roomnuclide> roomnuclides=new HashSet<Roomnuclide>();
 	public String getNolimitcolor() {

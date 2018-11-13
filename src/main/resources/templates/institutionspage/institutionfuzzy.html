@@ -48,21 +48,21 @@
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <th>机构名称</th>
                                                 <th>负责人</th>
                                                 <th>电话</th>
                                                 <th>管理人员</th>
-                                               
                                                 <th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr th:each="institutions : ${install}">
+                                                <td><span class="reducedfrom" th:text="${institutions.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${institutions.maname}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${institutions.mahead}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${institutions.maphone}" ></span></td>
                                                 <td><a th:href="@{/mpeople(type=${institutions.maid})}">查看</a></td>
-                                                
                                                 <td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${institutions.maid}+'\');'">删除</a>
                                                   &nbsp;
                                                 <a th:href="@{/maupdate(type=${institutions.maid})}">修改</a></td>

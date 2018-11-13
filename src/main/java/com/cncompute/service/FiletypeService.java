@@ -51,6 +51,9 @@ public class FiletypeService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Filetype> file =fileDao.fileAll();
+		for(int i=0;i<file.size();i++){
+			file.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 	    request.setAttribute("fileall", file);
 	}
@@ -139,6 +142,9 @@ public class FiletypeService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Filetype>fileall= fileDao.fileIdall(flid);
+		for(int i=0;i<fileall.size();i++){
+			fileall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("fileall", fileall);
 		sendfileid(request,flid);
@@ -248,6 +254,9 @@ public class FiletypeService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Filetype> file =fileDao.fuzzyFile(name);
+		for(int i=0;i<file.size();i++){
+			file.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 	    request.setAttribute("fileall", file);
 	    request.setAttribute("name", name);

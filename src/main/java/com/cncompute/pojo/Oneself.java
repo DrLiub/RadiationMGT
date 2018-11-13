@@ -25,6 +25,9 @@ public class Oneself implements Serializable {
 	private String maplng;//经度
 	private String maplat;//维度
 	private Integer maplong;//覆盖点个数
+	
+	private int pageNumber;//序号
+	
 	public Oneself() {
 	}
 	public Oneself(String noid, Integer notag, String nounit, String noproject, String nonumber, String notimeno,
@@ -47,6 +50,12 @@ public class Oneself implements Serializable {
 		this.maplng = maplng;
 		this.maplat = maplat;
 		this.maplong = maplong;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getNoid() {
 		return noid;

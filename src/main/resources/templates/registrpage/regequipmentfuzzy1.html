@@ -43,6 +43,7 @@
    
                                         <thead>
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <th>仪器名称</th>
                                                 <th>品牌</th>
                                                 <th>型号</th>
@@ -56,6 +57,7 @@
                                         </thead>
                                         <tbody>
                                             <tr  th:each="regall:${reg}">
+                                                <td><span class="reducedfrom" th:text="${regall.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${regall.renameof}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${regall.rebrand}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${regall.remodel}" ></span></td>

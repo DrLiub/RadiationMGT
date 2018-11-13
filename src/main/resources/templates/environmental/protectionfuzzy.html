@@ -46,6 +46,7 @@
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <th>环保手续文件名称</th>
                                                 <th>许可证</th>
                                                 <th>环境影响评价文件批复</th>
@@ -56,6 +57,7 @@
                                         </thead>
                                         <tbody>
                                             <tr  th:each="pro:${proall}">
+                                                <td><span class="reducedfrom" th:text="${pro.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${pro.prname}" ></span></td>
                                                 <td><a th:href="@{/prlic(type=${pro.prid})}">录入</a></td>
 												<td><a th:href="@{/prenv(type=${pro.prid})}">录入</a></td>

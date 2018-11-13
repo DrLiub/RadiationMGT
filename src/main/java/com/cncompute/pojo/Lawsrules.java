@@ -19,6 +19,9 @@ public class Lawsrules implements Serializable {
 	private String lauserid;//当前登录用户ID
 	private Date latime;//当前时间
 	private Integer lastate;//表状态0删除1正常
+	
+	private int pageNumber;//序号
+	
 	public Lawsrules() {
 	}
 	public Lawsrules(String laid, String laname, String lanumber, String laorgan, String lastarttime,
@@ -32,6 +35,12 @@ public class Lawsrules implements Serializable {
 		this.lauserid = lauserid;
 		this.latime = latime;
 		this.lastate = lastate;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getLaid() {
 		return laid;

@@ -28,9 +28,6 @@
                              <small >委托检测数据</small>
                         </h1>								
 		</div>				
-				
-			 				   				
-
 	 <div class="panel panel-default">
                             <div class="panel-heading">
                                                            委托检测数据详情
@@ -47,6 +44,7 @@
                                     <table class="table table-striped table-bordered table-hover">
                                         <thead>
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <th>监测项目名称</th>
                                                 <th>监测单位</th>
                                                 <th>监测时间</th>
@@ -58,6 +56,7 @@
                                         </thead>
                                         <tbody>
                                             <tr  th:each="ones:${onall}">
+                                                <td><span class="reducedfrom" th:text="${ones.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${ones.noproject}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${ones.nounit}" ></span></td>
 												<td><span class="reducedfrom" th:text="${ones.notimeno}" ></span></td>

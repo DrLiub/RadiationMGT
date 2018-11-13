@@ -20,6 +20,9 @@ public class Filetype implements Serializable {
 	private Integer flstate;// 表状态0删除1正常
 	private Integer fithere;//0文件不存在1文件存在
 	private Unitsystem unitsystem;
+	
+	private int pageNumber;//序号
+	
 	Set<Unitsystem> unitsystems=new HashSet<Unitsystem>();
 	public Filetype() {
 	}
@@ -33,6 +36,12 @@ public class Filetype implements Serializable {
 		this.fithere = fithere;
 		this.unitsystem = unitsystem;
 		this.unitsystems = unitsystems;
+	}
+	public int getPageNumber() {
+		return pageNumber;
+	}
+	public void setPageNumber(int pageNumber) {
+		this.pageNumber = pageNumber;
 	}
 	public String getFlid() {
 		return flid;

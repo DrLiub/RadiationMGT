@@ -49,6 +49,7 @@
 										
 										
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <th>单位名称</th>
                                                 <th>负责人</th>
                                                 <th>电话</th>
@@ -58,6 +59,7 @@
                                         </thead>
                                         <tbody>
                                             <tr th:each="ena : ${enall}">
+                                                <td><span class="reducedfrom" th:text="${ena.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${ena.entypeen}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${ena.enproject}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${ena.enunit}" ></span></td>

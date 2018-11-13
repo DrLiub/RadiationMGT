@@ -40,7 +40,7 @@
                                 <div class="table-responsive">
                                 
                                 <form class="form-inline" th:action="@{/lawsfuzzy}" method="get" style="margin-bottom:10px">
-                                 <a style="width:100px" class="btn btn-default"  th:href="@{/laentry}">录入</a>	
+                                 <a style="width:100px" class="btn btn-default"  th:href="@{/laentry}">添加</a>	
                                  <button type="submit" class="btn btn-default" style="float:right;margin-right:10px">查询</button>
                                  <input type="text" class="form-control" name="name" id="name" th:value="${name}" style="float:right;margin-right:10px;" >
                                  <div id="index" style="text-align:center;color:red"></div>
@@ -49,20 +49,24 @@
    
                                         <thead>
                                             <tr>
+                                                <th width = 55>序号</th>
                                                 <th>名称</th>
                                                 <th>编号</th>
                                                 <th>发文机关</th>
 												<th>开始实施时间</th>
 												<th>电子版文件</th>
+												<th th:if="${session.user.permissions==1}">删除/修改</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr  th:each="lawsall:${laws}">
+                                                <td><span class="reducedfrom" th:text="${lawsall.pageNumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${lawsall.laname}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${lawsall.lanumber}" ></span></td>
                                                 <td><span class="reducedfrom" th:text="${lawsall.laorgan}" ></span></td>
 												<td><span class="reducedfrom" th:text="${lawsall.lastarttime}" ></span></td>
 												<td><a th:href="@{/onpage(page=${lawsall.laelectronicid})}">下载文件</a></td>
+												<td th:if="${session.user.permissions==1}"><a th:onclick="'javascript:del(\''+${lawsall.laid}+'\')'">删除</a>&nbsp;&nbsp;&nbsp;<a th:href="@{/lawupdate(laid=${lawsall.laid})}">修改</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

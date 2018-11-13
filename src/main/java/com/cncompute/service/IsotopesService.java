@@ -54,6 +54,9 @@ public class IsotopesService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Isotopes> isotall= isotdao.isotAll();
+		for(int i=0;i<isotall.size();i++){
+			isotall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("isotall",isotall);
 	}
@@ -509,6 +512,9 @@ public class IsotopesService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<Isotopes> isotall= isotdao.fuzzyIsot(name);
+		for(int i=0;i<isotall.size();i++){
+			isotall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		request.setAttribute("isotall",isotall);
 		request.setAttribute("name", name);

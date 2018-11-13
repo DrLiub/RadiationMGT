@@ -259,6 +259,9 @@ public class UserService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<User> userall= userdao.AllUser();
+		for(int i=0;i<userall.size();i++){
+			userall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		for (User user : userall) {
 			//权限2为普通用户1为超级用户
 			if(user.getPermissions()==1) {
@@ -362,6 +365,9 @@ public class UserService {
 			page = PageHelper.startPage(index, each);
 		}
 		List<User> userall=userdao.fuzzyUser(name);
+		for(int i=0;i<userall.size();i++){
+			userall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
 		for (User user : userall) {
 			//权限2为普通用户1为超级用户
 			if(user.getPermissions()==1) {
