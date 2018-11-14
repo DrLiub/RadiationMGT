@@ -56,7 +56,7 @@ public class RegistrationsupService {
 		}
 		List<Registrationsup> reg = regDao.reQuery(retable);
 		for(int i=0;i<reg.size();i++){
-			reg.get(i).setPageNumber((i+1)+((index-1)*13));
+			reg.get(i).setPageNumber((i+1)+((index-1)*each));
      	}
 		methods.sendPage(page,pag, starting, end, index, request,jnum);//分页
 		sendRetable(request, retable);

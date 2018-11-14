@@ -26,6 +26,7 @@ public class Insertdata implements Serializable{
     private String inname;//姓名
     private String ingender;//性别
     private String inage;//年龄
+    private String inquarter;//季度
     
     private int pageNumber;//序号
     
@@ -52,6 +53,12 @@ public class Insertdata implements Serializable{
 		this.inname = inname;
 		this.ingender = ingender;
 		this.inage = inage;
+	}
+	public String getInquarter() {
+		return inquarter;
+	}
+	public void setInquarter(String inquarter) {
+		this.inquarter = inquarter;
 	}
 	public int getPageNumber() {
 		return pageNumber;

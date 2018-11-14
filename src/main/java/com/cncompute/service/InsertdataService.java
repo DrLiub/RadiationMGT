@@ -43,6 +43,15 @@ public class InsertdataService {
 		}
         String inid=request.getParameter("type");//表ID
         String innumber=Methods.getUUID();//信息编号
+        Insertdata inser=new Insertdata();
+        inser.setInid(inid);
+        List<Insertdata> inserall=inserdao.queryYears(inser);
+        //判断这一年是否录入的4次内容
+        int inserLong=inserall.size();
+        if(inserLong>=4) {
+        	pw.print("3");//输入内容超过4次
+        	return;
+        }
         double inresults = 0;
         try {
         	inresults= new Double(request.getParameter("inresults"));//季度剂量监测数据
@@ -51,11 +60,18 @@ public class InsertdataService {
 			pw.print("2");//请检测输入是否正确
 			return;
 		}
-//        Management man= queryDepartment(request);
-        Insertdata inser=new Insertdata();
-        inser.setInid(inid);
+//        if(inserLong==0) {
+//            inser.setInquarter("一季度");
+//        }else if(inserLong==1) {
+//        	
+//        }else if(inserLong==2) {
+//        	
+//        }else if(inserLong==3) {
+//        	
+//        }
         inser.setInnumber(innumber);
         inser.setInresults(inresults);
+        
         if(inresults>5) {
         	inser.setInquarterend("是");//季度是否过量
         	inser.setInquartertag(1);//季度：0正常1超标
@@ -63,8 +79,6 @@ public class InsertdataService {
         	inser.setInquarterend("否");//季度是否过量
         	inser.setInquartertag(0);//季度：0正常1超标
         }
-//        inser.setIndepartment(man.getManame());//所属部门
-//        inser.setIntime(methods.getTime());//当前时间
         inser.setInuser(methods.getUser(request));
         inser.setInstate(1);//表状态0删除1正常
 
@@ -73,7 +87,6 @@ public class InsertdataService {
         inser.setIngender(staffid.getStgender());//性别
         inser.setInage(staffid.getStage());
         inserdao.ininsert(inser);
-        List<Insertdata> inserall=inserdao.queryYears(inser);
         double num = 0;
         for (Insertdata insertdata : inserall) {
         	num+=insertdata.getInresults();
@@ -87,23 +100,8 @@ public class InsertdataService {
         	inser.setInyearstag(0);//年度：0正常1超标
         }
         inserdao.inupdate(inser);
-//		Staffinformation staff = new Staffinformation();
-//		staff.setStid(man.getMaid());
-//		List<Staffinformation> staffAll = staffDao.queryStaff(staff);
-//		request.setAttribute("staff", staffAll);
-//		request.setAttribute("staffid", staff);
 		pw.print("1");
     }
-    /**
-     * 通过stnumber查询部门名称  返回部门对象
-     * @param request
-     */
-//    public Management queryDepartment(HttpServletRequest request) {
-//    	String stnumber=request.getParameter("type");
-//    	Management man=new Management();
-//    	man.setMaid(queryStaff(stnumber).getStid());
-//        return mandao.queryMaid(man);
-//    }
     /**
      * 通过stnumber 查询员工全部信息返回员工对象
      * @param stnumber
@@ -150,7 +148,7 @@ public class InsertdataService {
 		}
     	List<Insertdata>lnser= inserdao.queryAll();
 		for(int i=0;i<lnser.size();i++){
-			lnser.get(i).setPageNumber((i+1)+((index-1)*13));
+			lnser.get(i).setPageNumber((i+1)+((index-1)*each));
      	}
     	for (Insertdata insertdata : lnser) {
             if(insertdata.getInresults()>5) {

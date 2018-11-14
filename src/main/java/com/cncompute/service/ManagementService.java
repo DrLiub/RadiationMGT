@@ -225,17 +225,10 @@ public class ManagementService {
 		List<Management> list = mangdao.queryId(man);
 		for(int i=0;i<list.size();i++){
 			list.get(i).getPersonnel().setPageNumber((i+1)+((index-1)*13));
-     	}
-		for (int i = 0; i < list.size(); i++) {
-			man.setMainformation(list.get(0).getMainformation());
-			man.setManumber(list.get(0).getManumber());
-			man.setManame(list.get(0).getManame());
-			man.setMahead(list.get(0).getMahead());
-			man.setMaphone(list.get(0).getMaphone());
-
-		}
+     	} 
+		Management mana=mangdao.quMaid(maid);
 		request.setAttribute("mangp", list);
-		request.setAttribute("mang", man);
+		request.setAttribute("mang", mana);
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 	}
 

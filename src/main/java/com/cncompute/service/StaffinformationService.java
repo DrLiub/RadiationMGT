@@ -98,7 +98,7 @@ public class StaffinformationService {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		String stid = request.getParameter("type");// 表ID
+//		String stid = request.getParameter("type");// 表ID
 		
 		String stinstitutions = Methods.getUUID();// 机构编号
 		String[] stname = request.getParameterValues("stname");// 姓名
@@ -126,7 +126,7 @@ public class StaffinformationService {
 		for (int i = 0; i < stname.length; i++) {
 			String stnumber = Methods.getUUID();// 信息编号
 			Staffinformation staff = new Staffinformation();
-			staff.setStid(stid);
+			staff.setStid(Methods.getUUID());
 			staff.setStnumber(stnumber);
 			staff.setStinstitutions(stinstitutions);
 			staff.setStname(stname[i]);

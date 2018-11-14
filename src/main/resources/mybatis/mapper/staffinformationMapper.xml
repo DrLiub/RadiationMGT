@@ -85,7 +85,7 @@
 	
 	<!-- 模糊查询 -->
 	<select id="fuzzyQueryst" resultMap="StaffinformationMap">
-	 SELECT * FROM  staffinformation 
-     WHERE  CONCAT(stname,stdepartment) LIKE CONCAT(CONCAT("%",#{name}),"%") AND ststate='1' ORDER BY stoverdueyn DESC,sttime DESC 
+    SELECT * FROM  staffinformation 
+    WHERE  CONCAT(stname,stjobs,stgender,stschooling,stoverdue) LIKE CONCAT(CONCAT("%",#{name}),"%") AND ststate='1' ORDER BY stoverdueyn DESC, sttime DESC 
 	</select>
 </mapper>  
