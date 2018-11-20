@@ -475,7 +475,7 @@ public class OneselfService {
 	 * @param request
 	 * @param name
 	 */
-	public void onenFuzzy(HttpServletRequest request,String name) {
+	public void onenFuzzy(HttpServletRequest request,String name,int num) {
 		int each =13; //每页显示条数*
 		int index = 1;//页面传来第几页
 		int end =1;//末尾页数
@@ -483,7 +483,7 @@ public class OneselfService {
 		String pag = request.getParameter("newpaging");
 		String jnum = request.getParameter("end");//结束页面
 		if(!("".equals(jnum)||jnum==null)) {
-			List<Oneself>ones=oneselfdao.fuzzyOnes(name,2);
+			List<Oneself>ones=oneselfdao.fuzzyOnes(name,num);
 			index=(ones.size()/each)+1;
 		}
 		Page page = null;
@@ -530,6 +530,39 @@ public class OneselfService {
      	}
 		methods.sendPage(page, pag, starting, end, index, request, jnum);
 		request.setAttribute("enall", enall);
+		request.setAttribute("name", name);
+	}
+	/**
+	 * 单位自行监测数据--模糊查询
+	 * @param request
+	 * @param type
+	 * @param name
+	 */
+	public void reunitFuzzy(HttpServletRequest request,String name,String type) {
+		int each =13; //每页显示条数*
+		int index = 1;//页面传来第几页
+		int end =1;//末尾页数
+		int starting=1;//起始页面
+		String pag = request.getParameter("newpaging");
+		String jnum = request.getParameter("end");//结束页面
+		if(!("".equals(jnum)||jnum==null)) {
+			List<Oneself> onall = oneselfdao.reunFuzzy(name, type, 1);
+			index=(onall.size()/each)+1;
+		}
+		Page page = null;
+		if("".equals(pag)||pag==null) {
+			page = PageHelper.startPage(index, each);//第几页   每页显示条数
+		}else {
+			index = Integer.parseInt(pag);
+			page = PageHelper.startPage(index, each);
+		}
+		List<Oneself> onall = oneselfdao.reunFuzzy(name, type, 1);
+		for(int i=0;i<onall.size();i++){
+			onall.get(i).setPageNumber((i+1)+((index-1)*13));
+     	}
+		methods.sendPage(page, pag, starting, end, index, request, jnum);
+		request.setAttribute("onall", onall);
+		sendNoid(request, type);
 		request.setAttribute("name", name);
 	}
 }

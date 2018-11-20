@@ -38,7 +38,7 @@
 	<title>鼠标绘制工具</title>
 </head>
 <body>
-	<div id="allmap" style="overflow:hidden;zoom:1;position:relative;height:800px;width:1520px">	
+	<div id="allmap" style="overflow:hidden;zoom:1;position:relative;height:600px;width:1190px">	
 		<div id="map2" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
 	</div>
 	<div id="result">
@@ -46,7 +46,8 @@
 		<input type="button" value="清除所有覆盖物" onclick="clearAll()"/>
 		<input type="hidden" th:value="${one.noid}" name="noid" id="noid"/>
 		<input type="hidden" th:value="${one.nonumberid}" name="nonumberid" id="nonumberid"/>
-		<input type="hidden" th:value="${one}" name="oneself" id="oneself"/>
+		
+
 	</div>
 	<div id="index" style="text-align:center;color:red"></div>
 	<script type="text/javascript"  src="js/jquery-3.3.1.min.js"></script>
@@ -94,7 +95,6 @@
         }
         overlays.length = 0   
     }
-
 
 
 	// 百度地图API功能

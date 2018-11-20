@@ -223,7 +223,6 @@ public class NonsealService {
 //			BigInteger num3= methods.strTurn(rocorrection[i]);//操作修正因子
 //			robiggest=(num1.multiply(num2)).divide(num3);
 //			room.setRobiggest(String.valueOf(robiggest));// 日等效最大操作量
-//			System.out.println("robiggest="+robiggest);
 //			String str=String.valueOf(robiggest);
 //			int num=str.indexOf("0");
 //			String str2=str.substring(1,num);//截取第2位数字到后几位数字

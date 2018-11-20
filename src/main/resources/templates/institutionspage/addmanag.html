@@ -33,7 +33,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="table-responsive">	
-                                <input type="button" class="btn btn-default" id="btn1" placeholder="" name="colstore" value="添加人员" onclick="index(this)">	
+                                <!-- <input type="button" class="btn btn-default" id="btn1" placeholder="" name="colstore" value="添加人员" onclick="index(this)"-->	
 								<input type="button" class="btn btn-default"  value="提交" onclick="submitFunction()">		
 								 <div id="index" style="text-align:center;color:red"></div>
 								  <input type="hidden" th:value="${man.maid}" name="type" id="type"/>
@@ -57,11 +57,25 @@
                                             <tr>
                                                 <td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="pemanagement" ></td>
 												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="peusername" ></td>
-												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="pegender" ></td>
+												<td><!-- <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="pegender" > -->
+												<div class="form-group"  style="width:65px">
+                                                       <select  name="pegender" class="form-control" >
+                                                       <option value="男" >男</option>
+                                                       <option  value="女" >女</option>
+                                                       </select>
+                                                </div>
+												</td>
 												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="peposition" ></td>
 												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="pedepartment" ></td>
 												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="pespecially" ></td>
-												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="pewhether"></td>
+												<td><!-- <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="pewhether"> -->
+												<div class="form-group"  style="width:90px">
+                                                       <select  name="pewhether" class="form-control" >
+                                                       <option value="否" >否</option>
+                                                       <option  value="是" >是</option>
+                                                       </select>
+                                                </div>
+												</td>
 												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="perecord" ></td>
 												<td><input type="text" class="form-control" id="exampleInputName2" placeholder="" name="peprofessional" ></td>
 												<td><input type="file" class="form-control" name="file1"/></td>

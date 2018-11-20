@@ -293,7 +293,7 @@ public class OneselfContorller {
 	 */
 	@RequestMapping(value="onenfuzzy",method=RequestMethod.GET)
 	public String onenFuzzy(HttpServletRequest request,String name) {
-		onservice.onenFuzzy(request, name);
+		onservice.onenFuzzy(request, name,2);
 		return "registrpage/onentrustfuzzy";
 	}
 	/**
@@ -307,13 +307,23 @@ public class OneselfContorller {
 		onservice.fuzzyOnun(request, name);
 		return "registrpage/onunitpreviewfuzzy";
 	}
+//	/**
+//	 * 查看历史变化趋势
+//	 * @return
+//	 */
+//	@RequestMapping(value="onhistorys",method=RequestMethod.GET)
+//	public String onHistory(HttpServletRequest request) {
+//		System.out.println("功能未实行");
+//		return"registrpage/history";
+//	}
 	/**
-	 * 查看历史变化趋势
+	 * 单位自行监测数据--模糊查询
+	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="onhistorys",method=RequestMethod.GET)
-	public String onHistory(HttpServletRequest request) {
-		System.out.println("功能未实行");
-		return"registrpage/history";
+	@RequestMapping(value="onreunitfuzzy",method=RequestMethod.GET)
+	public String onreunitFuzzy(HttpServletRequest request,String name,String type) {
+		onservice.reunitFuzzy(request,name,type);
+		return"registrpage/reunitfuzzy";
 	}
 }

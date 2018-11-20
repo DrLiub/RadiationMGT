@@ -52,13 +52,22 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr >
-                                                <td><input type="text" class="form-control"  placeholder="" name="noproject" ></td>
-												<td><input type="text" class="form-control"  placeholder="" name="nonumber" ></td>
-												<td><input type="date" class="form-control"  placeholder="" name="notimeno" ></td>
-												<td><input type="text" class="form-control"  placeholder="" name="nopeople" ></td>
+                                            <tr>
+                                                <td><input type="text" class="form-control"   name="noproject" ></td>
+												<td><input type="text" class="form-control"   name="nonumber" ></td>
+												<td><input type="date" class="form-control"   name="notimeno" ></td>
+												<td><input type="text" class="form-control"   name="nopeople" ></td>
 												<td><a th:href="@{/onmap(type=${one.noid})}">录入</a></td>
-												<td><input type="text" class="form-control" placeholder="" name="notype" ></td>
+												<td>
+												<!-- <input type="text" class="form-control"  name="notype" > -->
+												<div class="form-group" >
+                                                       <select  name="notype" class="form-control" >
+                                                       <option value="X/γ剂量率" >X/γ剂量率</option>
+                                                       <option  value="中子剂量率" >中子剂量率</option>
+                                                       <option  value="α/β表面污染" >α/β表面污染</option>
+                                                       </select>
+                                                </div>
+												</td>
 												<td><input type="file" class="form-control" name="file1"/></td>
                                             </tr>
                                         </tbody>

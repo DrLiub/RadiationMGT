@@ -51,4 +51,12 @@ public interface OneselfDao {
 	 * @return
 	 */
 	public Oneself onOnid(String nonumberid);
+	/**
+	 * 单位自行监测数据模糊查询
+	 * @param name
+	 * @param noid
+	 * @param notag
+	 * @return
+	 */
+	public List<Oneself> reunFuzzy(String name,String noid,Integer notag);
 }

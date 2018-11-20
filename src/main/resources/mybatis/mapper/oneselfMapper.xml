@@ -77,4 +77,10 @@
 	 SELECT * FROM  oneself 
      WHERE  CONCAT(nounit,noproject,nonumber) LIKE CONCAT(CONCAT("%",#{name}),"%") AND nostate='1' AND notag=#{notag}  ORDER BY notime DESC
 	</select>
+	<!-- 单位自行监测数据-模糊查询 -->
+	<select id="reunFuzzy" resultMap="OneselfMap"> 
+	 SELECT * FROM oneself 
+     WHERE  CONCAT(noproject,nonumber,nopeople,notype) LIKE CONCAT(CONCAT("%",#{name}),"%") 
+     AND nostate='1' AND notag=#{notag} AND noid=#{noid} ORDER BY notime DESC
+	</select>
 </mapper>  
